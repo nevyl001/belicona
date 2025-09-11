@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Award, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Zap, Award, Users } from "lucide-react";
 import useAnimations from "../hooks/useAnimations";
 import video13 from "../assets/13.mp4";
-import b1 from "../assets/b1.jpeg";
-import b2 from "../assets/b2.jpeg";
-import b3 from "../assets/b3.jpeg";
+import p1 from "../assets/p1.png";
 
 const Home = () => {
   const {
@@ -19,63 +17,6 @@ const Home = () => {
     hoverScale,
     hoverShadow,
   } = useAnimations();
-
-  // Estado para el slider de bebidas
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  const bebidas = [
-    {
-      id: 1,
-      image: b1,
-      title: "TRADICIÓN",
-      description:
-        "Destilado con la auténtica tradición del agave azul mexicano, respetando siglos de conocimiento ancestral.",
-      badge: "100% MEXICANO",
-      badgeColor: "bg-green-500",
-    },
-    {
-      id: 2,
-      image: b2,
-      title: "CALIDAD",
-      description:
-        "Proceso artesanal cuidadosamente seleccionado para garantizar la máxima pureza y sabor en cada botella.",
-      badge: "PREMIUM",
-      badgeColor: "bg-yellow-500",
-    },
-    {
-      id: 3,
-      image: b3,
-      title: "EXPERIENCIA",
-      description:
-        "Una experiencia sensorial única que conecta con la esencia de México y su rica cultura destilera.",
-      badge: "ARTESANAL",
-      badgeColor: "bg-red-500",
-    },
-  ];
-
-  // Auto-play del slider
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % bebidas.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, bebidas.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % bebidas.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + bebidas.length) % bebidas.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
 
   const features = [
     {
@@ -198,9 +139,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Bebidas Slider Section */}
+      {/* Bebida Destacada Section */}
       <section className="py-32 bg-black relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Título principal centrado */}
           <motion.div
             className="text-center mb-16"
@@ -233,83 +174,129 @@ const Home = () => {
             </motion.p>
           </motion.div>
 
-          {/* Slider Container */}
-          <div className="relative">
-            {/* Imagen Principal */}
-            <div className="relative h-[650px] md:h-[750px] overflow-hidden rounded-3xl">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentSlide}
-                  src={bebidas[currentSlide].image}
-                  alt={`Bebida Belicona ${currentSlide + 1}`}
-                  className="w-full h-full object-cover"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-              </AnimatePresence>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[700px]">
+            {/* Contenido de texto */}
+            <motion.div
+              className="space-y-8 flex flex-col justify-center h-full"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              viewport={{ once: true }}
+            >
+              {/* Logo y título */}
+              <div className="space-y-4">
+                <motion.div
+                  className="inline-block"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="bg-black border-2 border-white px-6 py-3 inline-block">
+                    <span className="text-white font-compressed font-bold text-lg tracking-wider">
+                      PERFIL DEL SABOR
+                    </span>
+                  </div>
+                </motion.div>
 
-              {/* Overlay con información */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <motion.div
-                    className="max-w-2xl"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                  >
-                    <h3 className="text-4xl md:text-5xl font-compressed text-white mb-4 font-bold">
-                      {bebidas[currentSlide].title}
-                    </h3>
-                    <p className="text-lg md:text-xl text-gray-300 font-fredoka leading-relaxed mb-6">
-                      {bebidas[currentSlide].description}
-                    </p>
-                    <div
-                      className={`inline-block ${bebidas[currentSlide].badgeColor} text-white px-6 py-3 rounded-full text-lg font-bold shadow-lg`}
-                    >
-                      {bebidas[currentSlide].badge}
-                    </div>
-                  </motion.div>
-                </div>
+                <motion.h2
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white font-bold leading-tight"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
+                  SABOR
+                  <br />
+                  <span className="text-green-400">PEPINO - LIMÓN</span>
+                </motion.h2>
+
+                <motion.p
+                  className="text-lg md:text-xl text-gray-300 font-fredoka font-bold"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  DESTILADO DE PULPA NATURAL
+                </motion.p>
               </div>
 
-              {/* Controles de navegación */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
-                onMouseEnter={() => setIsAutoPlaying(false)}
-                onMouseLeave={() => setIsAutoPlaying(true)}
+              {/* Call to Action */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
               >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
+                <Link
+                  to="/productos"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl group"
+                >
+                  ¿DÓNDE COMPRAR?
+                  <motion.span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                    ↓
+                  </motion.span>
+                </Link>
+              </motion.div>
 
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
-                onMouseEnter={() => setIsAutoPlaying(false)}
-                onMouseLeave={() => setIsAutoPlaying(true)}
+              {/* Descripción */}
+              <motion.p
+                className="text-lg md:text-xl text-gray-300 font-fredoka leading-relaxed max-w-lg"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                viewport={{ once: true }}
               >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
+                Es una mezcla de pulpa artesanal de pepino con jugo de limón y
+                destilado de agave azul, dando como resultado una bebida
+                sumamente refrescante.
+              </motion.p>
+            </motion.div>
 
-            {/* Indicadores */}
-            <div className="flex justify-center mt-8 space-x-3">
-              {bebidas.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? "bg-primary-500 scale-125"
-                      : "bg-gray-600 hover:bg-gray-400"
-                  }`}
-                  onMouseEnter={() => setIsAutoPlaying(false)}
-                  onMouseLeave={() => setIsAutoPlaying(true)}
+            {/* Imagen del producto */}
+            <motion.div
+              className="relative flex items-center justify-center h-full"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+              viewport={{ once: true }}
+            >
+              <div className="relative">
+                <motion.img
+                  src={p1}
+                  alt="Belicona Pepino-Limón"
+                  className="w-full h-auto max-h-[650px] object-contain"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 />
-              ))}
-            </div>
+
+                {/* Badges informativos */}
+                <motion.div
+                  className="absolute top-4 left-4 space-y-2"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="bg-black border border-white px-3 py-1">
+                    <span className="text-white font-compressed font-bold text-sm">
+                      5.0 ALC. VOL.
+                    </span>
+                  </div>
+                  <div className="bg-black border border-white px-3 py-1">
+                    <span className="text-white font-compressed font-bold text-xs">
+                      AGAVE AZUL
+                    </span>
+                  </div>
+                  <div className="bg-black border border-white px-3 py-1">
+                    <span className="text-white font-compressed font-bold text-xs">
+                      PULPA NATURAL
+                    </span>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Call to Action */}
@@ -329,7 +316,7 @@ const Home = () => {
                 to="/productos"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                DESCUBRE NUESTRAS BEBIDAS
+                DESCUBRE TODAS NUESTRAS BEBIDAS
                 <motion.span
                   className="ml-2"
                   animate={{ x: [0, 5, 0] }}
