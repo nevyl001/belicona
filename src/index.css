@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables globales de Belicona - Paleta oficial corporativa */
+:root {
+  /* Colores corporativos oficiales - PANTONE */
+  --color-primary: #ed017f; /* Magenta principal - PANTONE 73-8 C */
+  --color-red: #ee212e; /* Rojo corporativo - PANTONE 48-8 C */
+  --color-yellow: #fff200; /* Amarillo corporativo - PANTONE PROCESS YELLOW C */
+  --color-orange: #ffb71b; /* Dorado principal - PANTONE 1235 C */
+  --color-brown: #c17d12; /* Marrón dorado - PANTONE 2925 C */
+  --color-green: #6cbe45; /* Verde corporativo - PANTONE 154-8 C */
+
+  /* Colores adicionales de la paleta */
+  --color-orange-bright: #f47e20; /* Naranja brillante */
+  --color-yellow-gold: #dcb00a; /* Amarillo dorado */
+  --color-green-dark: #00682a; /* Verde oscuro */
+  --color-brown-dark: #5f310d; /* Marrón oscuro */
+  --color-gold-light: #ecc55f; /* Dorado claro */
+  --color-brown-gold: #a77029; /* Marrón dorado */
+
+  /* Fondos ultra oscuros */
+  --color-bg-primary: #000000; /* Negro puro */
+  --color-bg-secondary: #0a0a0a; /* Negro profundo */
+  --color-bg-tertiary: #1a1a1a; /* Gris muy oscuro */
+
+  /* Texto */
+  --color-text-primary: #ffffff; /* Blanco */
+  --color-text-secondary: #e5e5e5; /* Gris claro */
+  --color-text-muted: #a3a3a3; /* Gris medio */
+
+  /* Gradientes corporativos oficiales */
+  --gradient-primary: linear-gradient(135deg, #ed017f, #ee212e);
+  --gradient-secondary: linear-gradient(135deg, #ffb71b, #c17d12);
+  --gradient-accent: linear-gradient(135deg, #6cbe45, #fff200);
+  --gradient-orange: linear-gradient(135deg, #f47e20, #ffb71b);
+  --gradient-yellow: linear-gradient(135deg, #fff200, #dcb00a);
+  --gradient-green: linear-gradient(135deg, #00682a, #6cbe45);
+  --gradient-brown: linear-gradient(135deg, #5f310d, #c17d12);
+  --gradient-gold: linear-gradient(135deg, #ecc55f, #a77029);
+  --gradient-dark: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000000; /* Negro puro */
+  color: #ffffff; /* Blanco puro */
+}
+
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary), #4ade80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-primary {
+  @apply bg-primary-500 hover:bg-red-500 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-orange-500 hover:bg-yellow-500 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.card {
+  @apply bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200;
+}
