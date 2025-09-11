@@ -1,186 +1,390 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import useAnimations from "../hooks/useAnimations";
 
 const SobreNosotros = () => {
+  const navigate = useNavigate();
+  const {
+    ref,
+    isInView,
+    fadeInUp,
+    fadeInLeft,
+    fadeInRight,
+    scaleIn,
+    staggerContainer,
+    staggerItem,
+    pageTransition,
+  } = useAnimations();
+
   return (
-    <div className="min-h-screen bg-black">
-      {/* Header */}
-      <div className="bg-black py-12">
-        <div className="container-custom">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
+    <motion.div
+      className="min-h-screen bg-black"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageTransition}
+    >
+      {/* Hero Section */}
+      <motion.section
+        className="relative bg-black py-24 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="container-custom relative z-10">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h1 className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold bg-gradient-to-r from-white via-primary-200 to-secondary-200 bg-clip-text text-transparent">
               SOBRE NOSOTROS
             </h1>
-          </div>
+            <motion.p
+              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Descubre la pasión, tradición e innovación detrás de cada gota de
+              Belicona
+            </motion.p>
+          </motion.div>
         </div>
-      </div>
+      </motion.section>
 
-      {/* Sobre Nosotros Section */}
-      <section className="py-24 bg-black">
+      {/* Historia Section */}
+      <motion.section
+        className="py-24 bg-black"
+        ref={ref}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Imagen de productos */}
-            <div className="relative">
+            {/* Imagen */}
+            <motion.div className="relative" variants={fadeInLeft}>
               <div className="relative z-10">
                 <img
-                  src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Productos Belicona"
-                  className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                  src="/src/assets/sabores.jpg"
+                  alt="Sabores Belicona"
+                  className="w-full max-h-[600px] object-contain rounded-3xl shadow-2xl"
                 />
-                {/* Overlay con gradiente */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-3xl"></div>
               </div>
               {/* Elementos decorativos */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary-500 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
-            </div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full opacity-20 animate-pulse delay-1000"></div>
+            </motion.div>
 
-            {/* Contenido de texto */}
-            <div className="space-y-8">
+            {/* Contenido */}
+            <motion.div className="space-y-8" variants={fadeInRight}>
               <div>
-                <h3 className="text-4xl md:text-5xl font-bubbly text-white mb-6">
-                  UNA HISTORIA DIFERENTE
-                </h3>
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Con más de 12 años de experiencia en el procesamiento de
-                  frutas y especialización en la fabricación de pulpa natural,
-                  hemos desarrollado una mezcla única de destilado de agave RIII
-                  con pulpa de fruta extraída, buscando un sabor equilibrado y
-                  auténtico.
-                </p>
-                <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                  Lanzada a mediados de 2022 por RIII, nuestra bebida tiene como
-                  objetivo ofrecer una alternativa natural y especial en el
-                  mercado, combinando la tradición del agave azul con sabores
-                  únicos y naturales.
-                </p>
-                <button className="bg-primary-500 hover:bg-primary-600 text-white font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
-                  ¡PRUÉBALAS TODAS!
-                </button>
+                <motion.h2
+                  className="text-6xl md:text-8xl font-bubbly text-white mb-8 bg-gradient-to-r from-primary-300 to-secondary-300 bg-clip-text text-transparent leading-tight"
+                  variants={staggerItem}
+                >
+                  NUESTRA HISTORIA
+                </motion.h2>
+                <motion.p
+                  className="text-xl md:text-2xl text-gray-300 mb-6 leading-relaxed"
+                  variants={staggerItem}
+                >
+                  Con más de{" "}
+                  <span className="text-primary-400 font-bold">
+                    12 años de experiencia
+                  </span>{" "}
+                  en el procesamiento de frutas y especialización en la
+                  fabricación de pulpa natural, hemos desarrollado una mezcla
+                  única de destilado de agave RIII con pulpa de fruta extraída,
+                  buscando un sabor equilibrado y auténtico.
+                </motion.p>
+                <motion.p
+                  className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed"
+                  variants={staggerItem}
+                >
+                  Lanzada a mediados de{" "}
+                  <span className="text-secondary-400 font-bold">
+                    2022 por RIII
+                  </span>
+                  , nuestra bebida tiene como objetivo ofrecer una alternativa
+                  natural y especial en el mercado, combinando la tradición del
+                  agave azul con sabores únicos y naturales.
+                </motion.p>
+                <motion.button
+                  className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-compressed font-bold py-4 px-10 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
+                  variants={staggerItem}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/productos")}
+                >
+                  ¡CONOCE NUESTROS PRODUCTOS!
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Los Amigos Belicosos Section */}
-      <section className="py-24 bg-gray-900">
+      {/* Valores Section */}
+      <motion.section
+        className="py-24 bg-black"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <motion.div className="text-center mb-20" variants={fadeInUp}>
             <h2 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
-              LOS AMIGOS BELICOSOS
+              NUESTROS VALORES
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Un vistazo a nuestro mundo y lo que nos mueve
+              Los principios que guían cada paso de nuestro proceso
             </p>
-          </div>
+          </motion.div>
 
-          {/* Grid de imágenes de productos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Producto 1 - TEPITO LIMA */}
-            <div className="relative group">
-              <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2">
+            {[
+              {
+                icon: "🌿",
+                title: "NATURALIDAD",
+                description:
+                  "Utilizamos únicamente ingredientes naturales y frescos, sin conservadores artificiales ni aditivos químicos.",
+                gradient: "from-emerald-500 via-green-400 to-teal-400",
+              },
+              {
+                icon: "🏆",
+                title: "CALIDAD",
+                description:
+                  "Cada producto pasa por rigurosos controles de calidad para garantizar la excelencia en cada sorbo.",
+                gradient: "from-amber-500 via-yellow-400 to-orange-400",
+              },
+              {
+                icon: "💎",
+                title: "TRADICIÓN",
+                description:
+                  "Respetamos y honramos las técnicas tradicionales del agave, fusionándolas con innovación moderna.",
+                gradient: "from-purple-500 via-pink-400 to-rose-400",
+              },
+            ].map((valor, index) => (
+              <motion.article
+                key={index}
+                role="article"
+                tabIndex={0}
+                className="bg-black/40 backdrop-blur-md rounded-2xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-black"
+                variants={staggerItem}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -6,
+                  transition: { type: "spring", stiffness: 220, damping: 20 },
+                }}
+                whileTap={{ scale: 0.98 }}
+                viewport={{ once: true }}
+              >
                 <div className="text-center">
-                  <div className="w-24 h-24 bg-white rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-                    <span className="text-4xl">💀</span>
-                  </div>
-                  <h3 className="text-2xl font-compressed text-white mb-2 font-bold">
-                    TEPITO - LIMA
+                  <motion.div
+                    className={`w-20 h-20 bg-gradient-to-tr ${valor.gradient} rounded-full mx-auto mb-6 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]`}
+                    whileHover={{
+                      scale: 1.1,
+                      rotate: 5,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 15,
+                      },
+                    }}
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{
+                      backgroundPosition: {
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      },
+                    }}
+                  >
+                    {valor.icon}
+                  </motion.div>
+                  <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
+                    {valor.title}
                   </h3>
-                  <p className="text-green-100 text-sm">
-                    Verde vibrante con notas cítricas
+                  <p className="text-gray-300 leading-relaxed">
+                    {valor.description}
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Producto 2 - MARACUYA */}
-            <div className="relative group">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-white rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-                    <span className="text-4xl">💀</span>
-                  </div>
-                  <h3 className="text-2xl font-compressed text-white mb-2 font-bold">
-                    MARACUYA
-                  </h3>
-                  <p className="text-orange-100 text-sm">
-                    Dorado tropical con sabor exótico
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Producto 3 - CANTARITO */}
-            <div className="relative group">
-              <div className="bg-gradient-to-br from-primary-500 to-red-500 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-white rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
-                    <span className="text-4xl">💀</span>
-                  </div>
-                  <h3 className="text-2xl font-compressed text-white mb-2 font-bold">
-                    CANTARITO
-                  </h3>
-                  <p className="text-pink-100 text-sm">
-                    Rosa intenso con tradición mexicana
-                  </p>
-                </div>
-              </div>
-            </div>
+              </motion.article>
+            ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Misión y Valores Section */}
-      <section className="py-24 bg-black">
+      {/* Misión y Visión Section */}
+      <motion.section
+        className="py-24 bg-black"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <motion.div className="text-center mb-20" variants={fadeInUp}>
             <h2 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
-              NUESTRA MISIÓN
+              MISIÓN & VISIÓN
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Lo que nos impulsa cada día
+              Lo que nos impulsa cada día hacia el futuro
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Misión */}
-            <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-800">
+            <motion.article
+              role="article"
+              tabIndex={0}
+              className="bg-black/40 backdrop-blur-md rounded-2xl p-10 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-black"
+              variants={fadeInLeft}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{
+                scale: 1.05,
+                y: -6,
+                transition: { type: "spring", stiffness: 220, damping: 20 },
+              }}
+              whileTap={{ scale: 0.98 }}
+              viewport={{ once: true }}
+            >
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-2xl">🎯</span>
-                </div>
-                <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
-                  MISIÓN
+                <motion.div
+                  className="w-20 h-20 bg-gradient-to-tr from-red-500 via-pink-400 to-rose-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: 5,
+                    transition: { type: "spring", stiffness: 300, damping: 15 },
+                  }}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    backgroundPosition: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                  }}
+                >
+                  🎯
+                </motion.div>
+                <h3 className="text-3xl font-compressed text-white mb-6 font-bold text-center">
+                  NUESTRA MISIÓN
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed text-lg">
                   Ofrecer bebidas artesanales de la más alta calidad, combinando
                   la tradición del agave azul con sabores naturales únicos,
-                  creando experiencias de sabor auténticas e inolvidables.
+                  creando experiencias de sabor auténticas e inolvidables que
+                  conecten con la esencia de México.
                 </p>
               </div>
-            </div>
+            </motion.article>
 
             {/* Visión */}
-            <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-800">
+            <motion.article
+              role="article"
+              tabIndex={0}
+              className="bg-black/40 backdrop-blur-md rounded-2xl p-10 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary-500/50 focus:ring-offset-2 focus:ring-offset-black"
+              variants={fadeInRight}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{
+                scale: 1.05,
+                y: -6,
+                transition: { type: "spring", stiffness: 220, damping: 20 },
+              }}
+              whileTap={{ scale: 0.98 }}
+              viewport={{ once: true }}
+            >
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-2xl">👁️</span>
-                </div>
-                <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
-                  VISIÓN
+                <motion.div
+                  className="w-20 h-20 bg-gradient-to-tr from-orange-500 via-yellow-400 to-amber-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: 5,
+                    transition: { type: "spring", stiffness: 300, damping: 15 },
+                  }}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    backgroundPosition: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                  }}
+                >
+                  👁️
+                </motion.div>
+                <h3 className="text-3xl font-compressed text-white mb-6 font-bold text-center">
+                  NUESTRA VISIÓN
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed text-lg">
                   Ser reconocidos como la marca líder en bebidas artesanales de
                   agave con sabores naturales, expandiendo nuestra presencia
                   global mientras mantenemos nuestra esencia artesanal y
-                  compromiso con la calidad.
+                  compromiso inquebrantable con la calidad y autenticidad.
                 </p>
               </div>
-            </div>
+            </motion.article>
           </div>
         </div>
-      </section>
-    </div>
+      </motion.section>
+
+      {/* CTA Section */}
+      <motion.section
+        className="py-24 bg-black relative overflow-hidden"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-secondary-600/20"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.h2
+            className="text-5xl md:text-6xl font-compressed text-white mb-8 font-bold"
+            variants={fadeInUp}
+          >
+            ¿LISTO PARA LA EXPERIENCIA?
+          </motion.h2>
+          <motion.p
+            className="text-xl text-white/90 mb-10 leading-relaxed"
+            variants={fadeInUp}
+          >
+            Descubre el sabor auténtico de México en cada sorbo de Belicona
+          </motion.p>
+          <motion.button
+            className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-compressed font-bold py-5 px-12 rounded-2xl text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl"
+            variants={fadeInUp}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/productos")}
+          >
+            ¡EXPLORA NUESTROS PRODUCTOS!
+          </motion.button>
+        </div>
+      </motion.section>
+    </motion.div>
   );
 };
 

@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useAnimations from "./hooks/useAnimations";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PopupSocio from "./components/PopupSocio";
 import Home from "./pages/Home";
 import SobreNosotros from "./pages/SobreNosotros";
 import Noticias from "./pages/Noticias";
@@ -108,6 +109,8 @@ function AppContent() {
         </AnimatePresence>
       </main>
       <Footer />
+      {/* Popup de Bienvenida */}
+      <PopupSocio />
     </div>
   );
 }
