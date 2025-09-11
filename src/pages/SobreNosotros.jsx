@@ -75,7 +75,7 @@ const SobreNosotros = () => {
             <motion.div className="relative" variants={fadeInLeft}>
               <div className="relative z-10">
                 <img
-                  src="/src/assets/sabores.jpg"
+                  src="/sabores.jpg"
                   alt="Sabores Belicona"
                   className="w-full max-h-[600px] object-contain rounded-3xl shadow-2xl"
                 />

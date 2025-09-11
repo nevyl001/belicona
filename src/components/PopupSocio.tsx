@@ -85,7 +85,7 @@ const PopupSocio = () => {
             <div className="text-center">
               {/* Socio Image - ENORME */}
               <motion.img
-                src="/src/assets/popup.jpeg"
+                src="/popup.jpeg"
                 alt="Nuestro socio famoso"
                 className="w-64 h-64 md:w-80 md:h-80 mx-auto mb-6 rounded-2xl shadow-2xl object-cover"
                 initial={{ scale: 0 }}
