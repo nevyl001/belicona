@@ -1,128 +1,212 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import RevealCard from "../components/RevealCard";
 
 const Noticias = () => {
-  const news = [
-    {
-      id: 1,
-      title: "Belicona lanza nueva línea de productos sostenibles",
-      excerpt:
-        "Nuestra nueva colección está diseñada con materiales 100% reciclables y procesos de producción eco-friendly.",
-      image:
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-      author: "María González",
-      date: "2024-01-15",
-      category: "Sostenibilidad",
-      readTime: "3 min",
-    },
-    {
-      id: 2,
-      title: "Innovación tecnológica en nuestros procesos de fabricación",
-      excerpt:
-        "Hemos implementado inteligencia artificial y automatización avanzada para mejorar la eficiencia.",
-      image:
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-      author: "Carlos Ruiz",
-      date: "2024-01-12",
-      category: "Tecnología",
-      readTime: "5 min",
-    },
-    {
-      id: 3,
-      title: "Nuevo centro de investigación y desarrollo inaugurado",
-      excerpt:
-        "Nuestro nuevo centro de I+D cuenta con laboratorios de última generación y un equipo especializado.",
-      image:
-        "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-      author: "Ana Martínez",
-      date: "2024-01-10",
-      category: "Investigación",
-      readTime: "4 min",
-    },
-  ];
+  // Noticia destacada
+  const noticiaDestacada = {
+    id: 1,
+    title: "Belicona lanza nueva línea de productos sostenibles",
+    excerpt:
+      "Nuestra nueva colección está diseñada con materiales 100% reciclables y procesos de producción eco-friendly. Descubre cómo estamos revolucionando la industria con nuestro compromiso con el medio ambiente.",
+    image:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    author: "María González",
+    date: "2024-01-15",
+    category: "Sostenibilidad",
+    readTime: "5 min",
+  };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-orange-500/5"></div>
+
       {/* Header */}
-      <div className="bg-black py-8 sm:py-12">
+      <div className="bg-black py-8 sm:py-12 relative z-10">
         <div className="container-custom">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
-              NOTICIAS
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Mantente al día con las últimas novedades, innovaciones y eventos
-              de Belicona
-            </p>
-          </div>
+          <RevealCard direction="up" delay={0.2}>
+            <div className="text-center">
+              <motion.h1
+                className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                style={{
+                  textShadow:
+                    "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+                }}
+              >
+                NOTICIAS
+              </motion.h1>
+              <motion.p
+                className="text-xl text-gray-300 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
+              >
+                Mantente al día con las últimas novedades, innovaciones y
+                eventos de Belicona
+              </motion.p>
+            </div>
+          </RevealCard>
         </div>
       </div>
 
-      {/* Noticias */}
-      <div className="container-custom py-8 sm:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {news.map((article) => (
-            <div
-              key={article.id}
-              className="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-800"
-            >
+      {/* Noticia Destacada */}
+      <div className="container-custom py-8 sm:py-12 relative z-10">
+        <motion.div
+          className="group relative max-w-6xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          whileHover={{
+            y: -8,
+            scale: 1.01,
+            transition: { duration: 0.4, ease: "easeInOut" },
+          }}
+        >
+          {/* Glassmorphism card */}
+          <div className="relative bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 group-hover:shadow-3xl">
+            {/* Image with overlay */}
+            <div className="relative overflow-hidden">
               <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-48 object-cover"
+                src={noticiaDestacada.image}
+                alt={noticiaDestacada.title}
+                className="w-full h-64 md:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-500 text-white">
-                    {article.category}
-                  </span>
-                  <span className="text-sm text-gray-400">
-                    {article.readTime}
-                  </span>
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
-                <h3 className="text-lg font-compressed text-white mb-2 line-clamp-2 font-bold">
-                  {article.title}
-                </h3>
+              {/* Categoría flotante */}
+              <div className="absolute top-6 left-6">
+                <motion.span
+                  className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {noticiaDestacada.category}
+                </motion.span>
+              </div>
 
-                <p className="text-gray-300 text-sm line-clamp-3 mb-4">
-                  {article.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">
-                        {article.author}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        {new Date(article.date).toLocaleDateString("es-ES")}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button className="text-primary-500 hover:text-red-500 text-sm font-compressed font-bold">
-                    LEER MÁS
-                  </button>
-                </div>
+              {/* Tiempo de lectura */}
+              <div className="absolute top-6 right-6">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-black/50 text-white backdrop-blur-sm">
+                  {noticiaDestacada.readTime}
+                </span>
               </div>
             </div>
-          ))}
-        </div>
+
+            <div className="p-8 md:p-12 relative z-10">
+              {/* Título */}
+              <motion.h2
+                className="text-3xl md:text-4xl lg:text-5xl font-compressed text-white mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                {noticiaDestacada.title}
+              </motion.h2>
+
+              {/* Resumen */}
+              <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">
+                {noticiaDestacada.excerpt}
+              </p>
+
+              {/* Información del autor */}
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center">
+                  <motion.div
+                    className="w-12 h-12 bg-gradient-to-r from-primary-500 to-orange-500 rounded-full flex items-center justify-center mr-4 shadow-lg"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </motion.div>
+                  <div>
+                    <p className="text-lg font-medium text-white">
+                      {noticiaDestacada.author}
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      {new Date(noticiaDestacada.date).toLocaleDateString(
+                        "es-ES"
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Botón de leer más */}
+                <Link to={`/noticias/${noticiaDestacada.id}`}>
+                  <motion.button
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    LEER NOTICIA COMPLETA
+                    <motion.span
+                      className="ml-2"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      →
+                    </motion.span>
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Mensaje de más noticias próximamente */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="bg-gradient-to-br from-gray-900/40 to-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
+              MÁS NOTICIAS PRÓXIMAMENTE
+            </h3>
+            <p className="text-gray-300 text-lg mb-6">
+              Estamos preparando más contenido exclusivo sobre innovación,
+              sostenibilidad y los últimos avances de Belicona.
+            </p>
+            <motion.div
+              className="inline-flex items-center text-primary-500"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Próximamente más contenido
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

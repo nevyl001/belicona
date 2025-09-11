@@ -412,7 +412,7 @@ const Home = () => {
                 }}
               >
                 {/* Glassmorphism card */}
-                <div className="relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 overflow-hidden">
+                <div className="relative bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 overflow-hidden">
                   {/* Gradient overlay */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${

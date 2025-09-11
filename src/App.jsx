@@ -13,7 +13,9 @@ import PopupSocio from "./components/PopupSocio";
 import Home from "./pages/Home";
 import SobreNosotros from "./pages/SobreNosotros";
 import Noticias from "./pages/Noticias";
+import NoticiaDetalle from "./pages/NoticiaDetalle";
 import Eventos from "./pages/Eventos";
+import EventoDetalle from "./pages/EventoDetalle";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
 import MenorEdad from "./pages/MenorEdad";
@@ -68,6 +70,19 @@ function AppContent() {
               }
             />
             <Route
+              path="/noticias/:id"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <NoticiaDetalle />
+                </motion.div>
+              }
+            />
+            <Route
               path="/eventos"
               element={
                 <motion.div
@@ -77,6 +92,19 @@ function AppContent() {
                   variants={pageTransition}
                 >
                   <Eventos />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/eventos/:id"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <EventoDetalle />
                 </motion.div>
               }
             />
