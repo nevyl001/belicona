@@ -7,15 +7,14 @@ const Noticias = () => {
   // Noticia destacada
   const noticiaDestacada = {
     id: 1,
-    title: "Belicona lanza nueva línea de productos sostenibles",
+    title: "¡Nuevo video de promoción con Abelito!",
     excerpt:
-      "Nuestra nueva colección está diseñada con materiales 100% reciclables y procesos de producción eco-friendly. Descubre cómo estamos revolucionando la industria con nuestro compromiso con el medio ambiente.",
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    author: "María González",
-    date: "2024-01-15",
-    category: "Sostenibilidad",
-    readTime: "5 min",
+      "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona. ¡Esperen pronto este contenido increíble!",
+    image: "/videobeli.JPG",
+    author: "Equipo Belicona",
+    date: "2024-01-20",
+    category: "Promoción",
+    readTime: "3 min",
   };
 
   return (

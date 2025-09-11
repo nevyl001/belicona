@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import RevealCard from "../components/RevealCard";
@@ -6,42 +6,41 @@ import RevealCard from "../components/RevealCard";
 const NoticiaDetalle = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Datos de la noticia (en una app real vendría de una API)
   const noticia = {
     id: 1,
-    title: "Belicona lanza nueva línea de productos sostenibles",
+    title: "¡Nuevo video de promoción con Abelito!",
     excerpt:
-      "Nuestra nueva colección está diseñada con materiales 100% reciclables y procesos de producción eco-friendly.",
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    author: "María González",
-    date: "2024-01-15",
-    category: "Sostenibilidad",
-    readTime: "5 min",
+      "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona.",
+    image: "/videobeli.JPG",
+    author: "Equipo Belicona",
+    date: "2024-01-20",
+    category: "Promoción",
+    readTime: "3 min",
     content: `
-      <p>En Belicona, estamos comprometidos con el futuro del planeta. Por eso, nos complace anunciar el lanzamiento de nuestra nueva línea de productos sostenibles, diseñada con materiales 100% reciclables y procesos de producción eco-friendly.</p>
+      <p>¡La espera ha terminado! En Belicona estamos súper emocionados de presentar nuestro nuevo video promocional protagonizado por nuestro querido Abelito. Esta producción está llena de diversión, sabor y toda la energía única que caracteriza a nuestra marca.</p>
       
-      <p>Esta iniciativa representa un paso fundamental en nuestro compromiso con la sostenibilidad ambiental. Cada producto de nuestra nueva línea ha sido cuidadosamente diseñado para minimizar el impacto ambiental mientras mantenemos la calidad excepcional que caracteriza a Belicona.</p>
+      <p>Abelito ha sido una figura icónica en la promoción de Belicona, y este nuevo video promete ser una experiencia visual increíble que captura la esencia de nuestra bebida favorita. Con su carisma y personalidad única, Abelito nos llevará en un viaje lleno de momentos memorables.</p>
       
-      <h3>Características de la nueva línea:</h3>
+      <h3>¿Qué esperar del nuevo video?</h3>
       <ul>
-        <li>Materiales 100% reciclables</li>
-        <li>Procesos de producción con cero emisiones</li>
-        <li>Packaging biodegradable</li>
-        <li>Certificación de sostenibilidad internacional</li>
+        <li>Producción de alta calidad con efectos visuales impresionantes</li>
+        <li>Abelito mostrando su personalidad única y divertida</li>
+        <li>Momentos llenos de diversión y entretenimiento</li>
+        <li>Música pegajosa que se quedará en tu cabeza</li>
+        <li>La energía característica de Belicona en cada escena</li>
       </ul>
       
-      <p>Nuestro equipo de investigación y desarrollo ha trabajado incansablemente durante más de dos años para crear productos que no solo cumplan con los más altos estándares de calidad, sino que también respeten y protejan nuestro medio ambiente.</p>
+      <p>Nuestro equipo creativo ha trabajado incansablemente para crear un video que no solo promocione nuestros productos, sino que también genere una conexión emocional con nuestros consumidores. Abelito ha sido el protagonista perfecto para transmitir los valores de diversión, calidad y autenticidad que representan a Belicona.</p>
       
-      <p>Esta nueva línea estará disponible en todos nuestros puntos de venta a partir del próximo mes, y esperamos que nuestros clientes se unan a nosotros en este importante paso hacia un futuro más sostenible.</p>
+      <p>El video estará disponible muy pronto en todas nuestras plataformas digitales y canales oficiales. ¡Mantente atento a nuestras redes sociales para no perderte el lanzamiento de este contenido increíble!</p>
+      
+      <p>¡Esperen pronto este contenido que promete ser una verdadera obra maestra del entretenimiento y la promoción!</p>
     `,
     video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video de ejemplo
-    gallery: [
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    ],
+    gallery: ["/videobeli.JPG", "/im1.JPG", "/im2.JPG"],
   };
 
   return (
@@ -228,6 +227,7 @@ const NoticiaDetalle = () => {
                   className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
+                  onClick={() => setSelectedImage(image)}
                 >
                   <img
                     src={image}
@@ -280,6 +280,53 @@ const NoticiaDetalle = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Modal para imagen en grande */}
+      {selectedImage && (
+        <motion.div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <motion.div
+            className="relative max-w-4xl max-h-full"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage}
+              alt="Imagen ampliada"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+
+            {/* Botón de cerrar */}
+            <motion.button
+              className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-300"
+              onClick={() => setSelectedImage(null)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 };

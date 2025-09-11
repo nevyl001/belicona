@@ -1,78 +1,59 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import useAnimations from "../hooks/useAnimations";
+import RevealCard from "../components/RevealCard";
 
 const SobreNosotros = () => {
   const navigate = useNavigate();
-  const {
-    ref,
-    isInView,
-    fadeInUp,
-    fadeInLeft,
-    fadeInRight,
-    scaleIn,
-    staggerContainer,
-    staggerItem,
-    pageTransition,
-  } = useAnimations();
 
   return (
-    <motion.div
-      className="min-h-screen bg-black"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageTransition}
-    >
-      {/* Hero Section */}
-      <motion.section
-        className="relative bg-black py-12 sm:py-16 md:py-24 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-orange-500/5"></div>
 
-        <div className="container-custom relative z-10">
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h1 className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold bg-gradient-to-r from-white via-primary-200 to-secondary-200 bg-clip-text text-transparent">
-              SOBRE NOSOTROS
-            </h1>
-            <motion.p
-              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Descubre la pasión, tradición e innovación detrás de cada gota de
-              Belicona
-            </motion.p>
-          </motion.div>
+      {/* Hero Section */}
+      <div className="bg-black py-12 sm:py-16 md:py-24 relative z-10">
+        <div className="container-custom">
+          <RevealCard direction="up" delay={0.2}>
+            <div className="text-center">
+              <motion.h1
+                className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold glow-on-hover"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                style={{
+                  textShadow:
+                    "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+                }}
+              >
+                SOBRE NOSOTROS
+              </motion.h1>
+              <motion.p
+                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
+              >
+                Descubre la pasión, tradición e innovación detrás de cada gota
+                de Belicona
+              </motion.p>
+            </div>
+          </RevealCard>
         </div>
-      </motion.section>
+      </div>
 
       {/* Historia Section */}
-      <motion.section
-        className="py-12 sm:py-16 md:py-24 bg-black"
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-12 sm:py-16 md:py-24 relative z-10">
+        <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Imagen */}
-            <motion.div className="relative" variants={fadeInLeft}>
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="relative z-10">
                 <img
                   src="/sabores.jpg"
@@ -82,22 +63,38 @@ const SobreNosotros = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-3xl"></div>
               </div>
               {/* Elementos decorativos */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full opacity-20 animate-pulse delay-1000"></div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary-500 to-orange-500 rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-orange-500 to-primary-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
             </motion.div>
 
             {/* Contenido */}
-            <motion.div className="space-y-8" variants={fadeInRight}>
+            <motion.div
+              className="space-y-8"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               <div>
                 <motion.h2
-                  className="text-6xl md:text-8xl font-bubbly text-white mb-8 bg-gradient-to-r from-primary-300 to-secondary-300 bg-clip-text text-transparent leading-tight"
-                  variants={staggerItem}
+                  className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold glow-on-hover"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  viewport={{ once: true }}
+                  style={{
+                    textShadow:
+                      "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+                  }}
                 >
                   NUESTRA HISTORIA
                 </motion.h2>
                 <motion.p
                   className="text-xl md:text-2xl text-gray-300 mb-6 leading-relaxed"
-                  variants={staggerItem}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
                 >
                   Con más de{" "}
                   <span className="text-primary-400 font-bold">
@@ -110,10 +107,13 @@ const SobreNosotros = () => {
                 </motion.p>
                 <motion.p
                   className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed"
-                  variants={staggerItem}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  viewport={{ once: true }}
                 >
                   Lanzada a mediados de{" "}
-                  <span className="text-secondary-400 font-bold">
+                  <span className="text-orange-400 font-bold">
                     2022 por RIII
                   </span>
                   , nuestra bebida tiene como objetivo ofrecer una alternativa
@@ -121,8 +121,11 @@ const SobreNosotros = () => {
                   agave azul con sabores únicos y naturales.
                 </motion.p>
                 <motion.button
-                  className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-compressed font-bold py-4 px-10 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
-                  variants={staggerItem}
+                  className="bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-compressed font-bold py-4 px-10 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  viewport={{ once: true }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/productos")}
@@ -133,19 +136,25 @@ const SobreNosotros = () => {
             </motion.div>
           </div>
         </div>
-      </motion.section>
+      </div>
 
       {/* Valores Section */}
-      <motion.section
-        className="py-12 sm:py-16 md:py-24 bg-black"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div className="text-center mb-20" variants={fadeInUp}>
-            <h2 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
+      <div className="py-12 sm:py-16 md:py-24 relative z-10">
+        <div className="container-custom">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h2
+              className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+              }}
+            >
               NUESTROS VALORES
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -179,23 +188,16 @@ const SobreNosotros = () => {
             ].map((valor, index) => (
               <motion.article
                 key={index}
-                role="article"
-                tabIndex={0}
-                className="bg-black/40 backdrop-blur-md rounded-2xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-black"
-                variants={staggerItem}
-                initial={{ opacity: 0, y: 20 }}
+                className="bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 group"
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{
-                  scale: 1.05,
-                  y: -6,
-                  transition: { type: "spring", stiffness: 220, damping: 20 },
-                }}
-                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.02 }}
               >
                 <div className="text-center">
                   <motion.div
-                    className={`w-20 h-20 bg-gradient-to-tr ${valor.gradient} rounded-full mx-auto mb-6 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]`}
+                    className={`w-20 h-20 bg-gradient-to-tr ${valor.gradient} rounded-full mx-auto mb-6 flex items-center justify-center text-3xl shadow-lg`}
                     whileHover={{
                       scale: 1.1,
                       rotate: 5,
@@ -203,16 +205,6 @@ const SobreNosotros = () => {
                         type: "spring",
                         stiffness: 300,
                         damping: 15,
-                      },
-                    }}
-                    animate={{
-                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    }}
-                    transition={{
-                      backgroundPosition: {
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
                       },
                     }}
                   >
@@ -229,19 +221,25 @@ const SobreNosotros = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </div>
 
       {/* Misión y Visión Section */}
-      <motion.section
-        className="py-12 sm:py-16 md:py-24 bg-black"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div className="text-center mb-20" variants={fadeInUp}>
-            <h2 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
+      <div className="py-12 sm:py-16 md:py-24 relative z-10">
+        <div className="container-custom">
+          <motion.div
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h2
+              className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+              }}
+            >
               MISIÓN & VISIÓN
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -252,37 +250,20 @@ const SobreNosotros = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Misión */}
             <motion.article
-              role="article"
-              tabIndex={0}
-              className="bg-black/40 backdrop-blur-md rounded-2xl p-10 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-black"
-              variants={fadeInLeft}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{
-                scale: 1.05,
-                y: -6,
-                transition: { type: "spring", stiffness: 220, damping: 20 },
-              }}
-              whileTap={{ scale: 0.98 }}
+              className="bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-2xl p-10 shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
+              whileHover={{ y: -5, scale: 1.02 }}
             >
               <div className="text-center">
                 <motion.div
-                  className="w-20 h-20 bg-gradient-to-tr from-red-500 via-pink-400 to-rose-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  className="w-20 h-20 bg-gradient-to-tr from-red-500 via-pink-400 to-rose-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg"
                   whileHover={{
                     scale: 1.1,
                     rotate: 5,
                     transition: { type: "spring", stiffness: 300, damping: 15 },
-                  }}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    backgroundPosition: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    },
                   }}
                 >
                   🎯
@@ -301,37 +282,20 @@ const SobreNosotros = () => {
 
             {/* Visión */}
             <motion.article
-              role="article"
-              tabIndex={0}
-              className="bg-black/40 backdrop-blur-md rounded-2xl p-10 shadow-[0_10px_30px_rgba(0,0,0,0.6)] border border-white/10 hover:border-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary-500/50 focus:ring-offset-2 focus:ring-offset-black"
-              variants={fadeInRight}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{
-                scale: 1.05,
-                y: -6,
-                transition: { type: "spring", stiffness: 220, damping: 20 },
-              }}
-              whileTap={{ scale: 0.98 }}
+              className="bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-2xl p-10 shadow-2xl border border-white/10 hover:border-orange-500/30 transition-all duration-500 group"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
+              whileHover={{ y: -5, scale: 1.02 }}
             >
               <div className="text-center">
                 <motion.div
-                  className="w-20 h-20 bg-gradient-to-tr from-orange-500 via-yellow-400 to-amber-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg filter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  className="w-20 h-20 bg-gradient-to-tr from-orange-500 via-yellow-400 to-amber-400 rounded-full mx-auto mb-8 flex items-center justify-center text-3xl shadow-lg"
                   whileHover={{
                     scale: 1.1,
                     rotate: 5,
                     transition: { type: "spring", stiffness: 300, damping: 15 },
-                  }}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    backgroundPosition: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    },
                   }}
                 >
                   👁️
@@ -349,42 +313,56 @@ const SobreNosotros = () => {
             </motion.article>
           </div>
         </div>
-      </motion.section>
+      </div>
 
       {/* CTA Section */}
-      <motion.section
-        className="py-12 sm:py-16 md:py-24 bg-black relative overflow-hidden"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={staggerContainer}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-secondary-600/20"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.h2
-            className="text-5xl md:text-6xl font-compressed text-white mb-8 font-bold"
-            variants={fadeInUp}
+      <div className="py-12 sm:py-16 md:py-24 relative z-10">
+        <div className="container-custom">
+          <motion.div
+            className="text-center bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/10"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
           >
-            ¿LISTO PARA LA EXPERIENCIA?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-white/90 mb-10 leading-relaxed"
-            variants={fadeInUp}
-          >
-            Descubre el sabor auténtico de México en cada sorbo de Belicona
-          </motion.p>
-          <motion.button
-            className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-compressed font-bold py-5 px-12 rounded-2xl text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl"
-            variants={fadeInUp}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/productos")}
-          >
-            ¡EXPLORA NUESTROS PRODUCTOS!
-          </motion.button>
+            <motion.h2
+              className="text-5xl md:text-6xl font-compressed text-white mb-8 font-bold glow-on-hover"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+              }}
+            >
+              ¿LISTO PARA LA EXPERIENCIA?
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-300 mb-10 leading-relaxed max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Descubre el sabor auténtico de México en cada sorbo de Belicona
+            </motion.p>
+            <motion.button
+              className="bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-compressed font-bold py-5 px-12 rounded-2xl text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/productos")}
+            >
+              ¡EXPLORA NUESTROS PRODUCTOS!
+            </motion.button>
+          </motion.div>
         </div>
-      </motion.section>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 

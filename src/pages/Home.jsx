@@ -527,7 +527,7 @@ const Home = () => {
               viewport={{ once: true }}
             >
               <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
-                <Link to="/noticias">
+                <Link to="/contacto">
                   <button className="bg-primary-500 hover:bg-red-500 text-white font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
                     ÚNETE A LA COMUNIDAD
                   </button>
