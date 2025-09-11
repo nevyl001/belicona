@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Zap, Award, Users } from "lucide-react";
 import useAnimations from "../hooks/useAnimations";
+import video13 from "../assets/13.mp4";
 
 const Home = () => {
   const {
@@ -47,71 +48,93 @@ const Home = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
     >
-      {/* Hero Section */}
-      <section className="relative bg-black py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+      {/* Hero Section con Video de Fondo */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Video de fondo */}
+        <div className="absolute inset-0 z-0">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
           >
-            <motion.h1
-              className="text-6xl md:text-8xl font-bubbly text-white mb-6 tracking-wider"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-            >
-              LA REVOLUCIÓN{" "}
-              <span className="bg-gradient-to-r from-primary-500 to-red-500 bg-clip-text text-transparent font-bubbly">
-                BELICONA
-              </span>
-            </motion.h1>
-            <motion.p
-              className="text-3xl md:text-4xl text-yellow-500 mb-8 font-fredoka font-bold"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
-            >
-              MÁS QUE UNA BEBIDA, ES UN ESTILO DE VIDA
-            </motion.p>
-            <motion.p
-              className="text-lg text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: "easeInOut" }}
-            >
-              Una{" "}
-              <span className="text-primary-500 font-bold">
-                comunidad global
-              </span>{" "}
-              que celebra la vida auténtica. Un{" "}
-              <span className="text-yellow-500 font-bold">estilo de vida</span>{" "}
-              que conecta tradición y modernidad, creando experiencias únicas
-              que unen personas y culturas.
-            </motion.p>
+            <source src={video13} type="video/mp4" />
+            Tu navegador no soporta videos HTML5.
+          </video>
+
+          {/* Overlay gradiente para mejor legibilidad del texto */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80"></div>
+        </div>
+
+        {/* Contenido sobre el video */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <motion.div
-              className="flex flex-col sm:flex-row gap-6 justify-center"
-              initial={{ opacity: 0, y: 30 }}
+              className="max-w-4xl mx-auto text-center"
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: "easeInOut" }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
-                <Link to="/productos">
-                  <button className="bg-primary-500 hover:bg-red-500 text-white font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
-                    DESCUBRE BELICONA
-                  </button>
-                </Link>
-              </motion.div>
-              <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
-                <Link to="/contacto">
-                  <button className="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105">
-                    ÚNETE AHORA
-                  </button>
-                </Link>
+              <motion.h1
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white mb-6 tracking-wider"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+              >
+                LA REVOLUCIÓN{" "}
+                <span className="bg-gradient-to-r from-primary-500 to-red-500 bg-clip-text text-transparent font-bubbly">
+                  BELICONA
+                </span>
+              </motion.h1>
+              <motion.p
+                className="text-3xl md:text-4xl text-yellow-500 mb-8 font-fredoka font-bold"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
+              >
+                MÁS QUE UNA BEBIDA, ES UN ESTILO DE VIDA
+              </motion.p>
+              <motion.p
+                className="text-lg text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6, ease: "easeInOut" }}
+              >
+                Una{" "}
+                <span className="text-primary-500 font-bold">
+                  comunidad global
+                </span>{" "}
+                que celebra la vida auténtica. Un{" "}
+                <span className="text-yellow-500 font-bold">
+                  estilo de vida
+                </span>{" "}
+                que conecta tradición y modernidad, creando experiencias únicas
+                que unen personas y culturas.
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-6 justify-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8, ease: "easeInOut" }}
+              >
+                <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
+                  <Link to="/productos">
+                    <button className="bg-primary-500 hover:bg-red-500 text-white font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
+                      DESCUBRE BELICONA
+                    </button>
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
+                  <Link to="/contacto">
+                    <button className="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105">
+                      ÚNETE AHORA
+                    </button>
+                  </Link>
+                </motion.div>
               </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -129,7 +152,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-compressed text-white mb-8 font-bold"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-compressed text-white mb-8 font-bold"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
