@@ -112,8 +112,7 @@ const PopupSocio = () => {
                 transition={{ delay: 0.4 }}
               >
                 Descubre la experiencia única de nuestros sabores artesanales,
-                respaldados por nuestro socio de renombre que confía en la
-                calidad y autenticidad de Belicona.
+                creados con la más alta calidad y autenticidad de Belicona.
               </motion.p>
 
               {/* Action Button */}
