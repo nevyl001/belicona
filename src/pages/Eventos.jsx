@@ -46,7 +46,7 @@ const Eventos = () => {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <div className="bg-black py-12">
+      <div className="bg-black py-8 sm:py-12">
         <div className="container-custom">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
@@ -60,7 +60,7 @@ const Eventos = () => {
       </div>
 
       {/* Eventos */}
-      <div className="container-custom py-12">
+      <div className="container-custom py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {events.map((event) => (
             <div

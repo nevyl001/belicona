@@ -25,7 +25,7 @@ const Contacto = () => {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <div className="bg-black py-12">
+      <div className="bg-black py-8 sm:py-12">
         <div className="container-custom">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
@@ -39,7 +39,7 @@ const Contacto = () => {
         </div>
       </div>
 
-      <div className="container-custom py-12">
+      <div className="container-custom py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Formulario de contacto */}
           <div>

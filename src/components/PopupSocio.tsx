@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PopupSocio = () => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Mostrar popup cada vez que se vaya al inicio
@@ -22,6 +23,11 @@ const PopupSocio = () => {
 
   const handleClose = () => {
     setIsVisible(false);
+  };
+
+  const handleMinorAge = () => {
+    setIsVisible(false);
+    navigate("/menor-edad");
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -115,18 +121,32 @@ const PopupSocio = () => {
                 creados con la más alta calidad y autenticidad de Belicona.
               </motion.p>
 
-              {/* Action Button */}
-              <motion.button
-                className="bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-compressed font-bold py-3 px-8 rounded-2xl transition-all duration-300 shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                onClick={handleClose}
-              >
-                SÍ, SOY MAYOR DE EDAD
-              </motion.button>
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <motion.button
+                  className="bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-compressed font-bold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex-1"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  onClick={handleClose}
+                >
+                  SÍ, SOY MAYOR DE EDAD
+                </motion.button>
+
+                <motion.button
+                  className="border-2 border-gray-500 text-gray-300 hover:bg-gray-500 hover:text-white font-compressed font-bold py-3 px-6 rounded-2xl transition-all duration-300 flex-1"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  onClick={handleMinorAge}
+                >
+                  NO, SOY MENOR DE EDAD
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         </motion.div>

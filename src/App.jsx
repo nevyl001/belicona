@@ -16,6 +16,7 @@ import Noticias from "./pages/Noticias";
 import Eventos from "./pages/Eventos";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
+import MenorEdad from "./pages/MenorEdad";
 
 function AppContent() {
   const location = useLocation();
@@ -102,6 +103,19 @@ function AppContent() {
                   variants={pageTransition}
                 >
                   <Contacto />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/menor-edad"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <MenorEdad />
                 </motion.div>
               }
             />

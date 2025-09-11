@@ -27,7 +27,7 @@ const SobreNosotros = () => {
     >
       {/* Hero Section */}
       <motion.section
-        className="relative bg-black py-24 overflow-hidden"
+        className="relative bg-black py-12 sm:py-16 md:py-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -63,7 +63,7 @@ const SobreNosotros = () => {
 
       {/* Historia Section */}
       <motion.section
-        className="py-24 bg-black"
+        className="py-12 sm:py-16 md:py-24 bg-black"
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -137,7 +137,7 @@ const SobreNosotros = () => {
 
       {/* Valores Section */}
       <motion.section
-        className="py-24 bg-black"
+        className="py-12 sm:py-16 md:py-24 bg-black"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -233,7 +233,7 @@ const SobreNosotros = () => {
 
       {/* Misión y Visión Section */}
       <motion.section
-        className="py-24 bg-black"
+        className="py-12 sm:py-16 md:py-24 bg-black"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -353,7 +353,7 @@ const SobreNosotros = () => {
 
       {/* CTA Section */}
       <motion.section
-        className="py-24 bg-black relative overflow-hidden"
+        className="py-12 sm:py-16 md:py-24 bg-black relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
