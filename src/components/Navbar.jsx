@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import useAnimations from "../hooks/useAnimations";
-import Logo from "./Logo";
+import logoBelicona from "../assets/LOGO BELICONA.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,21 +24,45 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="bg-black shadow-2xl border-b border-gray-800 sticky top-0 z-50"
+      className="bg-black/80 backdrop-blur-xl shadow-2xl border-b border-gradient-to-r from-primary-500/20 via-yellow-500/30 to-orange-500/20 sticky top-0 z-50"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
+      style={{
+        background:
+          "linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid transparent",
+        backgroundImage:
+          "linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%), linear-gradient(90deg, rgba(237,1,127,0.2) 0%, rgba(255,183,27,0.3) 50%, rgba(255,115,0,0.2) 100%)",
+        backgroundClip: "padding-box, border-box",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <Link to="/" className="transition-all duration-300 hover:scale-105">
-            <Logo size="large" />
-          </Link>
+          <motion.div
+            className="px-4"
+            whileHover={hoverScale}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <Link
+              to="/"
+              className="transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src={logoBelicona}
+                alt="BELICONA Logo"
+                className="h-16 w-auto drop-shadow-lg"
+              />
+            </Link>
+          </motion.div>
 
           {/* Menú de escritorio */}
           <motion.div
-            className="hidden md:flex items-center space-x-2"
+            className="hidden md:flex items-center space-x-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeInOut" }}
@@ -53,32 +77,49 @@ const Navbar = () => {
                   delay: 0.3 + index * 0.1,
                   ease: "easeInOut",
                 }}
-                whileHover={hoverScale}
+                whileHover={{ scale: 1.05 }}
+                className="relative group"
               >
                 <Link
                   to={item.path}
-                  className={`px-4 py-2 rounded-xl text-sm font-compressed font-bold transition-all duration-300 ${
+                  className={`relative px-4 py-3 rounded-xl text-sm font-compressed font-bold tracking-wider transition-all duration-300 overflow-hidden ${
                     isActiveRoute(item.path)
-                      ? "text-primary-500 bg-gray-800 shadow-md"
-                      : "text-gray-300 hover:text-primary-500 hover:bg-gray-900"
+                      ? "text-white bg-gradient-to-r from-primary-500/20 to-yellow-500/20 border border-primary-500/30 shadow-lg shadow-primary-500/20"
+                      : "text-gray-300 hover:text-white"
                   }`}
                 >
-                  {item.label}
+                  {/* Efecto de fondo hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+
+                  {/* Underline animado */}
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-yellow-500 group-hover:w-full transition-all duration-300"></div>
+
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+
+                  <span className="relative z-10">{item.label}</span>
                 </Link>
               </motion.div>
             ))}
           </motion.div>
 
           {/* Botón de menú móvil */}
-          <button
+          <motion.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-primary-600 hover:bg-gray-100 transition-colors"
+            className="md:hidden p-4 rounded-xl text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all duration-300 relative group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <svg
-              className="w-6 h-6"
+            {/* Efecto de glow */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <motion.svg
+              className="w-6 h-6 relative z-10"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              animate={{ rotate: isMenuOpen ? 90 : 0 }}
+              transition={{ duration: 0.3 }}
             >
               {isMenuOpen ? (
                 <path
@@ -95,44 +136,59 @@ const Navbar = () => {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               )}
-            </svg>
-          </button>
+            </motion.svg>
+          </motion.button>
         </div>
 
         {/* Menú móvil */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="md:hidden border-t border-gray-200"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden border-t border-gradient-to-r from-primary-500/20 via-yellow-500/30 to-orange-500/20"
+              initial={{ opacity: 0, height: 0, y: -20 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%)",
+                backdropFilter: "blur(20px)",
+              }}
             >
               <motion.div
-                className="px-2 pt-2 pb-3 space-y-1"
+                className="px-4 pt-4 pb-6 space-y-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.2, delay: 0.1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
               >
                 {menuItems.map((item, index) => (
                   <motion.div
                     key={item.path}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    className="relative group"
                   >
                     <Link
                       to={item.path}
-                      className={`flex items-center px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                      className={`relative flex items-center px-4 py-3 rounded-xl text-base font-compressed font-bold tracking-wider transition-all duration-300 overflow-hidden ${
                         isActiveRoute(item.path)
-                          ? "text-primary-600 bg-primary-50"
-                          : "text-gray-600 hover:text-primary-600 hover:bg-gray-50"
+                          ? "text-white bg-gradient-to-r from-primary-500/20 to-yellow-500/20 border border-primary-500/30 shadow-lg shadow-primary-500/20"
+                          : "text-gray-300 hover:text-white"
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {item.label}
+                      {/* Efecto de fondo hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+
+                      {/* Underline animado */}
+                      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-yellow-500 group-hover:w-full transition-all duration-300"></div>
+
+                      {/* Glow effect */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+
+                      <span className="relative z-10">{item.label}</span>
                     </Link>
                   </motion.div>
                 ))}
