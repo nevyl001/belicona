@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 const Footer = () => {
   const navigationLinks = [
@@ -18,13 +19,10 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Información de la marca */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md">
-                  <span className="text-white font-bold text-lg">B</span>
-                </div>
-                <span className="text-2xl font-logo tracking-wider">
-                  BELICONA
-                </span>
+              <div className="flex items-center mb-4">
+                <Link to="/">
+                  <Logo size="medium" />
+                </Link>
               </div>
               <p className="text-gray-300 mb-6 max-w-md">
                 Bebidas artesanales que combinan la tradición del agave azul con

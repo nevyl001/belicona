@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import useAnimations from "../hooks/useAnimations";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,22 +32,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.div
-            whileHover={hoverScale}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <Link
-              to="/"
-              className="flex items-center space-x-3 text-2xl font-bold text-primary-500 hover:text-primary-600 transition-colors"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">B</span>
-              </div>
-              <span className="font-logo text-2xl tracking-wider text-white">
-                BELICONA
-              </span>
-            </Link>
-          </motion.div>
+          <Link to="/" className="transition-all duration-300 hover:scale-105">
+            <Logo size="large" />
+          </Link>
 
           {/* Menú de escritorio */}
           <motion.div
