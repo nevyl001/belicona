@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./Logo";
+import becabeLogo from "../assets/becabe.png";
 
 const Footer = () => {
   const navigationLinks = [
@@ -21,7 +21,11 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="flex items-center mb-4">
                 <Link to="/">
-                  <Logo size="medium" />
+                  <img
+                    src={becabeLogo}
+                    alt="Becabe Logo"
+                    className="h-24 w-auto"
+                  />
                 </Link>
               </div>
               <p className="text-gray-300 mb-6 max-w-md">
