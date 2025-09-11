@@ -38,7 +38,7 @@ const Navbar = () => {
         backgroundClip: "padding-box, border-box",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:max-w-7xl xl:mx-auto">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <motion.div

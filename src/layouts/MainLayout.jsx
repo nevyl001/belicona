@@ -42,7 +42,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black transition-colors duration-300">
+    <div className="min-h-screen bg-black transition-colors duration-300 w-full overflow-x-hidden">
       {/* Navbar */}
       <Navbar darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />
 

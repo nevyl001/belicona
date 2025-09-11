@@ -70,7 +70,7 @@ const Home = () => {
 
         {/* Contenido sobre el video */}
         <div className="relative z-10 h-full flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:max-w-7xl xl:mx-auto">
             <motion.div
               className="max-w-4xl mx-auto text-center"
               initial={{ opacity: 0, y: 50 }}
@@ -78,7 +78,7 @@ const Home = () => {
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white mb-6 tracking-wider"
+                className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bubbly text-white mb-6 tracking-wider"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
@@ -140,11 +140,11 @@ const Home = () => {
       </section>
 
       {/* Bebida Destacada Section */}
-      <section className="py-32 bg-black relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Título principal centrado */}
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-8 sm:mb-12 md:mb-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -174,7 +174,7 @@ const Home = () => {
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
             {/* Contenido de texto */}
             <motion.div
               className="space-y-8 flex flex-col justify-center h-full"
@@ -301,7 +301,7 @@ const Home = () => {
 
           {/* Call to Action */}
           <motion.div
-            className="text-center mt-16"
+            className="text-center mt-8 sm:mt-12 md:mt-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
