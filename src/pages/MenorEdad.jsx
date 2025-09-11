@@ -6,8 +6,6 @@ import useAnimations from "../hooks/useAnimations";
 const MenorEdad = () => {
   const navigate = useNavigate();
   const {
-    ref,
-    isInView,
     fadeInUp,
     fadeInLeft,
     fadeInRight,

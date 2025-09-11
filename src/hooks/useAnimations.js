@@ -1,14 +1,8 @@
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-
 /**
  * Hook personalizado para animaciones con Framer Motion
  * Proporciona variantes comunes y utilidades para animaciones
  */
 export const useAnimations = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   // Variantes comunes para animaciones
   const fadeInUp = {
     hidden: {
@@ -92,11 +86,6 @@ export const useAnimations = () => {
     transition: { duration: 0.3, ease: "easeInOut" },
   };
 
-  const hoverShadow = {
-    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
-    transition: { duration: 0.3, ease: "easeInOut" },
-  };
-
   // Transiciones de página
   const pageTransition = {
     initial: { opacity: 0, x: 20 },
@@ -113,8 +102,6 @@ export const useAnimations = () => {
   };
 
   return {
-    ref,
-    isInView,
     fadeInUp,
     fadeInLeft,
     fadeInRight,
@@ -122,7 +109,6 @@ export const useAnimations = () => {
     staggerContainer,
     staggerItem,
     hoverScale,
-    hoverShadow,
     pageTransition,
   };
 };

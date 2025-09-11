@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Zap, Award, Users } from "lucide-react";
 import useAnimations from "../hooks/useAnimations";
-import { useScrollEffects, useParallax } from "../hooks/useScrollEffects";
 import ParticleBackground from "../components/ParticleBackground";
 import MagneticButton from "../components/MagneticButton";
 import RevealCard from "../components/RevealCard";
@@ -19,11 +18,7 @@ const Home = () => {
     staggerContainer,
     staggerItem,
     hoverScale,
-    hoverShadow,
   } = useAnimations();
-
-  const { scrollY, isScrolling } = useScrollEffects();
-  const parallaxOffset = useParallax(0.5);
 
   const features = [
     {

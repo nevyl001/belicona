@@ -319,14 +319,14 @@ const SobreNosotros = () => {
       <div className="py-12 sm:py-16 md:py-24 relative z-10">
         <div className="container-custom">
           <motion.div
-            className="text-center bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/10"
+            className="text-center bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl border border-white/10"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-5xl md:text-6xl font-compressed text-white mb-8 font-bold glow-on-hover"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-8 font-bold glow-on-hover"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
