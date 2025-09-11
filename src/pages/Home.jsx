@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Zap, Award, Users } from "lucide-react";
 import useAnimations from "../hooks/useAnimations";
+import { useScrollEffects, useParallax } from "../hooks/useScrollEffects";
+import ParticleBackground from "../components/ParticleBackground";
+import MagneticButton from "../components/MagneticButton";
+import RevealCard from "../components/RevealCard";
 import video13 from "../assets/13.mp4";
 import p1 from "../assets/p1.png";
 
@@ -17,6 +21,9 @@ const Home = () => {
     hoverScale,
     hoverShadow,
   } = useAnimations();
+
+  const { scrollY, isScrolling } = useScrollEffects();
+  const parallaxOffset = useParallax(0.5);
 
   const features = [
     {
@@ -78,10 +85,14 @@ const Home = () => {
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bubbly text-white mb-6 tracking-wider"
+                className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bubbly text-white mb-6 tracking-wider glow-on-hover"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+                style={{
+                  textShadow:
+                    "0 0 30px rgba(237, 1, 127, 0.8), 0 0 60px rgba(255, 183, 27, 0.6), 0 0 90px rgba(255, 242, 0, 0.4)",
+                }}
               >
                 LA REVOLUCIÓN{" "}
                 <span className="bg-gradient-to-r from-primary-500 to-red-500 bg-clip-text text-transparent font-bubbly">
@@ -89,10 +100,14 @@ const Home = () => {
                 </span>
               </motion.h1>
               <motion.p
-                className="text-3xl md:text-4xl text-yellow-500 mb-8 font-fredoka font-bold"
+                className="text-3xl md:text-4xl text-yellow-500 mb-8 font-fredoka font-bold glow-on-hover"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
+                style={{
+                  textShadow:
+                    "0 0 20px rgba(255, 183, 27, 0.8), 0 0 40px rgba(255, 242, 0, 0.6)",
+                }}
               >
                 MÁS QUE UNA BEBIDA, ES UN ESTILO DE VIDA
               </motion.p>
@@ -119,20 +134,24 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8, ease: "easeInOut" }}
               >
-                <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
-                  <Link to="/productos">
-                    <button className="bg-primary-500 hover:bg-red-500 text-white font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
-                      DESCUBRE BELICONA
-                    </button>
-                  </Link>
-                </motion.div>
-                <motion.div whileHover={hoverScale} whileTap={{ scale: 0.95 }}>
-                  <Link to="/contacto">
-                    <button className="border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-compressed font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105">
-                      ÚNETE AHORA
-                    </button>
-                  </Link>
-                </motion.div>
+                <Link to="/productos">
+                  <MagneticButton
+                    variant="primary"
+                    size="lg"
+                    className="animate-morphing pulse-glow glow-on-hover"
+                  >
+                    DESCUBRE BELICONA
+                  </MagneticButton>
+                </Link>
+                <Link to="/contacto">
+                  <MagneticButton
+                    variant="secondary"
+                    size="lg"
+                    className="animate-morphing pulse-glow glow-on-hover"
+                  >
+                    ÚNETE AHORA
+                  </MagneticButton>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
@@ -141,38 +160,44 @@ const Home = () => {
 
       {/* Bebida Destacada Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Título principal centrado */}
-          <motion.div
-            className="text-center mb-8 sm:mb-12 md:mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            viewport={{ once: true }}
-          >
-            <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white mb-8 font-bold"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-              viewport={{ once: true }}
-            >
-              NUESTRAS BEBIDAS
-            </motion.h2>
+        {/* Partículas sutiles solo en esta sección */}
+        <ParticleBackground particleCount={25} />
 
-            <motion.p
-              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-fredoka leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-              viewport={{ once: true }}
-            >
-              Descubre la auténtica tradición mexicana en cada sorbo.
-              <span className="text-primary-400 font-bold"> 100% mexicano</span>
-              ,<span className="text-yellow-400 font-bold"> artesanal</span> y
-              <span className="text-orange-400 font-bold"> premium</span>.
-            </motion.p>
-          </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+          {/* Título principal centrado */}
+          <RevealCard direction="up" delay={0.2}>
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <motion.h2
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white mb-8 font-bold glow-on-hover"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+                viewport={{ once: true }}
+                style={{
+                  textShadow:
+                    "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
+                }}
+              >
+                NUESTRAS BEBIDAS
+              </motion.h2>
+
+              <motion.p
+                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-fredoka leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
+                viewport={{ once: true }}
+              >
+                Descubre la auténtica tradición mexicana en cada sorbo.
+                <span className="text-primary-400 font-bold">
+                  {" "}
+                  100% mexicano
+                </span>
+                ,<span className="text-yellow-400 font-bold"> artesanal</span> y
+                <span className="text-orange-400 font-bold"> premium</span>.
+              </motion.p>
+            </div>
+          </RevealCard>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
             {/* Contenido de texto */}
@@ -344,11 +369,15 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-compressed text-white mb-8 font-bold"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-compressed text-white mb-8 font-bold glow-on-hover"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
               viewport={{ once: true }}
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.8), 0 0 40px rgba(255, 183, 27, 0.6), 0 0 60px rgba(255, 242, 0, 0.4)",
+              }}
             >
               ¿POR QUÉ ELEGIRNOS?
             </motion.h2>
@@ -434,8 +463,12 @@ const Home = () => {
 
                     {/* Title */}
                     <motion.h3
-                      className="text-2xl md:text-3xl font-compressed text-white mb-6 text-center font-bold group-hover:text-primary-500 transition-colors duration-300"
+                      className="text-2xl md:text-3xl font-compressed text-white mb-6 text-center font-bold group-hover:text-primary-500 transition-colors duration-300 glow-on-hover"
                       whileHover={{ scale: 1.05 }}
+                      style={{
+                        textShadow:
+                          "0 0 10px rgba(237, 1, 127, 0.6), 0 0 20px rgba(255, 183, 27, 0.4), 0 0 30px rgba(255, 242, 0, 0.3)",
+                      }}
                     >
                       {feature.title.toUpperCase()}
                     </motion.h3>
@@ -473,7 +506,13 @@ const Home = () => {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold">
+            <h2
+              className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.8), 0 0 40px rgba(255, 183, 27, 0.6), 0 0 60px rgba(255, 242, 0, 0.4)",
+              }}
+            >
               ¿LISTO PARA SER PARTE DE LA REVOLUCIÓN?
             </h2>
             <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
