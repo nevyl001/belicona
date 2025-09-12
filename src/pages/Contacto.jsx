@@ -1,41 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import RevealCard from "../components/RevealCard";
 
 const Contacto = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    const formData = new FormData(e.target);
-
-    try {
-      const response = await fetch("https://formspree.io/f/xwpnzpap", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-
-      if (response.ok) {
-        setSubmitStatus("success");
-        e.target.reset(); // Limpiar el formulario
-      } else {
-        setSubmitStatus("error");
-      }
-    } catch (error) {
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-      // Ocultar el mensaje después de 5 segundos
-      setTimeout(() => setSubmitStatus(null), 5000);
-    }
-  };
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Background gradient overlay */}
@@ -92,7 +59,13 @@ const Contacto = () => {
                 ENVÍANOS UN MENSAJE
               </motion.h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                action="https://api.web3forms.com/submit" 
+                method="POST"
+                className="space-y-6"
+              >
+                {/* API Key */}
+                <input type="hidden" name="access_key" value="75de9697-2834-4d72-9c1d-13dcf6684f2e" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -178,95 +151,14 @@ const Contacto = () => {
                 >
                   <motion.button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-compressed font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                    className="w-full bg-gradient-to-r from-primary-500 to-orange-500 hover:from-primary-600 hover:to-orange-600 text-white font-compressed font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    {isSubmitting ? (
-                      <div className="flex items-center justify-center">
-                        <svg
-                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        ENVIANDO...
-                      </div>
-                    ) : (
-                      "ENVIAR MENSAJE"
-                    )}
+                    ENVIAR MENSAJE
                   </motion.button>
                 </motion.div>
 
-                {/* Mensajes de estado */}
-                {submitStatus === "success" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-green-500/20 border border-green-500/30 rounded-xl p-4 text-center"
-                  >
-                    <div className="flex items-center justify-center mb-2">
-                      <svg
-                        className="w-6 h-6 text-green-400 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-green-400 font-medium">
-                      ¡Mensaje enviado correctamente! Te responderemos pronto.
-                    </p>
-                  </motion.div>
-                )}
-
-                {submitStatus === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 text-center"
-                  >
-                    <div className="flex items-center justify-center mb-2">
-                      <svg
-                        className="w-6 h-6 text-red-400 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-red-400 font-medium">
-                      Error al enviar el mensaje. Por favor, inténtalo de nuevo.
-                    </p>
-                  </motion.div>
-                )}
               </form>
             </div>
           </motion.div>
