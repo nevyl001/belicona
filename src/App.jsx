@@ -10,6 +10,7 @@ import useAnimations from "./hooks/useAnimations";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PopupSocio from "./components/PopupSocio";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import SobreNosotros from "./pages/SobreNosotros";
 import Noticias from "./pages/Noticias";
@@ -153,6 +154,8 @@ function AppContent() {
       <Footer />
       {/* Popup de Bienvenida */}
       <PopupSocio />
+      {/* Botón Scroll to Top */}
+      <ScrollToTop />
     </div>
   );
 }

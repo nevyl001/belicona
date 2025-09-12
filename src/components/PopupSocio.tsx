@@ -21,25 +21,9 @@ const PopupSocio = () => {
     }
   }, [location.pathname]);
 
-  const handleClose = () => {
-    setIsVisible(false);
-  };
-
   const handleMinorAge = () => {
     setIsVisible(false);
     navigate("/menor-edad");
-  };
-
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleClose();
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      handleClose();
-    }
   };
 
   return (
@@ -51,8 +35,6 @@ const PopupSocio = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          onClick={handleOverlayClick}
-          onKeyDown={handleKeyDown}
         >
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
@@ -72,21 +54,6 @@ const PopupSocio = () => {
                 "0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1)",
             }}
           >
-            {/* Close Button */}
-            <motion.button
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-black rounded-full"
-              onClick={handleClose}
-              whileHover={{
-                scale: 1.1,
-                rotate: 90,
-                transition: { type: "spring", stiffness: 300, damping: 15 },
-              }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Cerrar popup"
-            >
-              <span className="text-xl font-bold">✕</span>
-            </motion.button>
-
             {/* Content */}
             <div className="text-center">
               {/* Socio Image - ENORME */}
@@ -130,7 +97,7 @@ const PopupSocio = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  onClick={handleClose}
+                  onClick={() => setIsVisible(false)}
                 >
                   SÍ, SOY MAYOR DE EDAD
                 </motion.button>
