@@ -31,5 +31,8 @@ export const LazyEventoDetalle = createLazyComponent(() =>
 export const LazyProductCardMobile = createLazyComponent(() =>
   import("./ProductCardMobile")
 );
+export const LazyProductCardDesktop = createLazyComponent(() =>
+  import("./ProductCardDesktop")
+);
 
 export default createLazyComponent;
