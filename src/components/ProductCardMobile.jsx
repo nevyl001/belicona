@@ -20,7 +20,7 @@ const ProductCardMobile = ({ product, index }) => {
       whileHover={{ y: -5, scale: 1.01 }}
     >
       {/* Imagen del producto - Solo móvil */}
-      <div className="relative h-[400px] overflow-hidden rounded-t-2xl">
+      <div className="relative h-[500px] overflow-hidden rounded-t-2xl">
         <img
           src={product.image}
           alt={product.name}

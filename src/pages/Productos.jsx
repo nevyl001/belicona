@@ -111,7 +111,7 @@ const Productos = () => {
                   whileHover={{ y: -5, scale: 1.01 }}
                 >
                   {/* Imagen del producto */}
-                  <div className="relative lg:w-1/2 h-80 lg:h-auto overflow-hidden">
+                  <div className="relative lg:w-1/2 h-96 lg:h-[600px] overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}

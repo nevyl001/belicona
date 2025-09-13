@@ -195,12 +195,12 @@ const Home = () => {
             </div>
           </RevealCard>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center min-h-[700px] sm:min-h-[800px] md:min-h-[900px]">
             {/* Contenido de texto */}
             <motion.div
               className="space-y-8 flex flex-col justify-center h-full"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
@@ -278,8 +278,8 @@ const Home = () => {
             {/* Imagen del producto */}
             <motion.div
               className="relative flex items-center justify-center h-full"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
@@ -287,7 +287,7 @@ const Home = () => {
                 <motion.img
                   src={p1}
                   alt="Belicona Pepino-Limón"
-                  className="w-full h-auto max-h-[650px] object-contain"
+                  className="w-full h-auto max-h-[900px] object-contain"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />
