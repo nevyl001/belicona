@@ -23,7 +23,7 @@ const ProductCardDesktop = memo(({ product, index }) => {
       viewport={{ once: true, margin: "-100px" }}
       whileHover={{ y: -5, scale: 1.01 }}
     >
-      {/* Imagen del producto con lazy loading */}
+      {/* Imagen del producto optimizada */}
       <div className="relative lg:w-1/2 h-80 lg:h-auto overflow-hidden">
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gray-800 animate-pulse flex items-center justify-center">
@@ -33,12 +33,13 @@ const ProductCardDesktop = memo(({ product, index }) => {
         <img
           src={product.image}
           alt={product.name}
-          className={`w-full h-full object-contain transition-all duration-500 group-hover:scale-105 ${
+          className={`w-full h-full object-contain transition-all duration-300 group-hover:scale-105 ${
             imageLoaded ? "opacity-100" : "opacity-0"
           }`}
           onLoad={() => setImageLoaded(true)}
-          loading="lazy"
+          loading="eager"
           decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent"></div>
 

@@ -23,14 +23,38 @@ export default defineConfig({
         drop_console: true, // Eliminar console.log en producción
         drop_debugger: true,
         pure_funcs: ["console.log", "console.info", "console.debug"],
+        // Optimizaciones básicas
+        dead_code: true,
+        unused: true,
+        loops: true,
+        comparisons: true,
+        evaluate: true,
+        properties: true,
+        sequences: true,
+      },
+      mangle: {
+        toplevel: true,
       },
     },
     // Análisis de bundle
     reportCompressedSize: true,
     chunkSizeWarningLimit: 1000,
+    // Optimizaciones adicionales
+    target: "es2015",
+    cssCodeSplit: true,
+    sourcemap: false,
   },
   // Optimizaciones de desarrollo
   esbuild: {
     drop: ["console", "debugger"],
+    treeShaking: true,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
+  },
+  // Optimizaciones de dependencias
+  optimizeDeps: {
+    include: ["react", "react-dom", "react-router-dom"],
+    exclude: ["framer-motion"],
   },
 });

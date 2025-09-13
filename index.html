@@ -2,6 +2,19 @@
 <html lang="es">
 
 <head>
+  <!-- Preload de fuentes críticas para LCP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bubbly:wght@400;700&display=swap" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bubbly:wght@400;700&display=swap">
+  </noscript>
+
+  <!-- Preload de recursos críticos -->
+  <link rel="preload" href="/optimized/LOGO BELICONA-small.webp" as="image" type="image/webp">
+  <link rel="preload" href="/optimized/becabe-small.webp" as="image" type="image/webp">
+  <link rel="preload" href="/optimized/p2.webp" as="image" type="image/webp">
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/becabe.png" />
   <link rel="apple-touch-icon" href="/becabe.png" />
@@ -356,8 +369,10 @@
       }
     }
   </style>
-    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
+  <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/src/index.css">
+  </noscript>
 
   <!-- Preload critical resources -->
   <link rel="preload" href="/optimized/LOGO BELICONA-small.webp" as="image" type="image/webp">
@@ -374,6 +389,99 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Creepster:wght@400&family=Fredoka+One:wght@400&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Bubblegum+Sans:wght@400&family=Fredoka:wght@300;400;500;600;700&display=swap"
       rel="stylesheet">
   </noscript>
+  <style id="lcp-critical">
+    /* CSS Crítico Optimizado para LCP */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #fff;
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    /* Optimizaciones LCP específicas */
+    .font-bubbly {
+      font-family: 'Bubbly', cursive, system-ui, sans-serif;
+      font-display: swap;
+      /* Optimización de fuentes */
+    }
+
+    .text-4xl {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+
+    .text-5xl {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .text-6xl {
+      font-size: 3.75rem;
+      line-height: 1;
+    }
+
+    .text-7xl {
+      font-size: 4.5rem;
+      line-height: 1;
+    }
+
+    .text-8xl {
+      font-size: 6rem;
+      line-height: 1;
+    }
+
+    /* Hardware acceleration para LCP */
+    [data-lcp-element="true"] {
+      will-change: transform, opacity;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Optimizaciones de renderizado */
+    .glow-on-hover {
+      transition: text-shadow 0.3s ease;
+    }
+
+    /* Responsive optimizations */
+    @media (max-width: 640px) {
+      .text-4xl {
+        font-size: 2rem;
+        line-height: 2.25rem;
+      }
+
+      .text-5xl {
+        font-size: 2.5rem;
+        line-height: 1;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .text-6xl {
+        font-size: 3.5rem;
+        line-height: 1;
+      }
+
+      .text-7xl {
+        font-size: 4rem;
+        line-height: 1;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .text-8xl {
+        font-size: 5.5rem;
+        line-height: 1;
+      }
+    }
+  </style>
 </head>
 
 <body>
