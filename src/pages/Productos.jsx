@@ -97,7 +97,7 @@ const Productos = () => {
 
               {/* Versión desktop */}
               <div className="hidden xl:block">
-                o <ProductCardDesktop product={product} index={index} />
+                <ProductCardDesktop product={product} index={index} />
               </div>
             </div>
           ))}
