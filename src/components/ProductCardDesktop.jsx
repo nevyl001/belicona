@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
 
-// Función para generar enlace de WhatsApp - Actualizado
+// Función para generar enlace de WhatsApp - Vercel Fix
 const generateWhatsAppLink = (productName) => {
   const message = `¡Hola! Me interesa comprar productos Belicona. Específicamente me interesa: ${productName}`;
   const phoneNumber = "525611926751";
