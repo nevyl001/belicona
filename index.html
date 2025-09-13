@@ -35,11 +35,343 @@
   <meta name="robots" content="index, follow" />
   <meta name="language" content="Spanish" />
   <meta name="revisit-after" content="7 days" />
+
+  <!-- CSS Crítico - Carga inmediata -->
+  <style>
+    /* CSS crítico inline para mejorar LCP */
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #000;
+      overflow-x: hidden
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .logo {
+      max-width: 200px;
+      height: auto;
+      display: block
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ed017f 0%, #ffb71b 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(237, 1, 127, 0.3)
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0;
+      background: linear-gradient(135deg, #ed017f 0%, #ffb71b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .footer {
+      background: #000;
+      color: white;
+      padding: 2rem 0
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #000;
+      color: white
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 40;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: linear-gradient(135deg, #ed017f 0%, #ffb71b 100%);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(237, 1, 127, 0.3)
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3)
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #ed017f 0%, #ffb71b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #ed017f;
+      box-shadow: 0 0 0 3px rgba(237, 1, 127, 0.1)
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #ed017f 0%, #ffb71b 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(237, 1, 127, 0.3)
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg)
+      }
+
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-weight: 500;
+      text-align: center;
+      animation: slideIn 0.3s ease
+    }
+
+    .message.success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e
+    }
+
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: hidden;
+      position: relative
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10
+    }
+
+    @media (max-width:768px) {
+      .hero-title {
+        font-size: 2.5rem
+      }
+
+      .container {
+        padding: 0 0.5rem
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem
+      }
+
+      .card {
+        padding: 1rem
+      }
+    }
+
+    @media print {
+
+      .navbar,
+      .scroll-to-top,
+      .modal {
+        display: none !important
+      }
+
+      body {
+        background: white !important;
+        color: black !important
+      }
+
+      .hero-section {
+        min-height: auto;
+        background: white !important
+      }
+    }
+  </style>
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/optimized/LOGO BELICONA-small.webp" as="image" type="image/webp">
+  <link rel="preload" href="/optimized/becabe-small.webp" as="image" type="image/webp">
+
+  <!-- Optimized font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Creepster:wght@400&family=Fredoka+One:wght@400&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Bubblegum+Sans:wght@400&family=Fredoka:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Creepster:wght@400&family=Fredoka+One:wght@400&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Bubblegum+Sans:wght@400&family=Fredoka:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+  </noscript>
 </head>
 
 <body>
