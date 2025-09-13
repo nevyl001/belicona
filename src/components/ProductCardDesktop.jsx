@@ -10,6 +10,7 @@ const generateWhatsAppLink = (productName) => {
 };
 
 const ProductCardDesktop = memo(({ product, index }) => {
+  // FORZAR DEPLOYMENT VERCEL - TIMESTAMP: ${new Date().toISOString()}
   return (
     <motion.div
       className={`bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 group ${

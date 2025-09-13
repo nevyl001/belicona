@@ -5,6 +5,7 @@ import ProductCardMobile from "../components/ProductCardMobile";
 import ProductCardDesktop from "../components/ProductCardDesktop";
 
 const Productos = () => {
+  // FORZAR DEPLOYMENT VERCEL - TIMESTAMP: ${new Date().toISOString()}
   // Memoizar el array de productos para evitar re-renders innecesarios
   const products = useMemo(
     () => [
@@ -96,7 +97,7 @@ const Productos = () => {
 
               {/* Versión desktop */}
               <div className="hidden xl:block">
-                <ProductCardDesktop product={product} index={index} />
+                o <ProductCardDesktop product={product} index={index} />
               </div>
             </div>
           ))}
