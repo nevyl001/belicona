@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import becabeLogo from "../assets/becabe.png";
+// Usar imagen optimizada
+const becabeLogo = "/optimized/becabe-small.webp";
 
 const Footer = () => {
   const navigationLinks = [

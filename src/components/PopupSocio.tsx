@@ -57,14 +57,44 @@ const PopupSocio = () => {
             {/* Content */}
             <div className="text-center">
               {/* Socio Image - ENORME */}
-              <motion.img
-                src="/popup.jpeg"
-                alt="Nuestro socio famoso"
-                className="w-64 h-64 md:w-80 md:h-80 mx-auto mb-6 rounded-2xl shadow-2xl object-cover"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              />
+              <picture className="w-64 h-64 md:w-80 md:h-80 mx-auto mb-6 rounded-2xl shadow-2xl overflow-hidden">
+                <source
+                  media="(max-width: 640px)"
+                  srcSet="/optimized/popup-small.avif"
+                  type="image/avif"
+                />
+                <source
+                  media="(max-width: 1024px)"
+                  srcSet="/optimized/popup-medium.avif"
+                  type="image/avif"
+                />
+                <source
+                  srcSet="/optimized/popup-large.avif"
+                  type="image/avif"
+                />
+                <source
+                  media="(max-width: 640px)"
+                  srcSet="/optimized/popup-small.webp"
+                  type="image/webp"
+                />
+                <source
+                  media="(max-width: 1024px)"
+                  srcSet="/optimized/popup-medium.webp"
+                  type="image/webp"
+                />
+                <source
+                  srcSet="/optimized/popup-large.webp"
+                  type="image/webp"
+                />
+                <motion.img
+                  src="/optimized/popup-small.webp"
+                  alt="Nuestro socio famoso"
+                  className="w-full h-full object-cover"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                />
+              </picture>
 
               {/* Title */}
               <motion.h2

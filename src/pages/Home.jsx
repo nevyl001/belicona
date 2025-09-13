@@ -8,7 +8,7 @@ import MagneticButton from "../components/MagneticButton";
 import RevealCard from "../components/RevealCard";
 import video13 from "../assets/13.mp4";
 // Usar imagen optimizada
-const p1 = "/optimized/p1.webp";
+const p1 = "/optimized/p1-specific.webp";
 
 const Home = () => {
   const {

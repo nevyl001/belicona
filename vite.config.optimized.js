@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -9,28 +9,28 @@ export default defineConfig({
       output: {
         manualChunks: {
           // Separar vendor chunks para mejor caching
-          vendor: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          animations: ["framer-motion"],
-          ui: ["lucide-react"],
-        },
-      },
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          animations: ['framer-motion'],
+          ui: ['lucide-react']
+        }
+      }
     },
     // Optimizaciones de build
-    minify: "terser",
+    minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true, // Eliminar console.log en producción
         drop_debugger: true,
-        pure_funcs: ["console.log", "console.info", "console.debug"],
-      },
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      }
     },
     // Análisis de bundle
     reportCompressedSize: true,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1000
   },
   // Optimizaciones de desarrollo
   esbuild: {
-    drop: ["console", "debugger"],
-  },
-});
+    drop: ['console', 'debugger']
+  }
+})

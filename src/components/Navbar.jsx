@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import useAnimations from "../hooks/useAnimations";
-import logoBelicona from "../assets/LOGO BELICONA.png";
+// Usar imagen optimizada
+const logoBelicona = "/optimized/LOGO BELICONA-small.webp";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
