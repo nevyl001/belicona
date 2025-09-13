@@ -56,7 +56,7 @@ const SobreNosotros = () => {
             >
               <div className="relative z-10">
                 <img
-                  src="/sabores.jpg"
+                  src="/optimized/sabores.webp"
                   alt="Sabores Belicona"
                   className="w-full max-h-[600px] object-contain rounded-3xl shadow-2xl"
                 />

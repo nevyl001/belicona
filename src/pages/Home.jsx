@@ -7,7 +7,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import MagneticButton from "../components/MagneticButton";
 import RevealCard from "../components/RevealCard";
 import video13 from "../assets/13.mp4";
-import p1 from "../assets/p1.png";
+// Usar imagen optimizada
+const p1 = "/optimized/p1.webp";
 
 const Home = () => {
   const {

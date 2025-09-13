@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import RevealCard from "../components/RevealCard";
-import ProductCardMobile from "../components/ProductCardMobile";
+import { LazyProductCardMobile } from "../components/LazyComponent";
 
 // Función para generar enlace de WhatsApp
 const generateWhatsAppLink = (productName) => {
@@ -19,7 +19,7 @@ const Productos = () => {
       description:
         "Destilado de agave azul con pulpa natural de pepino y limón. Refrescante y único sabor que combina la frescura del pepino con la acidez del limón.",
       price: 35,
-      image: "/p2.jpg",
+      image: "/optimized/p2.webp",
       category: "Destilados",
       features: ["Eco-friendly", "Alta calidad", "Sabor natural"],
       inStock: true,
@@ -31,7 +31,7 @@ const Productos = () => {
       description:
         "Mezcla perfecta de agave azul con la dulzura tropical del maracuyá. Una experiencia exótica que transporta tus sentidos a los trópicos.",
       price: 35,
-      image: "/m1.jpg",
+      image: "/optimized/m1.webp",
       category: "Destilados",
       features: ["Sabor tropical", "Premium", "Artesanal"],
       inStock: true,
@@ -43,7 +43,7 @@ const Productos = () => {
       description:
         "Inspirado en la tradición mexicana, con notas cítricas y especiadas. Un homenaje a las raíces culturales de México en cada sorbo.",
       price: 35,
-      image: "/c1.jpg",
+      image: "/optimized/c1.webp",
       category: "Destilados",
       features: ["Tradicional", "Especiado", "Único"],
       inStock: true,
@@ -94,7 +94,7 @@ const Productos = () => {
             <div key={product.id}>
               {/* Versión móvil - Solo se muestra en pantallas pequeñas */}
               <div className="block xl:hidden">
-                <ProductCardMobile product={product} index={index} />
+                <LazyProductCardMobile product={product} index={index} />
               </div>
 
               {/* Versión escritorio - Solo se muestra en pantallas grandes */}

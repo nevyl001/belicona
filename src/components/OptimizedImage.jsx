@@ -17,7 +17,11 @@ const OptimizedImage = ({
 
     // Si es una imagen optimizada, usar la ruta optimizada
     if (originalSrc.includes("/optimized/")) {
-      return originalSrc;
+      return {
+        webp: originalSrc,
+        avif: originalSrc.replace(".webp", ".avif"),
+        fallback: originalSrc.replace(".webp", `.${ext}`),
+      };
     }
 
     // Generar rutas para imágenes optimizadas

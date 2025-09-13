@@ -10,7 +10,7 @@ const Noticias = () => {
     title: "¡Nuevo video de promoción con Abelito!",
     excerpt:
       "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona. ¡Esperen pronto este contenido increíble!",
-    image: "/videobeli.JPG",
+    image: "/optimized/videobeli.webp",
     author: "Equipo Belicona",
     date: "2024-01-20",
     category: "Promoción",

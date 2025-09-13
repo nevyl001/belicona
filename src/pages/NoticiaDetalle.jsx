@@ -40,7 +40,11 @@ const NoticiaDetalle = () => {
       <p>¡Esperen pronto este contenido que promete ser una verdadera obra maestra del entretenimiento y la promoción!</p>
     `,
     video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video de ejemplo
-    gallery: ["/videobeli.JPG", "/im1.JPG", "/im2.JPG"],
+    gallery: [
+      "/optimized/videobeli.webp",
+      "/optimized/im1.webp",
+      "/optimized/im2.webp",
+    ],
   };
 
   return (
