@@ -74,13 +74,13 @@ const Footer = () => {
 
       <div className="container-custom relative z-10">
         <motion.div
-          className="py-16"
+          className="py-12"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Información de la marca */}
             <div className="lg:col-span-2">
               <motion.div
@@ -101,7 +101,7 @@ const Footer = () => {
               </motion.div>
 
               <motion.p
-                className="text-gray-300 mb-8 max-w-lg leading-relaxed text-lg"
+                className="text-gray-300 mb-8 max-w-lg leading-relaxed text-base md:text-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -218,7 +218,7 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               <motion.h3
-                className="text-2xl font-compressed font-bold mb-6 glow-on-hover"
+                className="text-xl font-compressed font-bold mb-4 glow-on-hover"
                 style={{
                   textShadow:
                     "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
@@ -238,7 +238,7 @@ const Footer = () => {
                     <Link
                       to={link.path}
                       aria-label={`Ir a ${link.label}`}
-                      className="group text-gray-300 hover:text-primary-500 transition-all duration-300 font-medium text-lg relative"
+                      className="group text-gray-300 hover:text-primary-500 transition-all duration-300 font-medium text-base relative"
                     >
                       <span className="relative z-10">
                         {link.label.toUpperCase()}
@@ -258,7 +258,7 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               <motion.h3
-                className="text-2xl font-compressed font-bold mb-6 glow-on-hover"
+                className="text-xl font-compressed font-bold mb-4 glow-on-hover"
                 style={{
                   textShadow:
                     "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
@@ -292,7 +292,7 @@ const Footer = () => {
                       />
                     </svg>
                   </motion.div>
-                  <span className="text-gray-300 text-lg group-hover:text-primary-500 transition-colors duration-300">
+                  <span className="text-gray-300 text-base group-hover:text-primary-500 transition-colors duration-300">
                     info@belicona.com
                   </span>
                 </motion.div>
@@ -322,7 +322,7 @@ const Footer = () => {
                       />
                     </svg>
                   </motion.div>
-                  <span className="text-gray-300 text-lg group-hover:text-primary-500 transition-colors duration-300">
+                  <span className="text-gray-300 text-base group-hover:text-primary-500 transition-colors duration-300">
                     +1 (555) 123-4567
                   </span>
                 </motion.div>

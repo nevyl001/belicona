@@ -17,7 +17,7 @@ const SobreNosotros = () => {
           <RevealCard direction="up" delay={0.2}>
             <div className="text-center">
               <motion.h1
-                className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold glow-on-hover"
+                className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -29,7 +29,7 @@ const SobreNosotros = () => {
                 SOBRE NOSOTROS
               </motion.h1>
               <motion.p
-                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+                className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
@@ -77,7 +77,7 @@ const SobreNosotros = () => {
             >
               <div>
                 <motion.h2
-                  className="text-6xl md:text-8xl font-compressed text-white mb-8 font-bold glow-on-hover"
+                  className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
@@ -90,7 +90,7 @@ const SobreNosotros = () => {
                   NUESTRA HISTORIA
                 </motion.h2>
                 <motion.p
-                  className="text-xl md:text-2xl text-gray-300 mb-6 leading-relaxed"
+                  className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
@@ -106,7 +106,7 @@ const SobreNosotros = () => {
                   buscando un sabor equilibrado y auténtico.
                 </motion.p>
                 <motion.p
-                  className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed"
+                  className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
@@ -149,7 +149,7 @@ const SobreNosotros = () => {
             viewport={{ once: true }}
           >
             <h2
-              className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
               style={{
                 textShadow:
                   "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
@@ -157,7 +157,7 @@ const SobreNosotros = () => {
             >
               NUESTROS VALORES
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Los principios que guían cada paso de nuestro proceso
             </p>
           </motion.div>
@@ -234,7 +234,7 @@ const SobreNosotros = () => {
             viewport={{ once: true }}
           >
             <h2
-              className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
               style={{
                 textShadow:
                   "0 0 20px rgba(237, 1, 127, 0.5), 0 0 40px rgba(255, 183, 27, 0.3)",
@@ -242,7 +242,7 @@ const SobreNosotros = () => {
             >
               MISIÓN & VISIÓN
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Lo que nos impulsa cada día hacia el futuro
             </p>
           </motion.div>
@@ -268,7 +268,7 @@ const SobreNosotros = () => {
                 >
                   🎯
                 </motion.div>
-                <h3 className="text-3xl font-compressed text-white mb-6 font-bold text-center">
+                <h3 className="text-2xl font-compressed text-white mb-6 font-bold text-center">
                   NUESTRA MISIÓN
                 </h3>
                 <p className="text-gray-300 leading-relaxed text-lg">
@@ -300,7 +300,7 @@ const SobreNosotros = () => {
                 >
                   👁️
                 </motion.div>
-                <h3 className="text-3xl font-compressed text-white mb-6 font-bold text-center">
+                <h3 className="text-2xl font-compressed text-white mb-6 font-bold text-center">
                   NUESTRA VISIÓN
                 </h3>
                 <p className="text-gray-300 leading-relaxed text-lg">
@@ -326,7 +326,7 @@ const SobreNosotros = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-8 font-bold glow-on-hover"
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -339,7 +339,7 @@ const SobreNosotros = () => {
               ¿LISTO PARA LA EXPERIENCIA?
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-300 mb-10 leading-relaxed max-w-3xl mx-auto"
+              className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}

@@ -209,7 +209,9 @@ const EventoDetalle = () => {
               <h3 className="text-lg font-compressed text-white mb-2 font-bold">
                 Capacidad
               </h3>
-              <p className="text-gray-300 font-medium">{evento.capacity}</p>
+              <p className="text-gray-300 font-medium text-base md:text-lg">
+                {evento.capacity}
+              </p>
             </div>
           </motion.div>
 
@@ -321,7 +323,9 @@ const EventoDetalle = () => {
                 <h4 className="text-lg font-medium text-white mb-2">
                   Organizador
                 </h4>
-                <p className="text-gray-300">{evento.organizer}</p>
+                <p className="text-gray-300 text-base md:text-lg">
+                  {evento.organizer}
+                </p>
               </div>
               <div>
                 <h4 className="text-lg font-medium text-white mb-2">Email</h4>
@@ -331,13 +335,17 @@ const EventoDetalle = () => {
                 <h4 className="text-lg font-medium text-white mb-2">
                   Teléfono
                 </h4>
-                <p className="text-gray-300">{evento.phone}</p>
+                <p className="text-gray-300 text-base md:text-lg">
+                  {evento.phone}
+                </p>
               </div>
               <div>
                 <h4 className="text-lg font-medium text-white mb-2">
                   Ubicación
                 </h4>
-                <p className="text-gray-300">{evento.location}</p>
+                <p className="text-gray-300 text-base md:text-lg">
+                  {evento.location}
+                </p>
               </div>
             </div>
           </motion.div>

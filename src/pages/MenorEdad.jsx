@@ -59,7 +59,7 @@ const MenorEdad = () => {
 
           {/* Título principal */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-compressed text-white mb-6 font-bold bg-gradient-to-r from-white via-primary-200 to-orange-200 bg-clip-text text-transparent"
+            className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold bg-gradient-to-r from-white via-primary-200 to-orange-200 bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -69,7 +69,7 @@ const MenorEdad = () => {
 
           {/* Subtítulo cómico */}
           <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bubbly text-primary-400 mb-8 font-bold"
+            className="text-2xl font-compressed text-primary-400 mb-6 font-bold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}

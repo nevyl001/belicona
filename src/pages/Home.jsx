@@ -108,7 +108,7 @@ const Home = () => {
                 MÁS QUE UNA BEBIDA, ES UN ESTILO DE VIDA
               </motion.p>
               <motion.p
-                className="text-lg text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+                className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6, ease: "easeInOut" }}
@@ -164,7 +164,7 @@ const Home = () => {
           <RevealCard direction="up" delay={0.2}>
             <div className="text-center mb-8 sm:mb-12 md:mb-16">
               <motion.h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white mb-8 font-bold glow-on-hover"
+                className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
@@ -221,7 +221,7 @@ const Home = () => {
                 </motion.div>
 
                 <motion.h2
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bubbly text-white font-bold leading-tight"
+                  className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white font-bold leading-tight"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
@@ -365,7 +365,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-compressed text-white mb-8 font-bold glow-on-hover"
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
@@ -378,7 +378,7 @@ const Home = () => {
               ¿POR QUÉ ELEGIRNOS?
             </motion.h2>
             <motion.p
-              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-light leading-relaxed"
+              className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto font-light leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
@@ -511,7 +511,7 @@ const Home = () => {
             >
               ¿LISTO PARA SER PARTE DE LA REVOLUCIÓN?
             </h2>
-            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               Únete a la revolución del sabor auténtico y forma parte de una
               comunidad que celebra la vida
             </p>

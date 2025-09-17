@@ -43,7 +43,7 @@ const Eventos = () => {
                 EVENTOS
               </motion.h1>
               <motion.p
-                className="text-xl text-gray-300 max-w-3xl mx-auto"
+                className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
@@ -103,7 +103,7 @@ const Eventos = () => {
             <div className="p-8 md:p-12 relative z-10">
               {/* Título */}
               <motion.h2
-                className="text-3xl md:text-4xl lg:text-5xl font-compressed text-white mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
+                className="text-2xl font-compressed text-white mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
@@ -235,7 +235,7 @@ const Eventos = () => {
             <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
               MÁS EVENTOS PRÓXIMAMENTE
             </h3>
-            <p className="text-gray-300 text-lg mb-6">
+            <p className="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
               Estamos preparando más eventos exclusivos, degustaciones
               especiales y experiencias únicas para nuestros clientes.
             </p>

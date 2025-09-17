@@ -58,7 +58,7 @@ const ProductCardDesktop = memo(({ product, index }) => {
       <div className="lg:w-1/2 p-12 flex flex-col justify-center">
         {/* Título del producto */}
         <motion.h3
-          className="text-4xl font-compressed text-white mb-4 font-bold glow-on-hover"
+          className="text-2xl font-compressed text-white mb-4 font-bold glow-on-hover"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -73,7 +73,7 @@ const ProductCardDesktop = memo(({ product, index }) => {
 
         {/* Descripción */}
         <motion.p
-          className="text-gray-300 mb-6 leading-relaxed text-lg"
+          className="text-gray-300 mb-6 leading-relaxed text-base md:text-lg"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}

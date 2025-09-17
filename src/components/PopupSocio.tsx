@@ -109,7 +109,7 @@ const PopupSocio = () => {
 
               {/* Subtitle */}
               <motion.p
-                className="text-gray-300 mb-6 leading-relaxed"
+                className="text-gray-300 mb-6 leading-relaxed text-base md:text-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}

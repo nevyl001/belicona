@@ -59,7 +59,7 @@ const Contacto = () => {
                 CONTACTO
               </motion.h1>
               <motion.p
-                className="text-xl text-gray-300 max-w-3xl mx-auto"
+                className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
@@ -294,7 +294,7 @@ const Contacto = () => {
               <h2 className="text-2xl font-compressed text-white mb-6 font-bold">
                 INFORMACIÓN DE CONTACTO
               </h2>
-              <p className="text-gray-300 mb-8">
+              <p className="text-gray-300 mb-8 text-base md:text-lg leading-relaxed">
                 Puedes contactarnos a través de cualquiera de estos medios.
                 Nuestro equipo estará encantado de ayudarte.
               </p>
@@ -426,7 +426,7 @@ const Contacto = () => {
                     <h3 className="text-lg font-compressed text-white mb-1 font-bold">
                       DIRECCIÓN
                     </h3>
-                    <p className="text-gray-300">
+                    <p className="text-gray-300 text-base md:text-lg leading-relaxed">
                       Av. Insurgentes Sur 1234, Col. Del Valle
                       <br />
                       Ciudad de México, CDMX 03100
@@ -468,7 +468,7 @@ const Contacto = () => {
                     <h3 className="text-lg font-compressed text-white mb-1 font-bold">
                       HORARIOS
                     </h3>
-                    <p className="text-gray-300">
+                    <p className="text-gray-300 text-base md:text-lg leading-relaxed">
                       Lunes - Viernes: 9:00 - 18:00
                       <br />
                       Sábados: 10:00 - 16:00
