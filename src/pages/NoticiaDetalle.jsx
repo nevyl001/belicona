@@ -39,7 +39,7 @@ const NoticiaDetalle = () => {
       
       <p>¡Esperen pronto este contenido que promete ser una verdadera obra maestra del entretenimiento y la promoción!</p>
     `,
-    video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video de ejemplo
+    video: "https://www.youtube.com/embed/Y_oJFh0SWkA", // Video de Belicona
     gallery: [
       "/optimized/videobeli.webp",
       "/optimized/im1.webp",
