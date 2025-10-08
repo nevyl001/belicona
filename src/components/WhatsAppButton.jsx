@@ -36,7 +36,7 @@ const WhatsAppButton = () => {
             damping: 20,
             duration: 0.6
           }}
-          className="fixed bottom-6 right-6 z-50"
+          className="fixed bottom-24 right-6 z-50"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
