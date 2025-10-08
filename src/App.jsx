@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PopupSocio from "./components/PopupSocio";
 import ScrollToTop from "./components/ScrollToTop";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 import SobreNosotros from "./pages/SobreNosotros";
 import Noticias from "./pages/Noticias";
@@ -158,6 +159,8 @@ function AppContent() {
       <PopupSocio />
       {/* Botón Scroll to Top */}
       <ScrollToTop />
+      {/* Botón flotante de WhatsApp */}
+      <WhatsAppButton />
     </div>
   );
 }
