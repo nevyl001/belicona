@@ -10,13 +10,39 @@ const WhatsAppButton = () => {
   const message = "Quiero comprar productos Belicona por favor";
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^\d]/g, "")}?text=${encodeURIComponent(message)}`;
 
-  // Mostrar el botón después de un pequeño delay
+  // Verificar si el usuario ha verificado su edad
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 2000); // 2 segundos de delay
+    const checkAgeVerification = () => {
+      const ageVerified = localStorage.getItem('belicona_age_verified');
+      if (ageVerified === 'true') {
+        // Mostrar el botón después de un pequeño delay si ya verificó su edad
+        const timer = setTimeout(() => {
+          setIsVisible(true);
+        }, 2000); // 2 segundos de delay
+        return () => clearTimeout(timer);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    // Verificar inmediatamente
+    checkAgeVerification();
+
+    // Escuchar evento personalizado de verificación de edad
+    const handleAgeVerified = () => {
+      checkAgeVerification();
+    };
+
+    // Escuchar cambios en localStorage (para cambios entre pestañas)
+    const handleStorageChange = () => {
+      checkAgeVerification();
+    };
+
+    window.addEventListener('belicona_age_verified', handleAgeVerified);
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('belicona_age_verified', handleAgeVerified);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleClick = () => {

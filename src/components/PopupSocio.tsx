@@ -23,7 +23,19 @@ const PopupSocio = () => {
 
   const handleMinorAge = () => {
     setIsVisible(false);
+    // Marcar que el usuario ha interactuado con el popup
+    localStorage.setItem('belicona_age_verified', 'true');
+    // Disparar evento personalizado para notificar a otros componentes
+    window.dispatchEvent(new CustomEvent('belicona_age_verified'));
     navigate("/menor-edad");
+  };
+
+  const handleMajorAge = () => {
+    setIsVisible(false);
+    // Marcar que el usuario ha interactuado con el popup
+    localStorage.setItem('belicona_age_verified', 'true');
+    // Disparar evento personalizado para notificar a otros componentes
+    window.dispatchEvent(new CustomEvent('belicona_age_verified'));
   };
 
   return (
@@ -127,7 +139,7 @@ const PopupSocio = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  onClick={() => setIsVisible(false)}
+                  onClick={handleMajorAge}
                 >
                   SÍ, SOY MAYOR DE EDAD
                 </motion.button>
