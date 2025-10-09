@@ -13,18 +13,23 @@ const PopupSocio = () => {
       // Mostrar popup después de 0.5s
       const timer = setTimeout(() => {
         setIsVisible(true);
+        // Disparar evento cuando el popup se muestra
+        window.dispatchEvent(new CustomEvent('belicona_popup_show'));
       }, 500);
       return () => clearTimeout(timer);
     } else {
       // Ocultar popup si no está en la página de inicio
       setIsVisible(false);
+      // Disparar evento cuando el popup se oculta
+      window.dispatchEvent(new CustomEvent('belicona_popup_hide'));
     }
   }, [location.pathname]);
 
   const handleMinorAge = () => {
     setIsVisible(false);
-    // Marcar que el usuario ha interactuado con el popup
-    localStorage.setItem('belicona_age_verified', 'true');
+    // Disparar evento cuando el popup se oculta
+    window.dispatchEvent(new CustomEvent('belicona_popup_hide'));
+    // NO guardar en localStorage, solo disparar evento para esta sesión
     // Disparar evento personalizado para notificar a otros componentes
     window.dispatchEvent(new CustomEvent('belicona_age_verified'));
     navigate("/menor-edad");
@@ -32,8 +37,9 @@ const PopupSocio = () => {
 
   const handleMajorAge = () => {
     setIsVisible(false);
-    // Marcar que el usuario ha interactuado con el popup
-    localStorage.setItem('belicona_age_verified', 'true');
+    // Disparar evento cuando el popup se oculta
+    window.dispatchEvent(new CustomEvent('belicona_popup_hide'));
+    // NO guardar en localStorage, solo disparar evento para esta sesión
     // Disparar evento personalizado para notificar a otros componentes
     window.dispatchEvent(new CustomEvent('belicona_age_verified'));
   };

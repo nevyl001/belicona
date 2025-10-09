@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 const WhatsAppButton = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   // WhatsApp API URL con número y mensaje predefinido
   const whatsappNumber = "+525611926751";
@@ -12,42 +14,48 @@ const WhatsAppButton = () => {
 
   // Verificar si el usuario ha verificado su edad
   useEffect(() => {
-    const checkAgeVerification = () => {
-      const ageVerified = localStorage.getItem('belicona_age_verified');
-      if (ageVerified === 'true') {
-        // Mostrar el botón después de un pequeño delay si ya verificó su edad
-        const timer = setTimeout(() => {
-          setIsVisible(true);
-        }, 2000); // 2 segundos de delay
-        return () => clearTimeout(timer);
-      }
-    };
+    // NO mostrar el botón automáticamente, solo cuando se verifique la edad
 
-    // Verificar inmediatamente
-    checkAgeVerification();
-
-    // Escuchar evento personalizado de verificación de edad
+    // Escuchar el evento de verificación
     const handleAgeVerified = () => {
-      checkAgeVerification();
+      setShouldRender(true);
+      // Mostrar el botón después de la verificación
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 2000);
+      return () => clearTimeout(timer);
     };
 
-    // Escuchar cambios en localStorage (para cambios entre pestañas)
-    const handleStorageChange = () => {
-      checkAgeVerification();
+    // Escuchar cuando el popup se muestra/oculta
+    const handlePopupShow = () => {
+      setPopupVisible(true);
+      setIsVisible(false); // Ocultar WhatsApp cuando aparece el popup
+    };
+
+    const handlePopupHide = () => {
+      setPopupVisible(false);
+      // NO mostrar WhatsApp automáticamente, solo cuando se verifique la edad
     };
 
     window.addEventListener('belicona_age_verified', handleAgeVerified);
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('belicona_popup_show', handlePopupShow);
+    window.addEventListener('belicona_popup_hide', handlePopupHide);
 
     return () => {
       window.removeEventListener('belicona_age_verified', handleAgeVerified);
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('belicona_popup_show', handlePopupShow);
+      window.removeEventListener('belicona_popup_hide', handlePopupHide);
     };
   }, []);
 
   const handleClick = () => {
     window.open(whatsappUrl, "_blank");
   };
+
+  // No renderizar nada si no ha verificado su edad o si el popup está visible
+  if (!shouldRender || popupVisible) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
