@@ -269,7 +269,7 @@ const Footer = () => {
                     </svg>
                   </motion.div>
                   <span className="text-gray-300 text-base group-hover:text-primary-500 transition-colors duration-300">
-                    info@belicona.com
+                    belicona@uslinemx.com
                   </span>
                 </motion.div>
 
@@ -299,7 +299,7 @@ const Footer = () => {
                     </svg>
                   </motion.div>
                   <span className="text-gray-300 text-base group-hover:text-primary-500 transition-colors duration-300">
-                    +1 (555) 123-4567
+                    +52 561 192 6751
                   </span>
                 </motion.div>
               </div>

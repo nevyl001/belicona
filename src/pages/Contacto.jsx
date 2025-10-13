@@ -335,10 +335,10 @@ const Contacto = () => {
                       EMAIL
                     </h3>
                     <a
-                      href="mailto:info@belicona.com"
+                      href="mailto:belicona@uslinemx.com"
                       className="text-gray-300 hover:text-primary-500 transition-colors duration-300"
                     >
-                      info@belicona.com
+                      belicona@uslinemx.com
                     </a>
                   </div>
                 </div>
@@ -378,10 +378,10 @@ const Contacto = () => {
                       TELÉFONO
                     </h3>
                     <a
-                      href="tel:+525512345678"
+                      href="tel:+525611926751"
                       className="text-gray-300 hover:text-primary-500 transition-colors duration-300"
                     >
-                      +52 55 1234 5678
+                      +52 561 192 6751
                     </a>
                   </div>
                 </div>
