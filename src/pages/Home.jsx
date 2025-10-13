@@ -492,6 +492,81 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Puntos de Venta Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-black via-gray-900 to-black border-t border-primary-500/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            viewport={{ once: true }}
+          >
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.8), 0 0 40px rgba(255, 183, 27, 0.6), 0 0 60px rgba(255, 242, 0, 0.4)",
+              }}
+            >
+              PUNTOS DE VENTA
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Encuentra{" "}
+              <span className="text-primary-500 font-bold">Belicona</span>{" "}
+              cerca de ti. Descubre dónde puedes disfrutar de nuestra bebida
+              auténtica y formar parte de la revolución.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="bg-black/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-primary-500/30 shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="aspect-video w-full rounded-xl overflow-hidden border border-primary-500/20 shadow-xl">
+              <iframe
+                src="https://www.google.com/maps/d/embed?mid=1g0MCQVg2rc5w-owguBiuHDjlUxQ6cos&hl=es&ehbc=2E312F&z=11"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Puntos de Venta Belicona"
+                className="w-full h-full"
+              ></iframe>
+            </div>
+            
+            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <a
+                  href="https://www.google.com/maps/d/u/0/viewer?mid=1g0MCQVg2rc5w-owguBiuHDjlUxQ6cos&ll=19.4866516002936%2C-99.09437386429877&z=11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary-500 hover:bg-red-500 text-white font-compressed font-bold py-3 px-6 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                  VER EN GOOGLE MAPS
+                </a>
+              </motion.div>
+              
+              <div className="text-gray-400 text-sm text-center sm:text-left">
+                <p className="font-medium">📍 Ciudad de México y Área Metropolitana</p>
+                <p className="text-xs">Actualizado constantemente</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black border-t border-primary-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
