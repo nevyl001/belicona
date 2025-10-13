@@ -75,13 +75,13 @@ const Home = () => {
         <div className="relative z-10 h-full flex items-center">
           <div className="w-full px-4 sm:px-6 lg:px-8 xl:max-w-7xl xl:mx-auto">
             <motion.div
-              className="max-w-4xl mx-auto text-center"
+              className="max-w-5xl mx-auto text-center py-8 px-4"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bubbly text-white mb-6 tracking-wider glow-on-hover"
+                className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bubbly text-white mb-8 tracking-wider glow-on-hover"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
