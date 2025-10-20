@@ -10,53 +10,41 @@ const EventoDetalle = () => {
   // Datos del evento (en una app real vendría de una API)
   const evento = {
     id: 1,
-    title: "Festival de Cerveza Artesanal Belicona 2024",
+    title: "EL DÍA DE LOS MUERTOS",
     excerpt:
-      "Únete a nosotros en el evento más esperado del año. Degustaciones exclusivas, música en vivo, food trucks y mucho más.",
+      "Evento especial temático con LEXLAY como artista principal y un lineup increíble de DJs. Celebra la tradición mexicana del Día de Muertos con música electrónica, arte y cultura.",
     image:
-      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    date: "2024-03-15",
-    time: "18:00 - 23:00",
-    location: "Parque Central, Ciudad de México",
-    category: "Festival",
-    price: "Gratis",
-    capacity: "500 personas",
+      "/dia-de-los-muertos-poster.jpg",
+    date: "2025-11-01",
+    time: "20:00 - 05:00",
+    location: "Venue por confirmar, Ciudad de México",
+    category: "Evento Especial",
+    price: "Por confirmar",
+    capacity: "Evento limitado",
     content: `
-      <p>¡No te pierdas el Festival de Cerveza Artesanal Belicona 2024! Un evento único que celebra la pasión por la cerveza artesanal y la cultura local.</p>
+      <p>¡No te pierdas EL DÍA DE LOS MUERTOS! Un evento único que celebra la tradición mexicana fusionándola con la música electrónica más moderna.</p>
       
-      <p>Este año, hemos preparado una experiencia inolvidable con más de 20 cervecerías artesanales, food trucks gourmet, música en vivo y actividades para toda la familia.</p>
+      <h3>🎵 Artista Principal</h3>
+      <p><strong>LEXLAY</strong> - El artista principal que nos acompañará en esta celebración única.</p>
       
-      <h3>¿Qué incluye el evento?</h3>
-      <ul>
-        <li>Degustación de más de 50 variedades de cerveza artesanal</li>
-        <li>Food trucks con comida gourmet</li>
-        <li>Música en vivo con artistas locales</li>
-        <li>Talleres de maridaje cerveza-comida</li>
-        <li>Zona de juegos para niños</li>
-        <li>Concurso de homebrewers</li>
-        <li>Mercado artesanal</li>
-      </ul>
+      <h3>🎭 Special Guests</h3>
+      <p><strong>JAVI COLINA & INTERACTIVE NOISE</strong> - Una colaboración especial que no te puedes perder.</p>
       
-      <h3>Artistas confirmados:</h3>
-      <ul>
-        <li>Los Cerveceros - Rock alternativo (19:00)</li>
-        <li>Brass Band del Centro - Jazz (20:30)</li>
-        <li>DJ Cerveza - Música electrónica (22:00)</li>
-      </ul>
+      <h3>🎪 Lineup Completo</h3>
+      <p>Un lineup impresionante con más de 25 artistas que incluye: ANN GARCIA, TACHO, QUINEMA, CALLES, AG, SEBASTIAN MORA, EVAN ALDEY, EMI OZZ, SHEYLA REYNA, REX, MCHLL, JOHAN RM, ANGEL REND, DIMELO VALDU, MAXXXI VELAZQUEZ, OWELL REYES, ANGEL V, ENGEL ANTONELLA, HDZ, ARAIZA, OSWALDO PARRA, CAMACHO, HERMIN HERNANDEZ, JARDELL, NTELEKIA, GIOBANNY VI y muchos más.</p>
       
-      <p>El evento es completamente gratuito y abierto al público. Habrá estacionamiento disponible y transporte público hasta el lugar.</p>
+      <h3>🎨 Talento</h3>
+      <p><strong>MIXAR TALENT</strong> presenta: JMONROE, RENTON, ISAAC AUTT, ROUX LEYVA</p>
       
-      <p>¡No olvides traer tu identificación oficial y venir con ganas de disfrutar de la mejor cerveza artesanal de la ciudad!</p>
+      <h3>📱 Contacto</h3>
+      <p>Para más información y reservaciones, contáctanos por WhatsApp: <strong>72 9682 4317</strong></p>
+      
+      <h3>🏢 Sponsors</h3>
+      <p>Gracias a nuestros sponsors: MIXAR, BELICONA, TAKIRI, HAPPY TECHNO</p>
     `,
-    video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video de ejemplo
-    gallery: [
-      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1544148103-0773bf10d330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    ],
-    organizer: "Belicona Cervecería",
-    contact: "eventos@belicona.com",
-    phone: "+52 55 1234 5678",
+    organizer: "MIXAR TALENT",
+    contact: "72 9682 4317",
+    phone: "72 9682 4317",
   };
 
   return (
@@ -179,7 +167,7 @@ const EventoDetalle = () => {
             <img
               src={evento.image}
               alt={evento.title}
-              className="w-full h-64 md:h-96 object-cover"
+              className="w-full h-80 md:h-[500px] lg:h-[600px] object-contain rounded-xl bg-black/20"
             />
           </motion.div>
 
@@ -238,74 +226,6 @@ const EventoDetalle = () => {
             dangerouslySetInnerHTML={{ __html: evento.content }}
           />
 
-          {/* Video */}
-          <motion.div
-            className="my-12"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-compressed text-white mb-6 font-bold">
-              Video del Evento
-            </h3>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <iframe
-                width="100%"
-                height="400"
-                src={evento.video}
-                title="Video del Evento"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full"
-              ></iframe>
-            </div>
-          </motion.div>
-
-          {/* Galería de imágenes */}
-          <motion.div
-            className="my-12"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-compressed text-white mb-6 font-bold">
-              Galería de Imágenes
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {evento.gallery.map((image, index) => (
-                <motion.div
-                  key={index}
-                  className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img
-                    src={image}
-                    alt={`Galería ${index + 1}`}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                      />
-                    </svg>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
 
           {/* Información de contacto */}
           <motion.div

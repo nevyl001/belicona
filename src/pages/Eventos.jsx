@@ -7,17 +7,30 @@ const Eventos = () => {
   // Evento destacado
   const eventoDestacado = {
     id: 1,
-    title: "Festival de Cerveza Artesanal Belicona 2024",
+    title: "EL DÍA DE LOS MUERTOS",
     excerpt:
-      "Únete a nosotros en el evento más esperado del año. Degustaciones exclusivas, música en vivo, food trucks y mucho más. Un festival único que celebra la pasión por la cerveza artesanal.",
+      "Evento especial temático con LEXLAY como artista principal y un lineup increíble de DJs. Celebra la tradición mexicana del Día de Muertos con música electrónica, arte y cultura. Un espectáculo único que fusiona tradición y modernidad.",
     image:
-      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    date: "2024-03-15",
-    time: "18:00 - 23:00",
-    location: "Parque Central, Ciudad de México",
-    category: "Festival",
-    price: "Gratis",
-    capacity: "500 personas",
+      "/dia-de-los-muertos-poster.jpg",
+    date: "2025-11-01",
+    time: "20:00 - 05:00",
+    location: "Venue por confirmar, Ciudad de México",
+    category: "Evento Especial",
+    price: "Por confirmar",
+    capacity: "Evento limitado",
+    artist: "LEXLAY",
+    specialGuests: "JAVI COLINA & INTERACTIVE NOISE",
+    lineup: [
+      "ANN GARCIA", "TACHO", "QUINEMA", "CALLES", "AG", "SEBASTIAN MORA", 
+      "EVAN ALDEY", "EMI OZZ", "SHEYLA REYNA", "REX", "MCHLL", "JOHAN RM", 
+      "ANGEL REND", "DIMELO VALDU", "MAXXXI VELAZQUEZ", "OWELL REYES", 
+      "ANGEL V", "ENGEL ANTONELLA", "HDZ", "ARAIZA", "OSWALDO PARRA", 
+      "CAMACHO", "HERMIN HERNANDEZ", "JARDELL", "NTELEKIA", "GIOBANNY VI"
+    ],
+    talent: "MIXAR TALENT",
+    talentMembers: ["JMONROE", "RENTON", "ISAAC AUTT", "ROUX LEYVA"],
+    contact: "72 9682 4317",
+    sponsors: ["MIXAR", "BELICONA", "TAKIRI", "HAPPY TECHNO"]
   };
 
   return (
