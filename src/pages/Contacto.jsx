@@ -6,25 +6,26 @@ const Contacto = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    const formData = new FormData(e.target);
+    const form = event.target;
+    const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
+      const response = await fetch('https://formspree.io/f/xwpnzpap', {
+        method: 'POST',
         body: formData,
         headers: {
-          Accept: "application/json",
-        },
+          'Accept': 'application/json'
+        }
       });
 
       if (response.ok) {
         setSubmitStatus("success");
-        e.target.reset(); // Limpiar el formulario
+        form.reset();
       } else {
         setSubmitStatus("error");
       }
@@ -32,7 +33,6 @@ const Contacto = () => {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
-      // Ocultar el mensaje después de 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);
     }
   };
@@ -92,12 +92,12 @@ const Contacto = () => {
                 ENVÍANOS UN MENSAJE
               </motion.h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* API Key */}
+              <form id="contactForm" onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot spam protection */}
                 <input
-                  type="hidden"
-                  name="access_key"
-                  value="75de9697-2834-4d72-9c1d-13dcf6684f2e"
+                  type="text"
+                  name="honeypot"
+                  style={{ display: "none" }}
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <motion.div
