@@ -559,7 +559,7 @@ const Home = () => {
               </motion.div>
               
               <div className="text-gray-400 text-sm text-center sm:text-left">
-                <p className="font-medium">📍 Ciudad de México y Área Metropolitana</p>
+                <p className="font-medium">📍 Azcapotzalco, CDMX</p>
                 <p className="text-xs">Actualizado constantemente</p>
               </div>
             </div>

@@ -427,9 +427,9 @@ const Contacto = () => {
                       DIRECCIÓN
                     </h3>
                     <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                      Av. Insurgentes Sur 1234, Col. Del Valle
+                      Cuauhtémoc 300, Aldana
                       <br />
-                      Ciudad de México, CDMX 03100
+                      Azcapotzalco, CDMX
                     </p>
                   </div>
                 </div>
