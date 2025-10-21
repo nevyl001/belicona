@@ -23,12 +23,12 @@ const Noticias = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-orange-500/5"></div>
 
       {/* Header */}
-      <div className="bg-black py-8 sm:py-12 relative z-10">
+      <div className="bg-black py-6 sm:py-8 md:py-12 relative z-10">
         <div className="container-custom">
           <RevealCard direction="up" delay={0.2}>
             <div className="text-center">
               <motion.h1
-                className="text-5xl md:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-4 sm:mb-6 font-bold glow-on-hover"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -40,7 +40,7 @@ const Noticias = () => {
                 NOTICIAS
               </motion.h1>
               <motion.p
-                className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
@@ -54,7 +54,7 @@ const Noticias = () => {
       </div>
 
       {/* Noticia Destacada */}
-      <div className="container-custom py-8 sm:py-12 relative z-10">
+      <div className="container-custom py-4 sm:py-8 md:py-12 relative z-10">
         <motion.div
           className="group relative max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
@@ -74,14 +74,14 @@ const Noticias = () => {
               <img
                 src={noticiaDestacada.image}
                 alt={noticiaDestacada.title}
-                className="w-full h-64 md:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-48 sm:h-64 md:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
               {/* Categoría flotante */}
-              <div className="absolute top-6 left-6">
+              <div className="absolute top-3 left-3 sm:top-6 sm:left-6">
                 <motion.span
-                  className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg"
+                  className="inline-flex items-center px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
@@ -90,17 +90,17 @@ const Noticias = () => {
               </div>
 
               {/* Tiempo de lectura */}
-              <div className="absolute top-6 right-6">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-black/50 text-white backdrop-blur-sm">
+              <div className="absolute top-3 right-3 sm:top-6 sm:right-6">
+                <span className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-black/50 text-white backdrop-blur-sm">
                   {noticiaDestacada.readTime}
                 </span>
               </div>
             </div>
 
-            <div className="p-8 md:p-12 relative z-10">
+            <div className="p-4 sm:p-6 md:p-8 lg:p-12 relative z-10">
               {/* Título */}
               <motion.h2
-                className="text-2xl font-compressed text-white mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
+                className="text-lg sm:text-xl md:text-2xl font-compressed text-white mb-3 sm:mb-4 md:mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
@@ -108,20 +108,20 @@ const Noticias = () => {
               </motion.h2>
 
               {/* Resumen */}
-              <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">
+              <p className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8 leading-relaxed">
                 {noticiaDestacada.excerpt}
               </p>
 
               {/* Información del autor */}
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
                 <div className="flex items-center">
                   <motion.div
-                    className="w-12 h-12 bg-gradient-to-r from-primary-500 to-orange-500 rounded-full flex items-center justify-center mr-4 shadow-lg"
+                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-r from-primary-500 to-orange-500 rounded-full flex items-center justify-center mr-3 sm:mr-4 shadow-lg"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.2 }}
                   >
                     <svg
-                      className="w-6 h-6 text-white"
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -135,10 +135,10 @@ const Noticias = () => {
                     </svg>
                   </motion.div>
                   <div>
-                    <p className="text-lg font-medium text-white">
+                    <p className="text-sm sm:text-base md:text-lg font-medium text-white">
                       {noticiaDestacada.author}
                     </p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs sm:text-sm text-gray-400">
                       {new Date(noticiaDestacada.date).toLocaleDateString(
                         "es-ES"
                       )}
@@ -147,15 +147,16 @@ const Noticias = () => {
                 </div>
 
                 {/* Botón de leer más */}
-                <Link to={`/noticias/${noticiaDestacada.id}`}>
+                <Link to={`/noticias/${noticiaDestacada.id}`} className="w-full sm:w-auto">
                   <motion.button
-                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-sm sm:text-base md:text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    LEER NOTICIA COMPLETA
+                    <span className="hidden sm:inline">LEER NOTICIA COMPLETA</span>
+                    <span className="sm:hidden">LEER NOTICIA</span>
                     <motion.span
-                      className="ml-2"
+                      className="ml-1 sm:ml-2"
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                     >
@@ -170,27 +171,27 @@ const Noticias = () => {
 
         {/* Mensaje de más noticias próximamente */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mt-8 sm:mt-12 md:mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-br from-gray-900/40 to-black/40 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h3 className="text-2xl font-compressed text-white mb-4 font-bold">
+          <div className="bg-gradient-to-br from-gray-900/40 to-black/40 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border border-white/10">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-compressed text-white mb-3 sm:mb-4 font-bold">
               MÁS NOTICIAS PRÓXIMAMENTE
             </h3>
-            <p className="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed">
               Estamos preparando más contenido exclusivo sobre innovación,
               sostenibilidad y los últimos avances de Belicona.
             </p>
             <motion.div
-              className="inline-flex items-center text-primary-500"
+              className="inline-flex items-center text-primary-500 text-sm sm:text-base"
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <svg
-                className="w-5 h-5 mr-2"
+                className="w-4 h-4 sm:w-5 sm:h-5 mr-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
