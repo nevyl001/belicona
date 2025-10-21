@@ -4,9 +4,24 @@ import { Link } from "react-router-dom";
 import RevealCard from "../components/RevealCard";
 
 const Noticias = () => {
-  // Noticia destacada
+  // Noticia destacada - Entrevista con Yordi Rosado
   const noticiaDestacada = {
     id: 1,
+    title: "¡El Abelito en entrevista exclusiva con Yordi Rosado!",
+    excerpt:
+      "Nuestro querido host El Abelito tuvo una entrevista increíble con el reconocido Yordi Rosado. Una conversación llena de momentos emotivos, risas y la conexión especial que caracteriza a El Abelito. ¡No te pierdas esta entrevista única!",
+    image: "/y3.jpg",
+    author: "Equipo Belicona",
+    date: "2025-10-19",
+    category: "Entrevista",
+    readTime: "15 min",
+    videoUrl: "https://youtu.be/DKAVlkqhzUU?si=_neGkQn_p_45lnU7",
+    isVideo: true,
+  };
+
+  // Noticia secundaria
+  const noticiaSecundaria = {
+    id: 2,
     title: "¡Nuevo video de promoción con Abelito!",
     excerpt:
       "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona. ¡Esperen pronto este contenido increíble!",
@@ -74,7 +89,8 @@ const Noticias = () => {
               <img
                 src={noticiaDestacada.image}
                 alt={noticiaDestacada.title}
-                className="w-full h-48 sm:h-64 md:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-48 sm:h-64 md:h-96 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                style={{ objectPosition: 'center top' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
@@ -166,6 +182,128 @@ const Noticias = () => {
                 </Link>
               </div>
             </div>
+          </div>
+        </motion.div>
+
+        {/* Noticia Secundaria */}
+        <motion.div
+          className="mt-8 sm:mt-12 md:mt-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="group relative"
+              whileHover={{
+                y: -8,
+                scale: 1.01,
+                transition: { duration: 0.4, ease: "easeInOut" },
+              }}
+            >
+              {/* Glassmorphism card */}
+              <div className="relative bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 group-hover:shadow-3xl">
+                {/* Image with overlay */}
+                <div className="relative overflow-hidden">
+                    <img
+                      src={noticiaSecundaria.image}
+                      alt={noticiaSecundaria.title}
+                      className="w-full h-48 sm:h-64 md:h-96 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      style={{ objectPosition: 'center top' }}
+                    />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+
+                  {/* Categoría flotante */}
+                  <div className="absolute top-3 left-3 sm:top-6 sm:left-6">
+                    <motion.span
+                      className="inline-flex items-center px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-primary-500 to-orange-500 text-white shadow-lg"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {noticiaSecundaria.category}
+                    </motion.span>
+                  </div>
+
+                  {/* Tiempo de lectura */}
+                  <div className="absolute top-3 right-3 sm:top-6 sm:right-6">
+                    <span className="inline-flex items-center px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-black/50 text-white backdrop-blur-sm">
+                      {noticiaSecundaria.readTime}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-6 md:p-8 lg:p-12 relative z-10">
+                  {/* Título */}
+                  <motion.h2
+                    className="text-lg sm:text-xl md:text-2xl font-compressed text-white mb-3 sm:mb-4 md:mb-6 font-bold hover:text-primary-400 transition-colors duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {noticiaSecundaria.title}
+                  </motion.h2>
+
+                  {/* Resumen */}
+                  <p className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8 leading-relaxed">
+                    {noticiaSecundaria.excerpt}
+                  </p>
+
+                  {/* Información del autor */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex items-center">
+                      <motion.div
+                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-r from-primary-500 to-orange-500 rounded-full flex items-center justify-center mr-3 sm:mr-4 shadow-lg"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <svg
+                          className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                      </motion.div>
+                      <div>
+                        <p className="text-sm sm:text-base md:text-lg font-medium text-white">
+                          {noticiaSecundaria.author}
+                        </p>
+                        <p className="text-xs sm:text-sm text-gray-400">
+                          {new Date(noticiaSecundaria.date).toLocaleDateString(
+                            "es-ES"
+                          )}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Botón de leer más */}
+                    <Link to={`/noticias/${noticiaSecundaria.id}`} className="w-full sm:w-auto">
+                      <motion.button
+                        className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-sm sm:text-base md:text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span className="hidden sm:inline">LEER NOTICIA COMPLETA</span>
+                        <span className="sm:hidden">LEER NOTICIA</span>
+                        <motion.span
+                          className="ml-1 sm:ml-2"
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          →
+                        </motion.span>
+                      </motion.button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 

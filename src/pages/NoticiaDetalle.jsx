@@ -9,43 +9,84 @@ const NoticiaDetalle = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Datos de la noticia (en una app real vendría de una API)
-  const noticia = {
-    id: 1,
-    title: "¡Nuevo video de promoción con Abelito!",
-    excerpt:
-      "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona.",
-    image: "/videobeli.JPG",
-    author: "Equipo Belicona",
-    date: "2024-01-20",
-    category: "Promoción",
-    readTime: "3 min",
-    content: `
-      <p>¡La espera ha terminado! En Belicona estamos súper emocionados de presentar nuestro nuevo video promocional protagonizado por nuestro querido Abelito. Esta producción está llena de diversión, sabor y toda la energía única que caracteriza a nuestra marca.</p>
-      
-      <p>Abelito ha sido una figura icónica en la promoción de Belicona, y este nuevo video promete ser una experiencia visual increíble que captura la esencia de nuestra bebida favorita. Con su carisma y personalidad única, Abelito nos llevará en un viaje lleno de momentos memorables.</p>
-      
-      <h3>¿Qué esperar del nuevo video?</h3>
-      <ul>
-        <li>Producción de alta calidad con efectos visuales impresionantes</li>
-        <li>Abelito mostrando su personalidad única y divertida</li>
-        <li>Momentos llenos de diversión y entretenimiento</li>
-        <li>Música pegajosa que se quedará en tu cabeza</li>
-        <li>La energía característica de Belicona en cada escena</li>
-      </ul>
-      
-      <p>Nuestro equipo creativo ha trabajado incansablemente para crear un video que no solo promocione nuestros productos, sino que también genere una conexión emocional con nuestros consumidores. Abelito ha sido el protagonista perfecto para transmitir los valores de diversión, calidad y autenticidad que representan a Belicona.</p>
-      
-      <p>El video estará disponible muy pronto en todas nuestras plataformas digitales y canales oficiales. ¡Mantente atento a nuestras redes sociales para no perderte el lanzamiento de este contenido increíble!</p>
-      
-      <p>¡Esperen pronto este contenido que promete ser una verdadera obra maestra del entretenimiento y la promoción!</p>
-    `,
-    video: "https://www.youtube.com/embed/Y_oJFh0SWkA", // Video de Belicona
-    gallery: [
-      "/optimized/videobeli.webp",
-      "/optimized/im1.webp",
-      "/optimized/im2.webp",
-    ],
+  const noticias = {
+    1: {
+      id: 1,
+      title: "¡El Abelito en entrevista exclusiva con Yordi Rosado!",
+      excerpt:
+        "Nuestro querido host El Abelito tuvo una entrevista increíble con el reconocido Yordi Rosado. Una conversación llena de momentos emotivos, risas y la conexión especial que caracteriza a El Abelito.",
+      image: "/y3.jpg",
+      author: "Equipo Belicona",
+      date: "2025-10-19",
+      category: "Entrevista",
+      readTime: "15 min",
+      content: `
+        <p>¡Un momento histórico para Belicona! Nuestro querido host El Abelito tuvo el honor de ser entrevistado por el reconocido Yordi Rosado en su programa "La Entrevista con Yordi Rosado". Esta conversación especial capturó la esencia única de El Abelito y su conexión especial con la audiencia.</p>
+        
+        <p>Durante la entrevista, El Abelito compartió momentos emotivos, risas genuinas y esa conexión especial que lo caracteriza. La química entre ambos fue evidente desde el primer momento, creando una atmósfera cálida y auténtica que se transmitió a todos los espectadores.</p>
+        
+        <h3>Momentos destacados de la entrevista:</h3>
+        <ul>
+          <li>Conversaciones emotivas sobre la trayectoria de El Abelito</li>
+          <li>Momentos de risa y complicidad entre ambos</li>
+          <li>Reflexiones sobre el impacto de Belicona en la comunidad</li>
+          <li>Anécdotas personales y experiencias únicas</li>
+          <li>La conexión especial que El Abelito tiene con su audiencia</li>
+        </ul>
+        
+        <p>Esta entrevista representa un hito importante para El Abelito y para Belicona, mostrando el reconocimiento y la admiración que genera nuestro querido host. La naturalidad y autenticidad de El Abelito brillaron durante toda la conversación, confirmando por qué es tan querido por todos.</p>
+        
+        <p>¡No te pierdas esta entrevista única que captura la esencia de El Abelito y su conexión especial con todos nosotros!</p>
+      `,
+      video: "https://www.youtube.com/embed/DKAVlkqhzUU",
+      isVideo: true,
+      gallery: [
+        "/y1.png",
+        "/y2.jpg",
+        "/y3.jpg",
+        "/y4.jpg",
+      ],
+    },
+    2: {
+      id: 2,
+      title: "¡Nuevo video de promoción con Abelito!",
+      excerpt:
+        "Estamos emocionados de presentar nuestro nuevo video promocional protagonizado por Abelito. Una producción llena de diversión, sabor y la energía única que caracteriza a Belicona.",
+      image: "/videobeli.JPG",
+      author: "Equipo Belicona",
+      date: "2024-01-20",
+      category: "Promoción",
+      readTime: "3 min",
+      content: `
+        <p>¡La espera ha terminado! En Belicona estamos súper emocionados de presentar nuestro nuevo video promocional protagonizado por nuestro querido Abelito. Esta producción está llena de diversión, sabor y toda la energía única que caracteriza a nuestra marca.</p>
+        
+        <p>Abelito ha sido una figura icónica en la promoción de Belicona, y este nuevo video promete ser una experiencia visual increíble que captura la esencia de nuestra bebida favorita. Con su carisma y personalidad única, Abelito nos llevará en un viaje lleno de momentos memorables.</p>
+        
+        <h3>¿Qué esperar del nuevo video?</h3>
+        <ul>
+          <li>Producción de alta calidad con efectos visuales impresionantes</li>
+          <li>Abelito mostrando su personalidad única y divertida</li>
+          <li>Momentos llenos de diversión y entretenimiento</li>
+          <li>Música pegajosa que se quedará en tu cabeza</li>
+          <li>La energía característica de Belicona en cada escena</li>
+        </ul>
+        
+        <p>Nuestro equipo creativo ha trabajado incansablemente para crear un video que no solo promocione nuestros productos, sino que también genere una conexión emocional con nuestros consumidores. Abelito ha sido el protagonista perfecto para transmitir los valores de diversión, calidad y autenticidad que representan a Belicona.</p>
+        
+        <p>El video estará disponible muy pronto en todas nuestras plataformas digitales y canales oficiales. ¡Mantente atento a nuestras redes sociales para no perderte el lanzamiento de este contenido increíble!</p>
+        
+        <p>¡Esperen pronto este contenido que promete ser una verdadera obra maestra del entretenimiento y la promoción!</p>
+      `,
+      video: "https://www.youtube.com/embed/Y_oJFh0SWkA",
+      gallery: [
+        "/optimized/videobeli.webp",
+        "/optimized/im1.webp",
+        "/optimized/im2.webp",
+      ],
+    }
   };
+
+  const noticia = noticias[id] || noticias[1];
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
@@ -161,7 +202,8 @@ const NoticiaDetalle = () => {
             <img
               src={noticia.image}
               alt={noticia.title}
-              className="w-full h-64 md:h-96 object-cover"
+              className="w-full h-64 md:h-96 object-cover object-center"
+              style={{ objectPosition: 'center top' }}
             />
           </motion.div>
 
