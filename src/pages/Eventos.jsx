@@ -12,7 +12,7 @@ const Eventos = () => {
       "Evento especial temático con LEXLAY como artista principal y un lineup increíble de DJs. Celebra la tradición mexicana del Día de Muertos con música electrónica, arte y cultura. Un espectáculo único que fusiona tradición y modernidad.",
     image:
       "/dia-de-los-muertos-poster.jpg",
-    date: "11-01-2025",
+    date: "11/01/2025",
     time: "20:00 - 05:00",
     location: "Venue por confirmar, Ciudad de México",
     category: "Evento Especial",
