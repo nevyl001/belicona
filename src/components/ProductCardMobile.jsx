@@ -20,11 +20,11 @@ const ProductCardMobile = ({ product, index }) => {
       whileHover={{ y: -5, scale: 1.01 }}
     >
       {/* Imagen del producto - Solo móvil */}
-      <div className="relative h-96 overflow-hidden rounded-t-2xl">
+      <div className="relative h-96 overflow-hidden rounded-t-2xl flex items-center justify-center bg-black/40">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-contain scale-110 transition-transform duration-500 group-hover:scale-115"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent rounded-t-2xl"></div>
 

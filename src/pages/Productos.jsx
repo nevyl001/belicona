@@ -5,8 +5,6 @@ import ProductCardMobile from "../components/ProductCardMobile";
 import ProductCardDesktop from "../components/ProductCardDesktop";
 
 const Productos = () => {
-  // FORZAR DEPLOYMENT VERCEL - TIMESTAMP: ${new Date().toISOString()}
-  // Memoizar el array de productos para evitar re-renders innecesarios
   const products = useMemo(
     () => [
       {
@@ -44,6 +42,18 @@ const Productos = () => {
         features: ["Tradicional", "Especiado", "Único"],
         inStock: true,
         gradient: "from-red-500 to-pink-500",
+      },
+      {
+        id: 4,
+        name: "Pack Belicona 6 Latas — ¡Llévate el six!",
+        description:
+          "La caja que pide tu mesa. 6 latas de 355 ml: 2 Maracuyá, 2 Pepino Limón, 2 Cantarito. Tres sabores, un solo pack. Bebidas alcohólicas a base de pulpa de frutas con destilado de agave 100% natural. ¡Pídelo ya!",
+        price: 200,
+        image: "/optimized/pack-6.png",
+        category: "Packs",
+        features: ["6 latas 355 ml", "2 de cada sabor", "Mejor precio"],
+        inStock: true,
+        gradient: "from-slate-700 to-amber-500",
       },
     ],
     []

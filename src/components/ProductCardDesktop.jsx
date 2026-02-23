@@ -23,11 +23,11 @@ const ProductCardDesktop = memo(({ product, index }) => {
       whileHover={{ y: -5, scale: 1.01 }}
     >
       {/* Imagen del producto */}
-      <div className="relative lg:w-1/2 h-96 lg:h-[600px] overflow-hidden">
+      <div className="relative lg:w-1/2 h-96 lg:h-[600px] overflow-hidden flex items-center justify-center bg-black/40">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-contain scale-110 transition-transform duration-500 group-hover:scale-115"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
           loading="eager"
           fetchPriority="high"
         />
