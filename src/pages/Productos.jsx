@@ -5,8 +5,20 @@ import ProductCardMobile from "../components/ProductCardMobile";
 import ProductCardDesktop from "../components/ProductCardDesktop";
 
 const Productos = () => {
-  const products = useMemo(
-    () => [
+  const products = useMemo(() => {
+    const baseProducts = [
+      {
+        id: 5,
+        name: "Belicona Piña-Coco Edición Limitada",
+        description:
+          "Lanzamiento especial con mezcla tropical de piña y coco, balanceado con destilado de agave azul para una experiencia suave, fresca y premium.",
+        price: 35,
+        image: "/optimized/pina-coco-edicion-limitada.png",
+        category: "Edición limitada",
+        features: ["Nuevo lanzamiento", "Perfil tropical", "Agave azul"],
+        inStock: true,
+        gradient: "from-lime-500 to-yellow-500",
+      },
       {
         id: 1,
         name: "Belicona Pepino-Limón",
@@ -55,9 +67,22 @@ const Productos = () => {
         inStock: true,
         gradient: "from-slate-700 to-amber-500",
       },
-    ],
-    []
-  ); // Dependencias vacías ya que los productos no cambian
+    ];
+
+    // Orden de flujo visual: novedad -> sabores -> pack final.
+    const flowOrder = {
+      "Edición limitada": 0,
+      Destilados: 1,
+      Packs: 2,
+    };
+
+    return baseProducts.sort((a, b) => {
+      const categoryA = flowOrder[a.category] ?? 99;
+      const categoryB = flowOrder[b.category] ?? 99;
+      if (categoryA !== categoryB) return categoryA - categoryB;
+      return a.id - b.id;
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">

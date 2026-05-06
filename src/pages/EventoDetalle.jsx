@@ -1,63 +1,74 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
 import RevealCard from "../components/RevealCard";
+import { getEventoById } from "../data/eventos";
+
+function whatsappHref(phone) {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (!digits) return null;
+  return `https://wa.me/${digits}`;
+}
+
+function formatEventDate(dateISO) {
+  return new Date(`${dateISO}T12:00:00`).toLocaleDateString("es-MX", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 const EventoDetalle = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // Datos del evento (en una app real vendría de una API)
-  const evento = {
-    id: 1,
-    title: "EL DÍA DE LOS MUERTOS",
-    excerpt:
-      "Evento especial temático con LEXLAY como artista principal y un lineup increíble de DJs. Celebra la tradición mexicana del Día de Muertos con música electrónica, arte y cultura.",
-    image:
-      "/dia-de-los-muertos-poster.jpg",
-    date: "11/01/2025",
-    time: "20:00 - 05:00",
-    location: "Venue por confirmar, Ciudad de México",
-    category: "Evento Especial",
-    price: "Por confirmar",
-    capacity: "Evento limitado",
-    content: `
-      <p>¡No te pierdas EL DÍA DE LOS MUERTOS! Un evento único que celebra la tradición mexicana fusionándola con la música electrónica más moderna.</p>
-      
-      <h3>🎵 Artista Principal</h3>
-      <p><strong>LEXLAY</strong> - El artista principal que nos acompañará en esta celebración única.</p>
-      
-      <h3>🎭 Special Guests</h3>
-      <p><strong>JAVI COLINA & INTERACTIVE NOISE</strong> - Una colaboración especial que no te puedes perder.</p>
-      
-      <h3>🎪 Lineup Completo</h3>
-      <p>Un lineup impresionante con más de 25 artistas que incluye: ANN GARCIA, TACHO, QUINEMA, CALLES, AG, SEBASTIAN MORA, EVAN ALDEY, EMI OZZ, SHEYLA REYNA, REX, MCHLL, JOHAN RM, ANGEL REND, DIMELO VALDU, MAXXXI VELAZQUEZ, OWELL REYES, ANGEL V, ENGEL ANTONELLA, HDZ, ARAIZA, OSWALDO PARRA, CAMACHO, HERMIN HERNANDEZ, JARDELL, NTELEKIA, GIOBANNY VI y muchos más.</p>
-      
-      <h3>🎨 Talento</h3>
-      <p><strong>MIXAR TALENT</strong> presenta: JMONROE, RENTON, ISAAC AUTT, ROUX LEYVA</p>
-      
-      <h3>📱 Contacto</h3>
-      <p>Para más información y reservaciones, contáctanos por WhatsApp: <strong>72 9682 4317</strong></p>
-      
-      <h3>🏢 Sponsors</h3>
-      <p>Gracias a nuestros sponsors: MIXAR, BELICONA, TAKIRI, HAPPY TECHNO</p>
-    `,
-    organizer: "MIXAR TALENT",
-    contact: "72 9682 4317",
-    phone: "72 9682 4317",
-  };
+  const evento = useMemo(() => getEventoById(id), [id]);
+  const waLink = evento ? whatsappHref(evento.phone) : null;
+
+  if (!evento) {
+    return (
+      <div className="min-h-screen bg-black relative overflow-hidden flex flex-col items-center justify-center px-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-orange-500/5" />
+        <motion.div
+          className="relative z-10 text-center max-w-lg"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-3xl md:text-4xl font-compressed text-white font-bold mb-4">
+            Evento no encontrado
+          </h1>
+          <p className="text-gray-400 mb-8">
+            Es posible que el enlace esté desactualizado o que el evento ya no
+            esté disponible.
+          </p>
+          <motion.button
+            type="button"
+            onClick={() => navigate("/eventos")}
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            VOLVER A EVENTOS
+          </motion.button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  const gallery = evento.gallery?.length ? evento.gallery : [];
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-orange-500/5"></div>
 
-      {/* Header */}
       <div className="bg-black py-8 sm:py-12 relative z-10">
         <div className="container-custom">
           <RevealCard direction="up" delay={0.2}>
             <div className="text-center">
               <motion.button
+                type="button"
                 onClick={() => navigate("/eventos")}
                 className="inline-flex items-center text-primary-500 hover:text-orange-500 mb-6 transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
@@ -95,7 +106,7 @@ const EventoDetalle = () => {
               <div className="flex flex-wrap items-center justify-center gap-6 text-gray-300">
                 <span className="flex items-center">
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -107,11 +118,13 @@ const EventoDetalle = () => {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  {new Date(evento.date).toLocaleDateString("es-ES")}
+                  <span className="text-left capitalize">
+                    {formatEventDate(evento.dateISO)}
+                  </span>
                 </span>
                 <span className="flex items-center">
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -127,7 +140,7 @@ const EventoDetalle = () => {
                 </span>
                 <span className="flex items-center">
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-4 h-4 mr-2 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -153,10 +166,8 @@ const EventoDetalle = () => {
         </div>
       </div>
 
-      {/* Contenido principal */}
       <div className="container-custom py-8 sm:py-12 relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Imagen principal */}
           <motion.div
             className="mb-8 rounded-2xl overflow-hidden shadow-2xl"
             initial={{ opacity: 0, y: 50 }}
@@ -171,7 +182,6 @@ const EventoDetalle = () => {
             />
           </motion.div>
 
-          {/* Información del evento */}
           <motion.div
             className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6"
             initial={{ opacity: 0, y: 30 }}
@@ -203,7 +213,6 @@ const EventoDetalle = () => {
             </div>
           </motion.div>
 
-          {/* Categoría */}
           <motion.div
             className="mb-6"
             initial={{ opacity: 0, y: 30 }}
@@ -216,7 +225,6 @@ const EventoDetalle = () => {
             </span>
           </motion.div>
 
-          {/* Contenido del evento */}
           <motion.article
             className="prose prose-invert prose-lg max-w-none"
             initial={{ opacity: 0, y: 30 }}
@@ -226,13 +234,45 @@ const EventoDetalle = () => {
             dangerouslySetInnerHTML={{ __html: evento.content }}
           />
 
+          {gallery.length > 0 && (
+            <motion.section
+              className="mt-12"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              aria-label="Galería del evento"
+            >
+              <h3 className="text-2xl font-compressed text-white mb-6 font-bold">
+                Galería
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                {gallery.map((src, index) => (
+                  <motion.div
+                    key={src}
+                    className="rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-[3/4]"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.35, delay: index * 0.04 }}
+                    viewport={{ once: true }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${evento.title} — imagen ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+          )}
 
-          {/* Información de contacto */}
           <motion.div
             className="my-12 bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-compressed text-white mb-6 font-bold">
@@ -248,15 +288,45 @@ const EventoDetalle = () => {
                 </p>
               </div>
               <div>
-                <h4 className="text-lg font-medium text-white mb-2">Email</h4>
-                <p className="text-primary-500">{evento.contact}</p>
+                <h4 className="text-lg font-medium text-white mb-2">
+                  Contacto
+                </h4>
+                <p className="text-gray-300">{evento.contact}</p>
               </div>
               <div>
                 <h4 className="text-lg font-medium text-white mb-2">
-                  Teléfono
+                  Teléfono / WhatsApp
                 </h4>
-                <p className="text-gray-300 text-base md:text-lg">
-                  {evento.phone}
+                <p className="text-gray-300 text-base md:text-lg space-y-2">
+                  <a
+                    href={`tel:${String(evento.phone).replace(/\s/g, "")}`}
+                    className="block text-primary-500 hover:text-orange-400 transition-colors"
+                  >
+                    {evento.phone}
+                  </a>
+                  {waLink && (
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm font-medium text-orange-400 hover:text-orange-300 transition-colors"
+                    >
+                      Abrir WhatsApp
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  )}
                 </p>
               </div>
               <div>
@@ -270,15 +340,15 @@ const EventoDetalle = () => {
             </div>
           </motion.div>
 
-          {/* Botón de regreso */}
           <motion.div
             className="text-center mt-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             <motion.button
+              type="button"
               onClick={() => navigate("/eventos")}
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}

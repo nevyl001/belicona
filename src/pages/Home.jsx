@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Zap, Award, Users } from "lucide-react";
@@ -7,8 +7,143 @@ import ParticleBackground from "../components/ParticleBackground";
 import MagneticButton from "../components/MagneticButton";
 import RevealCard from "../components/RevealCard";
 import video13 from "../assets/13.mp4";
-// Usar imagen optimizada
-const p1 = "/optimized/p1-specific.webp";
+// Usar imagen optimizada para la nueva bebida principal
+const pinaCocoLimited = "/optimized/pina-coco-edicion-limitada.png";
+
+const BELICONA_INSTAGRAM = "https://www.instagram.com/beliconamx/";
+
+/** Columna 2 — Novedades */
+const REEL_NOVEDADES_HREF =
+  "https://www.instagram.com/reel/DX5THEmsP16/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==";
+const REEL_NOVEDADES_EMBED =
+  "https://www.instagram.com/reel/DX5THEmsP16/embed/";
+
+const REEL_PRINCIPAL_HREF =
+  "https://www.instagram.com/reel/DWXLeV_PwY7/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==";
+const REEL_PRINCIPAL_EMBED =
+  "https://www.instagram.com/reel/DWXLeV_PwY7/embed/";
+
+const REEL_PROMOCIONES_HREF =
+  "https://www.instagram.com/reel/DX8KbvVoCqo/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==";
+const REEL_PROMOCIONES_EMBED =
+  "https://www.instagram.com/reel/DX8KbvVoCqo/embed/";
+
+/** Mismo patrón visual que los reels de «El Abelito» (sin etiqueta superior). */
+const BeliconaEmbedFooter = () => (
+  <div className="p-4">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-orange-500 rounded-full flex items-center justify-center mr-3">
+          <svg
+            className="w-4 h-4 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </div>
+        <span className="text-white font-medium text-sm">@beliconamx</span>
+      </div>
+      <div className="flex items-center text-gray-400 text-xs">
+        <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        <span>Reel</span>
+      </div>
+    </div>
+  </div>
+);
+
+const InstagramPreviewCard = ({
+  href,
+  embedSrc,
+  title,
+  useTeaser = false,
+  posterSrc,
+}) => {
+  const [hasError, setHasError] = useState(false);
+
+  const cardClass =
+    "group relative bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-white/10 hover:border-primary-500/30 transition-all duration-500 block";
+
+  if (useTeaser) {
+    return (
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardClass}
+        whileHover={{ y: -8, scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="aspect-[9/16] relative overflow-hidden bg-zinc-900">
+          <img
+            src={posterSrc}
+            alt="Belicona"
+            className="absolute inset-0 w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg group-hover:bg-white/30 transition-colors">
+              <svg
+                className="w-9 h-9 text-white ml-1"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+            <p className="mt-4 text-center text-white/90 text-sm font-fredoka px-4">
+              Ver en Instagram
+            </p>
+          </div>
+        </div>
+        <BeliconaEmbedFooter />
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cardClass}
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="aspect-[9/16] relative overflow-hidden">
+        {!hasError ? (
+          <iframe
+            src={embedSrc}
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            scrolling="no"
+            className="w-full h-full"
+            title={title}
+            referrerPolicy="strict-origin-when-cross-origin"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className="absolute inset-0 flex min-h-[320px] flex-col items-center justify-center text-center p-6 bg-gradient-to-br from-zinc-900 to-black">
+            <p className="text-white font-bold mb-2">Vista previa no disponible</p>
+            <p className="text-gray-300 text-sm">Abre en Instagram con el enlace de la tarjeta.</p>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
+            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <BeliconaEmbedFooter />
+    </motion.a>
+  );
+};
 
 const Home = () => {
   const {
@@ -42,6 +177,27 @@ const Home = () => {
       description:
         "Una familia global que celebra la vida auténtica y las conexiones genuinas entre personas.",
       gradient: "from-green-500 to-accent-500",
+    },
+  ];
+
+  const beliconaInstagramPosts = [
+    {
+      id: "principal",
+      href: REEL_PRINCIPAL_HREF,
+      embedSrc: REEL_PRINCIPAL_EMBED,
+      title: "Reel de Belicona — principal",
+    },
+    {
+      id: "novedades",
+      href: REEL_NOVEDADES_HREF,
+      embedSrc: REEL_NOVEDADES_EMBED,
+      title: "Reel de Belicona — novedades",
+    },
+    {
+      id: "promociones",
+      href: REEL_PROMOCIONES_HREF,
+      embedSrc: REEL_PROMOCIONES_EMBED,
+      title: "Reel de Belicona — promociones",
     },
   ];
 
@@ -229,7 +385,7 @@ const Home = () => {
                 >
                   SABOR
                   <br />
-                  <span className="text-green-400">PEPINO - LIMÓN</span>
+                  <span className="text-yellow-400">PIÑA - COCO</span>
                 </motion.h2>
 
                 <motion.p
@@ -239,7 +395,7 @@ const Home = () => {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  DESTILADO DE PULPA NATURAL
+                  EDICIÓN LIMITADA
                 </motion.p>
               </div>
 
@@ -269,9 +425,9 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.8 }}
                 viewport={{ once: true }}
               >
-                Es una mezcla de pulpa artesanal de pepino con jugo de limón y
-                destilado de agave azul, dando como resultado una bebida
-                sumamente refrescante.
+                Una mezcla tropical de piña y coco con destilado de agave azul.
+                Perfil suave, aroma frutal y una experiencia premium creada como
+                lanzamiento especial de temporada.
               </motion.p>
             </motion.div>
 
@@ -283,12 +439,12 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
-              <div className="relative">
+              <div className="relative w-[290px] sm:w-[340px] md:w-[400px] lg:w-[450px] xl:w-[500px] aspect-[3/4] overflow-hidden">
                 <motion.img
-                  src={p1}
-                  alt="Belicona Pepino-Limón"
-                  className="w-full h-auto max-h-[900px] object-contain"
-                  whileHover={{ scale: 1.05 }}
+                  src={pinaCocoLimited}
+                  alt="Belicona Piña-Coco Edición Limitada"
+                  className="w-full h-full object-cover object-center"
+                  whileHover={{ scale: 1.08 }}
                   transition={{ duration: 0.3 }}
                 />
 
@@ -307,12 +463,12 @@ const Home = () => {
                   </div>
                   <div className="bg-black border border-white px-3 py-1">
                     <span className="text-white font-compressed font-bold text-xs">
-                      AGAVE AZUL
+                      EDICIÓN LIMITADA
                     </span>
                   </div>
                   <div className="bg-black border border-white px-3 py-1">
                     <span className="text-white font-compressed font-bold text-xs">
-                      PULPA NATURAL
+                      PIÑA + COCO
                     </span>
                   </div>
                 </motion.div>
@@ -616,6 +772,82 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Instagram - Sigue a Belicona */}
+      <section className="py-20 relative z-10 border-t border-primary-500/20">
+        <div className="container-custom">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            viewport={{ once: true }}
+          >
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-compressed text-white mb-6 font-bold glow-on-hover"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(237, 1, 127, 0.8), 0 0 40px rgba(255, 183, 27, 0.6), 0 0 60px rgba(255, 242, 0, 0.4)",
+              }}
+            >
+              SIGUE A BELICONA EN INSTAGRAM
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Entérate de nuestras{" "}
+              <span className="text-primary-500 font-bold">
+                últimas noticias
+              </span>{" "}
+              y{" "}
+              <span className="text-orange-400 font-bold">promociones</span>.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            {beliconaInstagramPosts.map((post) => (
+              <InstagramPreviewCard
+                key={post.id}
+                href={post.href}
+                embedSrc={post.embedSrc}
+                title={post.title}
+                useTeaser={post.useTeaser}
+                posterSrc={post.posterSrc}
+              />
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut", delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <motion.a
+              href={BELICONA_INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-orange-500 text-white font-compressed font-bold text-lg rounded-full hover:from-primary-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              VER MÁS EN INSTAGRAM
+              <motion.span
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Instagram - Sigue a El Abelito */}
       <section className="py-20 relative z-10">
         <div className="container-custom">
@@ -666,7 +898,6 @@ const Home = () => {
                   height="100%"
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency="true"
                   className="w-full h-full"
                   title="Reel de El Abelito 1"
                 />
@@ -731,7 +962,6 @@ const Home = () => {
                   height="100%"
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency="true"
                   className="w-full h-full"
                   title="Reel de El Abelito 2"
                 />
@@ -780,7 +1010,6 @@ const Home = () => {
                   height="100%"
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency="true"
                   className="w-full h-full"
                   title="Reel de El Abelito 3"
                 />

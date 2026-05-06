@@ -45,26 +45,26 @@ const SobreNosotros = () => {
       {/* Historia Section */}
       <div className="py-12 sm:py-16 md:py-24 relative z-10">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Imagen */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 lg:items-start">
+            {/* Imagen — sin aspect-ratio fijo: evita que overflow-hidden recorte arriba/abajo */}
             <motion.div
-              className="relative"
+              className="relative z-10 mx-auto w-full max-w-xl lg:max-w-none"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="relative z-10">
-                <img
-                  src="/optimized/sabores.webp"
-                  alt="Sabores Belicona"
-                  className="w-full max-h-[600px] object-contain rounded-3xl shadow-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-3xl"></div>
+              <div className="rounded-3xl border border-white/10 bg-black shadow-[0_24px_48px_-12px_rgba(0,0,0,0.75)]">
+                <div className="overflow-hidden rounded-[calc(1.5rem-1px)]">
+                  {/* Ancho completo del marco: evita bandas negras laterales (object-contain + max-h las provocaban) */}
+                  <img
+                    src="/optimized/nuestra-historia-mexicanos.png"
+                    alt="Belicona — Mexicanos por donde lo veas"
+                    decoding="async"
+                    className="block h-auto w-full min-h-0 align-middle"
+                  />
+                </div>
               </div>
-              {/* Elementos decorativos */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary-500 to-orange-500 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-orange-500 to-primary-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
             </motion.div>
 
             {/* Contenido */}
