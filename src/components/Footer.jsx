@@ -358,20 +358,20 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              <a
-                href="#"
+              <Link
+                to="/politica-de-privacidad"
                 aria-label="Leer política de privacidad"
                 className="hover:text-primary-500 transition-colors duration-300"
               >
                 Política de Privacidad
-              </a>
-              <a
-                href="#"
-                aria-label="Leer términos de uso"
+              </Link>
+              <Link
+                to="/terminos-y-condiciones"
+                aria-label="Leer términos y condiciones de uso"
                 className="hover:text-primary-500 transition-colors duration-300"
               >
-                Términos de Uso
-              </a>
+                Términos y Condiciones
+              </Link>
               <a
                 href="#"
                 aria-label="Información sobre cookies"

@@ -23,6 +23,8 @@ import Eventos from "./pages/Eventos";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
 import MenorEdad from "./pages/MenorEdad";
+import TerminosCondiciones from "./pages/TerminosCondiciones";
+import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 
 function AppContent() {
   const location = useLocation();
@@ -148,6 +150,58 @@ function AppContent() {
                   variants={pageTransition}
                 >
                   <MenorEdad />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/terminos-y-condiciones"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <TerminosCondiciones />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/terminos-de-uso"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <TerminosCondiciones />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/politica-de-privacidad"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <PoliticaPrivacidad />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/aviso-de-privacidad"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <PoliticaPrivacidad />
                 </motion.div>
               }
             />
