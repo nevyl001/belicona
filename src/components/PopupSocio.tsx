@@ -47,7 +47,7 @@ const PopupSocio = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto overscroll-contain"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -56,25 +56,19 @@ const PopupSocio = () => {
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
-          {/* Popup Content */}
+          {/* Popup Content — responsive sin cambiar lógica de validación */}
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-labelledby="popup-title"
-            className="relative bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-white/10"
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            className="relative my-auto w-full max-w-[22rem] sm:max-w-md mx-auto rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] p-5 sm:p-8 shadow-2xl max-h-[min(92svh,40rem)] overflow-y-auto"
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 30 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            whileHover={{
-              boxShadow:
-                "0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1)",
-            }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {/* Content */}
             <div className="text-center">
-              {/* Socio Image - ENORME */}
-              <picture className="w-64 h-64 md:w-80 md:h-80 mx-auto mb-6 rounded-2xl shadow-2xl overflow-hidden">
+              <picture className="mx-auto mb-4 sm:mb-6 block h-36 w-36 sm:h-56 sm:w-56 md:h-64 md:w-64 overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl">
                 <source
                   media="(max-width: 640px)"
                   srcSet="/optimized/popup-small.avif"
@@ -106,56 +100,53 @@ const PopupSocio = () => {
                 <motion.img
                   src="/optimized/popup-small.webp"
                   alt="Nuestro socio famoso"
-                  className="w-full h-full object-cover"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="h-full w-full object-cover"
+                  initial={{ opacity: 0.6 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.1, duration: 0.35 }}
                 />
               </picture>
 
-              {/* Title */}
               <motion.h2
                 id="popup-title"
-                className="text-2xl font-compressed text-white mb-3 font-bold"
-                initial={{ opacity: 0, y: 20 }}
+                className="mb-2 sm:mb-3 text-xl sm:text-2xl font-compressed font-bold text-white"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2, duration: 0.35 }}
               >
                 ¡BIENVENIDO A BELICONA!
               </motion.h2>
 
-              {/* Subtitle */}
               <motion.p
-                className="text-gray-300 mb-6 leading-relaxed text-base md:text-lg"
-                initial={{ opacity: 0, y: 20 }}
+                className="mb-5 sm:mb-6 text-sm sm:text-base md:text-lg leading-relaxed text-gray-300"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.28, duration: 0.35 }}
               >
                 Descubre la experiencia única de nuestros sabores artesanales,
                 creados con la más alta calidad y autenticidad de Belicona.
               </motion.p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
                 <motion.button
-                  className="bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 text-white font-compressed font-bold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  type="button"
+                  className="flex-1 rounded-2xl bg-gradient-to-r from-pink-500 to-orange-400 px-5 py-3.5 font-compressed text-sm sm:text-base font-bold text-white shadow-lg transition-colors duration-200 hover:from-pink-600 hover:to-orange-500"
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: 0.36, duration: 0.35 }}
                   onClick={handleMajorAge}
                 >
                   SÍ, SOY MAYOR DE EDAD
                 </motion.button>
 
                 <motion.button
-                  className="border-2 border-gray-500 text-gray-300 hover:bg-gray-500 hover:text-white font-compressed font-bold py-3 px-6 rounded-2xl transition-all duration-300 flex-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  type="button"
+                  className="flex-1 rounded-2xl border-2 border-gray-500 px-5 py-3.5 font-compressed text-sm sm:text-base font-bold text-gray-300 transition-colors duration-200 hover:bg-gray-500 hover:text-white"
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ delay: 0.42, duration: 0.35 }}
                   onClick={handleMinorAge}
                 >
                   NO, SOY MENOR DE EDAD
