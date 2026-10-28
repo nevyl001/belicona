@@ -108,13 +108,13 @@ const Shop = () => {
               className="pointer-events-none absolute inset-[12%] rounded-full bg-primary-500/12 blur-3xl"
               aria-hidden="true"
             />
-            <div className="relative z-[1] overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] min-[1100px]:rounded-[1.75rem]">
+            <div className="relative z-[1] overflow-hidden rounded-3xl shadow-[0_20px_44px_rgba(0,0,0,0.5)] sm:rounded-[1.75rem] min-[1100px]:rounded-[2rem]">
               <img
                 src={PRODUCT_SRC}
                 alt="Productos Belicona"
                 width={420}
                 height={420}
-                className="h-[150px] w-[150px] object-cover object-center drop-shadow-[0_20px_44px_rgba(0,0,0,0.5)] sm:h-[172px] sm:w-[172px] min-[1100px]:h-[280px] min-[1100px]:w-[280px] xl:h-[300px] xl:w-[300px]"
+                className="block h-[150px] w-[150px] rounded-3xl object-cover object-center sm:h-[172px] sm:w-[172px] sm:rounded-[1.75rem] min-[1100px]:h-[280px] min-[1100px]:w-[280px] min-[1100px]:rounded-[2rem] xl:h-[300px] xl:w-[300px]"
                 decoding="async"
                 fetchPriority="high"
                 onError={(e) => {
