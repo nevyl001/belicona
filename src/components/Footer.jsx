@@ -11,6 +11,7 @@ const Footer = () => {
     { path: "/noticias", label: "Noticias" },
     { path: "/eventos", label: "Eventos" },
     { path: "/productos", label: "Productos" },
+    { path: "/shop", label: "Dónde comprar" },
     { path: "/contacto", label: "Contacto" },
   ];
 

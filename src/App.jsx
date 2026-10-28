@@ -22,6 +22,7 @@ import {
 import Eventos from "./pages/Eventos";
 import Productos from "./pages/Productos";
 import Contacto from "./pages/Contacto";
+import Shop from "./pages/Shop";
 import MenorEdad from "./pages/MenorEdad";
 import TerminosCondiciones from "./pages/TerminosCondiciones";
 import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
@@ -29,10 +30,11 @@ import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 function AppContent() {
   const location = useLocation();
   const { pageTransition } = useAnimations();
+  const isShopLanding = location.pathname === "/shop";
 
   return (
     <div className="min-h-screen bg-black">
-      <Navbar />
+      {!isShopLanding && <Navbar />}
       <main>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -46,6 +48,19 @@ function AppContent() {
                   variants={pageTransition}
                 >
                   <Home />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/shop"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageTransition}
+                >
+                  <Shop />
                 </motion.div>
               }
             />
@@ -208,13 +223,15 @@ function AppContent() {
           </Routes>
         </AnimatePresence>
       </main>
-      <Footer />
-      {/* Popup de Bienvenida */}
+      {!isShopLanding && <Footer />}
+      {/* Popup de Bienvenida / mayoría de edad (también en /shop) */}
       <PopupSocio />
-      {/* Botón Scroll to Top */}
-      <ScrollToTop />
-      {/* Botón flotante de WhatsApp */}
-      <WhatsAppButton />
+      {!isShopLanding && (
+        <>
+          <ScrollToTop />
+          <WhatsAppButton />
+        </>
+      )}
     </div>
   );
 }

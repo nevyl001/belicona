@@ -511,3 +511,80 @@ body {
 .particle:nth-child(even) {
   animation-delay: -1s;
 }
+
+/* ——— Shop landing (/shop) ——— */
+.shop-page .shop-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: shopFadeUp 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.shop-page .shop-reveal-1 {
+  animation-delay: 0.05s;
+}
+.shop-page .shop-reveal-2 {
+  animation-delay: 0.11s;
+}
+.shop-page .shop-reveal-3 {
+  animation-delay: 0.17s;
+}
+.shop-page .shop-reveal-4 {
+  animation-delay: 0.22s;
+}
+.shop-page .shop-reveal-5 {
+  animation-delay: 0.26s;
+}
+.shop-page .shop-reveal-6 {
+  animation-delay: 0.34s;
+}
+.shop-page .shop-reveal-7 {
+  animation-delay: 0.48s;
+}
+
+.shop-page .shop-channel-link {
+  animation: shopFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes shopFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .shop-page a.shop-channel-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .shop-page a.shop-channel-link:hover .shop-channel-arrow {
+    transform: translateX(3px);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .shop-page .shop-channel-arrow {
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-page .shop-reveal,
+  .shop-page .shop-channel-link {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .shop-page a.shop-channel-link:hover {
+    transform: none;
+  }
+
+  .shop-page a.shop-channel-link:hover .shop-channel-arrow {
+    transform: none;
+  }
+}

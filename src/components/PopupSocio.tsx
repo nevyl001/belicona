@@ -8,21 +8,20 @@ const PopupSocio = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Mostrar popup cada vez que se vaya al inicio
-    if (location.pathname === "/") {
-      // Mostrar popup después de 0.5s
+    // Mayoría de edad en inicio y landing comercial /shop (tráfico Instagram)
+    const needsAgeGate =
+      location.pathname === "/" || location.pathname === "/shop";
+
+    if (needsAgeGate) {
       const timer = setTimeout(() => {
         setIsVisible(true);
-        // Disparar evento cuando el popup se muestra
-        window.dispatchEvent(new CustomEvent('belicona_popup_show'));
+        window.dispatchEvent(new CustomEvent("belicona_popup_show"));
       }, 500);
       return () => clearTimeout(timer);
-    } else {
-      // Ocultar popup si no está en la página de inicio
-      setIsVisible(false);
-      // Disparar evento cuando el popup se oculta
-      window.dispatchEvent(new CustomEvent('belicona_popup_hide'));
     }
+
+    setIsVisible(false);
+    window.dispatchEvent(new CustomEvent("belicona_popup_hide"));
   }, [location.pathname]);
 
   const handleMinorAge = () => {

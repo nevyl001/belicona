@@ -86,6 +86,7 @@ function checkDeploymentConfig() {
       { path: "/noticias", name: "Noticias" },
       { path: "/eventos", name: "Eventos" },
       { path: "/productos", name: "Productos" },
+      { path: "/shop", name: "Shop / Dónde comprar" },
       { path: "/contacto", name: "Contacto" },
       { path: "/menor-edad", name: "Menor Edad" },
     ];
