@@ -512,44 +512,42 @@ body {
   animation-delay: -1s;
 }
 
-/* ——— Shop landing (/shop) — Dark Editorial × Street Luxury ——— */
+/* ——— Shop / Premium Minimal Dark Editorial ——— */
 .shop-page .shop-atmosphere {
-  background:
-    radial-gradient(ellipse 58% 48% at 22% 42%, rgba(178, 18, 28, 0.22), transparent 62%),
-    radial-gradient(ellipse 42% 38% at 86% 72%, rgba(237, 1, 127, 0.07), transparent 58%),
-    radial-gradient(ellipse 80% 70% at 50% 100%, rgba(0, 0, 0, 0.55), transparent 70%);
+  background: radial-gradient(
+    ellipse 50% 42% at 22% 48%,
+    rgba(40, 40, 40, 0.35),
+    transparent 70%
+  );
 }
 
 .shop-page .shop-reveal {
   opacity: 0;
-  transform: translateY(8px);
-  animation: shopFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(6px);
+  animation: shopFadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .shop-page .shop-reveal-1 {
-  animation-delay: 0.04s;
+  animation-delay: 0.02s;
 }
 .shop-page .shop-reveal-2 {
-  animation-delay: 0.1s;
+  animation-delay: 0.06s;
 }
 .shop-page .shop-reveal-3 {
-  animation-delay: 0.15s;
+  animation-delay: 0.1s;
 }
 .shop-page .shop-reveal-4 {
-  animation-delay: 0.2s;
+  animation-delay: 0.14s;
 }
 .shop-page .shop-reveal-5 {
-  animation-delay: 0.24s;
+  animation-delay: 0.18s;
 }
 .shop-page .shop-reveal-6 {
-  animation-delay: 0.32s;
-}
-.shop-page .shop-reveal-7 {
-  animation-delay: 0.42s;
+  animation-delay: 0.22s;
 }
 
 .shop-page .shop-channel-link {
-  animation: shopFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: shopFadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .shop-page .shop-product-stage {
@@ -559,101 +557,40 @@ body {
 .shop-page .shop-product-glow {
   position: absolute;
   left: 50%;
-  bottom: 6%;
-  width: 78%;
-  height: 55%;
+  bottom: 4%;
+  width: 70%;
+  height: 40%;
   transform: translateX(-50%);
   border-radius: 9999px;
   background: radial-gradient(
     ellipse at center,
-    rgba(224, 32, 32, 0.38) 0%,
-    rgba(178, 18, 28, 0.18) 42%,
-    transparent 72%
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 70%
   );
-  filter: blur(28px);
+  filter: blur(20px);
   pointer-events: none;
   z-index: 0;
 }
 
-@media (min-width: 1100px) {
-  .shop-page .shop-product-glow {
-    left: 42%;
-    width: 90%;
-    height: 58%;
-    filter: blur(36px);
-  }
-}
-
-/* Cluster de latas oficiales */
-.shop-page .shop-can {
-  position: absolute;
-  bottom: 0;
-  height: 86%;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.55));
+.shop-page .shop-product-can {
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.45));
   user-select: none;
-  pointer-events: none;
 }
 
-.shop-page .shop-can-left {
-  left: 4%;
-  height: 78%;
-  z-index: 1;
-  transform: rotate(-7deg);
-}
-
-.shop-page .shop-can-center {
-  left: 50%;
-  height: 100%;
-  z-index: 3;
-  transform: translateX(-50%);
-}
-
-.shop-page .shop-can-right {
-  right: 4%;
-  height: 78%;
-  z-index: 2;
-  transform: rotate(7deg);
-}
-
-@media (min-width: 1100px) {
-  .shop-page .shop-can {
-    filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.6));
-  }
-
-  .shop-page .shop-can-left {
-    left: 2%;
-    height: 80%;
-    transform: rotate(-8deg);
-  }
-
-  .shop-page .shop-can-right {
-    right: 2%;
-    height: 80%;
-    transform: rotate(8deg);
-  }
-}
-
-/* Superficies de canales */
 .shop-page .shop-channel-live {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.1);
   background: #101010;
 }
 
 .shop-page .shop-channel-featured {
-  border-color: rgba(224, 32, 32, 0.42);
-  background: linear-gradient(
-    105deg,
-    rgba(179, 18, 27, 0.55) 0%,
-    rgba(16, 16, 16, 0.95) 62%
-  );
+  border-color: rgba(179, 18, 27, 0.45);
+  background: #140a0a;
 }
 
 @keyframes shopFadeUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -663,30 +600,24 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .shop-page a.shop-channel-live:hover {
-    border-color: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.2);
     background: #141414;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
   }
 
   .shop-page a.shop-channel-featured:hover {
-    border-color: rgba(224, 32, 32, 0.62);
-    background: linear-gradient(
-      105deg,
-      rgba(179, 18, 27, 0.68) 0%,
-      rgba(20, 20, 20, 0.98) 62%
-    );
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(120, 10, 18, 0.28);
+    border-color: rgba(179, 18, 27, 0.65);
+    background: #1a0c0c;
+    transform: translateY(-1px);
   }
 
   .shop-page a.shop-channel-link:hover .shop-channel-arrow {
-    transform: translateX(4px);
-    color: rgba(255, 255, 255, 0.92);
+    transform: translateX(3px);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .shop-page .shop-channel-arrow {
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform 0.18s ease, color 0.18s ease;
   }
 }
 
