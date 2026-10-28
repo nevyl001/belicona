@@ -80,7 +80,7 @@ export const SHOP_CHANNELS = [
     url: SHOP_WHATSAPP,
     enabled: true,
     order: 5,
-    description: "Pregunta por puntos cercanos",
+    description: "Escríbenos por WhatsApp y te orientamos",
     logoSrc: null,
   },
   // Futuro: tienda oficial Belicona (no mostrar mientras enabled sea false)

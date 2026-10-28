@@ -3,7 +3,7 @@ import { trackShopChannelClick } from "../data/shopChannels";
 
 const ExternalArrow = () => (
   <svg
-    className="shop-channel-arrow h-[17px] w-[17px] shrink-0 text-white/55 lg:h-[18px] lg:w-[18px]"
+    className="shop-channel-arrow h-[18px] w-[18px] shrink-0 text-white/60"
     viewBox="0 0 24 24"
     fill="none"
     aria-hidden="true"
@@ -18,65 +18,24 @@ const ExternalArrow = () => (
   </svg>
 );
 
-const PendingMark = () => (
-  <span
-    className="shrink-0 rounded-full border border-white/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.08em] text-white/35"
-    aria-hidden="true"
-  >
-    Pronto
-  </span>
-);
-
 /**
- * Enlace comercial premium — fila completa clicable.
- * Sin URL habilitada: bloque informativo elegante (sin navegación falsa).
+ * Canal comercial Belicona.
+ * - Con URL: tarjeta premium clicable.
+ * - Sin URL: mención discreta (sin mensajes técnicos tipo "pendiente" / "PRONTO").
  */
-const ShopChannelLink = ({ channel, style }) => {
+const ShopChannelLink = ({ channel, style, featured = false }) => {
   const isLive = Boolean(channel.enabled && channel.url);
-  const secondary = isLive
-    ? channel.description
-    : channel.pendingNote || "Enlace pendiente de configuración";
-
-  const content = (
-    <>
-      <span className="min-w-0 flex-1 text-left">
-        <span className="block font-heading text-[15.5px] font-semibold tracking-wide text-white sm:text-[16px] lg:text-[17px]">
-          {channel.name}
-        </span>
-        {secondary ? (
-          <span
-            className={`mt-0.5 block text-[12px] leading-snug lg:text-[13px] ${
-              isLive ? "text-white/50" : "text-white/38"
-            }`}
-          >
-            {secondary}
-          </span>
-        ) : null}
-      </span>
-      {isLive ? <ExternalArrow /> : <PendingMark />}
-    </>
-  );
-
-  const className = [
-    "shop-channel-link",
-    "group flex w-full items-center gap-3 rounded-[15px] border px-[18px] py-[14px]",
-    "min-h-[60px] sm:min-h-[64px] lg:min-h-[68px] lg:rounded-[16px] lg:px-5",
-    "transition-[border-color,background-color,transform,box-shadow] duration-[180ms] ease-out",
-    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
-    isLive
-      ? "cursor-pointer border-white/[0.12] bg-white/[0.035] hover:border-white/25 hover:bg-white/[0.06] active:scale-[0.995] active:bg-white/[0.04]"
-      : "cursor-default border-dashed border-white/[0.10] bg-white/[0.02]",
-  ].join(" ");
 
   if (!isLive) {
     return (
       <div
-        className={className}
+        className="shop-channel-link shop-channel-quiet flex min-h-[56px] w-full items-center rounded-[14px] border border-white/[0.07] bg-transparent px-5 py-3.5 lg:min-h-[60px]"
         style={style}
-        role="group"
-        aria-label={`${channel.name}: pendiente de configuración`}
+        aria-label={channel.name}
       >
-        {content}
+        <span className="font-heading text-[15px] font-medium tracking-wide text-white/55 lg:text-[16px]">
+          {channel.name}
+        </span>
       </div>
     );
   }
@@ -84,14 +43,33 @@ const ShopChannelLink = ({ channel, style }) => {
   return (
     <a
       href={channel.url}
-      className={className}
+      className={[
+        "shop-channel-link group flex w-full items-center gap-3 rounded-[14px] border px-5 py-4",
+        "min-h-[64px] lg:min-h-[72px] lg:rounded-[16px] lg:px-6",
+        "transition-[border-color,background-color,transform,box-shadow] duration-[200ms] ease-out",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
+        featured
+          ? "border-primary-500/35 bg-gradient-to-r from-primary-500/15 to-orange-500/10 hover:border-primary-500/55 hover:from-primary-500/20 hover:to-orange-500/15"
+          : "border-white/[0.14] bg-white/[0.045] hover:border-white/28 hover:bg-white/[0.07]",
+        "active:scale-[0.995]",
+      ].join(" ")}
       style={style}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackShopChannelClick(channel)}
       aria-label={`Abrir ${channel.name}`}
     >
-      {content}
+      <span className="min-w-0 flex-1 text-left">
+        <span className="block font-heading text-[16px] font-semibold tracking-wide text-white lg:text-[17px]">
+          {channel.name}
+        </span>
+        {channel.description ? (
+          <span className="mt-0.5 block text-[12px] leading-snug text-white/55 lg:text-[13px]">
+            {channel.description}
+          </span>
+        ) : null}
+      </span>
+      <ExternalArrow />
     </a>
   );
 };

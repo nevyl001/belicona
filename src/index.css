@@ -515,7 +515,7 @@ body {
 /* ——— Shop landing (/shop) ——— */
 .shop-page .shop-reveal {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
   animation: shopFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -526,39 +526,37 @@ body {
   animation-delay: 0.1s;
 }
 .shop-page .shop-reveal-3 {
-  animation-delay: 0.16s;
+  animation-delay: 0.15s;
 }
 .shop-page .shop-reveal-4 {
-  animation-delay: 0.22s;
+  animation-delay: 0.2s;
 }
 .shop-page .shop-reveal-5 {
-  animation-delay: 0.26s;
+  animation-delay: 0.24s;
 }
 .shop-page .shop-reveal-6 {
-  animation-delay: 0.34s;
+  animation-delay: 0.32s;
 }
 .shop-page .shop-reveal-7 {
-  animation-delay: 0.46s;
+  animation-delay: 0.42s;
 }
 
 .shop-page .shop-channel-link {
   animation: shopFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.shop-page .shop-product-stage {
+  isolation: isolate;
+}
+
 @keyframes shopFadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@media (min-width: 1024px) {
-  .shop-page .shop-reveal {
-    transform: translateY(8px);
   }
 }
 
@@ -570,11 +568,11 @@ body {
 
   .shop-page a.shop-channel-link:hover .shop-channel-arrow {
     transform: translateX(4px);
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .shop-page .shop-channel-arrow {
-    transition: transform 0.18s ease, color 0.18s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
   }
 }
 
