@@ -115,7 +115,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Pepino Limón",
         packId: "6-latas",
         packLabel: "6 LATAS",
-        presentation: "Six Pack · 6 latas de 355 ml",
+        presentation: "Six Pack · 355 ml",
         image: FLAVOR_IMAGES["pepino-limon"],
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -136,7 +136,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Maracuyá",
         packId: "6-latas",
         packLabel: "6 LATAS",
-        presentation: "Six Pack · 6 latas de 355 ml",
+        presentation: "Six Pack · 355 ml",
         image: FLAVOR_IMAGES.maracuya,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -150,7 +150,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Cantarito",
         packId: "6-latas",
         packLabel: "6 LATAS",
-        presentation: "Six Pack · 6 latas de 355 ml",
+        presentation: "Six Pack · 355 ml",
         image: FLAVOR_IMAGES.cantarito,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -164,7 +164,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Piña",
         packId: "6-latas",
         packLabel: "6 LATAS",
-        presentation: "Six Pack · 6 latas de 355 ml",
+        presentation: "Six Pack · 355 ml",
         image: FLAVOR_IMAGES.pina,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -179,7 +179,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         badge: "Edición Limitada",
         packId: "6-latas",
         packLabel: "6 LATAS",
-        presentation: "Six Pack · 6 latas de 355 ml",
+        presentation: "Six Pack · 355 ml",
         image: FLAVOR_IMAGES["pina-coco-edicion-limitada"],
         verificationStatus: "verified",
         mercadoLibre: mercadoLibreOffer(
@@ -218,7 +218,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Maracuyá",
         packId: "12-latas",
         packLabel: "12 LATAS",
-        presentation: "Pack de 12 latas · 355 ml",
+        presentation: "12 latas · 355 ml",
         image: FLAVOR_IMAGES.maracuya,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -236,7 +236,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Pepino Limón",
         packId: "12-latas",
         packLabel: "12 LATAS",
-        presentation: "Pack de 12 latas · 355 ml",
+        presentation: "12 latas · 355 ml",
         image: FLAVOR_IMAGES["pepino-limon"],
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -254,7 +254,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Cantarito",
         packId: "12-latas",
         packLabel: "12 LATAS",
-        presentation: "Pack de 12 latas · 355 ml",
+        presentation: "12 latas · 355 ml",
         image: FLAVOR_IMAGES.cantarito,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -280,7 +280,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Maracuyá",
         packId: "24-latas",
         packLabel: "24 LATAS",
-        presentation: "Pack de 24 latas · 355 ml",
+        presentation: "24 latas · 355 ml",
         image: FLAVOR_IMAGES.maracuya,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -298,7 +298,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Pepino Limón",
         packId: "24-latas",
         packLabel: "24 LATAS",
-        presentation: "Pack de 24 latas · 355 ml",
+        presentation: "24 latas · 355 ml",
         image: FLAVOR_IMAGES["pepino-limon"],
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -316,7 +316,7 @@ export const UNIFIED_PACK_CATALOG: PackPresentationGroup[] = [
         name: "Cantarito",
         packId: "24-latas",
         packLabel: "24 LATAS",
-        presentation: "Pack de 24 latas · 355 ml",
+        presentation: "24 latas · 355 ml",
         image: FLAVOR_IMAGES.cantarito,
         verificationStatus: "verified",
         amazon: amazonOffer(
@@ -351,15 +351,22 @@ export function getVerifiedOffers(
 }
 
 /**
- * Devuelve los productos de una presentación que tienen al menos un enlace
- * verificado listo para compra.
+ * Devuelve los productos de una presentación que tienen enlace verificado
+ * para un marketplace específico ("amazon" o "mercado-libre").
  */
-export function getPublishedProductsByPack(
-  packGroup: PackPresentationGroup
-): UnifiedPackProduct[] {
-  return packGroup.products.filter(
-    (product) =>
-      product.verificationStatus === "verified" &&
-      getVerifiedOffers(product).length > 0
-  );
+export function getPublishedProductsByPackAndMarketplace(
+  packGroup: PackPresentationGroup,
+  marketplace: MarketplaceId
+): Array<{ product: UnifiedPackProduct; offer: MarketplaceOffer }> {
+  const result: Array<{ product: UnifiedPackProduct; offer: MarketplaceOffer }> =
+    [];
+  for (const product of packGroup.products) {
+    if (product.verificationStatus !== "verified") continue;
+    const offer =
+      marketplace === "amazon" ? product.amazon : product.mercadoLibre;
+    if (offer && offer.verified) {
+      result.push({ product, offer });
+    }
+  }
+  return result;
 }

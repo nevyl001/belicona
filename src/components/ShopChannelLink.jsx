@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
-  getPublishedProductsByPack,
-  getVerifiedOffers,
+  getPublishedProductsByPackAndMarketplace,
   trackShopChannelClick,
 } from "../data/shopChannels";
 
@@ -45,10 +44,11 @@ const ShopChannelLink = ({
   isOpen,
   onToggle,
 }) => {
-  const hasUnifiedCatalog = Boolean(
+  const hasPackCatalog = Boolean(
     channel.enabled &&
-      Array.isArray(channel.unifiedCatalog) &&
-      channel.unifiedCatalog.length > 0
+      channel.marketplaceId &&
+      Array.isArray(channel.packCatalog) &&
+      channel.packCatalog.length > 0
   );
   const hasOptions = Boolean(
     channel.enabled && Array.isArray(channel.options) && channel.options.length > 0
@@ -56,7 +56,7 @@ const ShopChannelLink = ({
   const isLive = Boolean(channel.enabled && channel.url);
   const [internalOpen, setInternalOpen] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState(
-    hasUnifiedCatalog ? "24-latas" : null
+    hasPackCatalog ? "6-latas" : null
   );
   const [selectedFlavorFilter, setSelectedFlavorFilter] = useState("all");
 
@@ -68,19 +68,25 @@ const ShopChannelLink = ({
     setSelectedFlavorFilter("all");
   };
 
-  if (hasUnifiedCatalog || hasOptions) {
+  if (hasPackCatalog || hasOptions) {
     const panelId = `shop-channel-panel-${channel.id}`;
-    const activePackGroup = hasUnifiedCatalog
-      ? channel.unifiedCatalog.find((p) => p.id === selectedPackId) ||
-        channel.unifiedCatalog[0]
+    const activePackGroup = hasPackCatalog
+      ? channel.packCatalog.find((p) => p.id === selectedPackId) ||
+        channel.packCatalog[0]
       : null;
-    const publishedProducts = activePackGroup
-      ? getPublishedProductsByPack(activePackGroup)
-      : [];
-    const visibleProducts =
+    const marketplaceEntries =
+      hasPackCatalog && activePackGroup
+        ? getPublishedProductsByPackAndMarketplace(
+            activePackGroup,
+            channel.marketplaceId
+          )
+        : [];
+    const visibleEntries =
       selectedFlavorFilter === "all"
-        ? publishedProducts
-        : publishedProducts.filter((p) => p.id === selectedFlavorFilter);
+        ? marketplaceEntries
+        : marketplaceEntries.filter(
+            (entry) => entry.product.id === selectedFlavorFilter
+          );
 
     return (
       <div className="shop-channel-expandable">
@@ -110,15 +116,15 @@ const ShopChannelLink = ({
           aria-hidden={!expanded}
         >
           <div className="shop-subpanel-inner">
-            {hasUnifiedCatalog && activePackGroup ? (
+            {hasPackCatalog && activePackGroup ? (
               <div className="shop-subpanel-list shop-pack-selector">
                 {/* Paso 1: Elegir presentación (6, 12 o 24 latas) */}
                 <div
                   className="shop-pack-tabs"
                   role="tablist"
-                  aria-label="Seleccionar presentación de latas"
+                  aria-label={`Presentaciones disponibles en ${channel.name}`}
                 >
-                  {channel.unifiedCatalog.map((pack) => {
+                  {channel.packCatalog.map((pack) => {
                     const isSelected = pack.id === activePackGroup.id;
                     return (
                       <button
@@ -140,143 +146,122 @@ const ShopChannelLink = ({
                   })}
                 </div>
 
-                {/* Paso 2: Filtro rápido de sabor dentro de la presentación seleccionada */}
-                <div
-                  className="shop-flavor-pills"
-                  role="group"
-                  aria-label={`Filtrar por sabor en ${activePackGroup.label}`}
-                >
-                  <button
-                    type="button"
-                    tabIndex={expanded ? 0 : -1}
-                    aria-pressed={selectedFlavorFilter === "all"}
-                    className={`shop-flavor-pill ${
-                      selectedFlavorFilter === "all"
-                        ? "shop-flavor-pill--active"
-                        : ""
-                    }`}
-                    onClick={() => setSelectedFlavorFilter("all")}
+                {/* Paso 2: Seleccionar sabor disponible en la presentación activa */}
+                {marketplaceEntries.length > 1 ? (
+                  <div
+                    className="shop-flavor-pills"
+                    role="group"
+                    aria-label={`Sabores de ${activePackGroup.label} en ${channel.name}`}
                   >
-                    Todos ({publishedProducts.length})
-                  </button>
-                  {publishedProducts.map((product) => {
-                    const isActive = selectedFlavorFilter === product.id;
-                    const pillLabel = product.badge
-                      ? `${product.name} · ${product.badge}`
-                      : product.name;
-                    return (
-                      <button
-                        key={product.id}
-                        type="button"
-                        tabIndex={expanded ? 0 : -1}
-                        aria-pressed={isActive}
-                        className={`shop-flavor-pill ${
-                          isActive ? "shop-flavor-pill--active" : ""
-                        }`}
-                        onClick={() =>
-                          setSelectedFlavorFilter((prev) =>
-                            prev === product.id ? "all" : product.id
-                          )
-                        }
-                      >
-                        {pillLabel}
-                      </button>
-                    );
-                  })}
-                </div>
+                    <button
+                      type="button"
+                      tabIndex={expanded ? 0 : -1}
+                      aria-pressed={selectedFlavorFilter === "all"}
+                      className={`shop-flavor-pill ${
+                        selectedFlavorFilter === "all"
+                          ? "shop-flavor-pill--active"
+                          : ""
+                      }`}
+                      onClick={() => setSelectedFlavorFilter("all")}
+                    >
+                      Todos ({marketplaceEntries.length})
+                    </button>
+                    {marketplaceEntries.map(({ product }) => {
+                      const isActive = selectedFlavorFilter === product.id;
+                      const pillLabel = product.badge
+                        ? `${product.name} · ${product.badge}`
+                        : product.name;
+                      return (
+                        <button
+                          key={product.id}
+                          type="button"
+                          tabIndex={expanded ? 0 : -1}
+                          aria-pressed={isActive}
+                          className={`shop-flavor-pill ${
+                            isActive ? "shop-flavor-pill--active" : ""
+                          }`}
+                          onClick={() =>
+                            setSelectedFlavorFilter((prev) =>
+                              prev === product.id ? "all" : product.id
+                            )
+                          }
+                        >
+                          {pillLabel}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : null}
 
-                {/* Paso 3 y 4: Una sola ficha visual por (presentación × sabor) con marketplaces disponibles */}
+                {/* Paso 3: Tarjetas exclusivas del marketplace seleccionado */}
                 <div
                   id={`shop-pack-panel-${channel.id}-${activePackGroup.id}`}
                   role="tabpanel"
                   aria-labelledby={`shop-pack-tab-${channel.id}-${activePackGroup.id}`}
                   className="shop-pack-products"
                 >
-                  {visibleProducts.map((product) => {
-                    const offers = getVerifiedOffers(product);
-                    return (
-                      <article
-                        key={product.id}
-                        className="shop-unified-card"
-                        data-flavor-id={product.flavorId}
-                        data-pack-id={product.packId}
-                      >
-                        <div className="shop-unified-card-head">
-                          <span className="shop-pack-thumb" aria-hidden="true">
-                            <img
-                              src={product.image}
-                              alt=""
-                              width={46}
-                              height={46}
-                              loading="lazy"
-                              decoding="async"
-                            />
+                  {visibleEntries.map(({ product, offer }) => (
+                    <a
+                      key={`${channel.id}-${product.id}`}
+                      href={offer.url}
+                      className="shop-pack-card"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={expanded ? 0 : -1}
+                      data-marketplace={offer.marketplace}
+                      data-external-id={offer.externalId}
+                      data-pack-id={product.packId}
+                      data-flavor-id={product.flavorId}
+                      onClick={() =>
+                        trackShopChannelClick(channel, {
+                          id: product.flavorId,
+                          name: product.name,
+                          presentation: product.presentation,
+                          packId: product.packId,
+                          packLabel: product.packLabel,
+                          marketplace: offer.marketplace,
+                          marketplaceLabel: offer.label,
+                          externalId: offer.externalId,
+                          asin:
+                            offer.marketplace === "amazon"
+                              ? offer.externalId
+                              : undefined,
+                          url: offer.url,
+                        })
+                      }
+                      aria-label={`${offer.ctaLabel}: Belicona ${product.name} (${product.presentation})`}
+                    >
+                      <span className="shop-pack-thumb" aria-hidden="true">
+                        <img
+                          src={product.image}
+                          alt=""
+                          width={44}
+                          height={44}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </span>
+                      <span className="min-w-0 flex-1 text-left">
+                        <span className="shop-suboption-header">
+                          <span className="shop-suboption-name">
+                            {product.name}
                           </span>
-                          <div className="min-w-0 flex-1 text-left">
-                            <div className="shop-suboption-header">
-                              <span className="shop-suboption-name">
-                                {product.name}
-                              </span>
-                              {product.badge ? (
-                                <span className="shop-suboption-badge">
-                                  {product.badge}
-                                </span>
-                              ) : null}
-                            </div>
-                            <span className="shop-suboption-meta">
-                              {product.presentation}
+                          {product.badge ? (
+                            <span className="shop-suboption-badge">
+                              {product.badge}
                             </span>
-                          </div>
-                        </div>
-
-                        <div
-                          className={`shop-mp-actions ${
-                            offers.length === 1 ? "shop-mp-actions--single" : ""
-                          }`}
-                        >
-                          {offers.map((offer) => (
-                            <a
-                              key={`${product.id}-${offer.marketplace}`}
-                              href={offer.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              tabIndex={expanded ? 0 : -1}
-                              data-marketplace={offer.marketplace}
-                              data-external-id={offer.externalId}
-                              className={`shop-mp-btn shop-mp-btn--${offer.marketplace}`}
-                              onClick={() =>
-                                trackShopChannelClick(channel, {
-                                  id: product.flavorId,
-                                  name: product.name,
-                                  presentation: product.presentation,
-                                  packId: product.packId,
-                                  packLabel: product.packLabel,
-                                  marketplace: offer.marketplace,
-                                  marketplaceLabel: offer.label,
-                                  externalId: offer.externalId,
-                                  asin:
-                                    offer.marketplace === "amazon"
-                                      ? offer.externalId
-                                      : undefined,
-                                  url: offer.url,
-                                })
-                              }
-                              aria-label={`${offer.ctaLabel}: Belicona ${product.name} (${product.presentation})`}
-                            >
-                              <span
-                                className={`shop-mp-dot shop-mp-dot--${offer.marketplace}`}
-                                aria-hidden="true"
-                              />
-                              <span className="shop-mp-btn-label">
-                                {offer.ctaLabel}
-                              </span>
-                              <ExternalArrow />
-                            </a>
-                          ))}
-                        </div>
-                      </article>
-                    );
-                  })}
+                          ) : null}
+                        </span>
+                        <span className="shop-suboption-meta">
+                          {product.presentation}
+                        </span>
+                      </span>
+                      <span className="shop-pack-cta">
+                        <span>{offer.ctaLabel}</span>
+                        <ExternalArrow />
+                      </span>
+                    </a>
+                  ))}
                 </div>
               </div>
             ) : (

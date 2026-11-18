@@ -5,7 +5,6 @@ import BeliconaParticleBackground from "../components/BeliconaParticleBackground
 import BeliconaProductShowcase from "../components/BeliconaProductShowcase";
 import { SHOP_SHOWCASE } from "../data/shopShowcase";
 import {
-  DEFAULT_OPEN_CHANNEL_ID,
   SHOP_INSTAGRAM,
   SHOP_WHATSAPP,
   getShopChannelsByType,
@@ -41,7 +40,7 @@ function upsertLink(rel, href) {
 const Shop = () => {
   const online = getShopChannelsByType("online");
   const nearby = getShopChannelsByType("nearby");
-  const [openChannelId, setOpenChannelId] = useState(DEFAULT_OPEN_CHANNEL_ID);
+  const [openChannelId, setOpenChannelId] = useState(null);
 
   const handleToggleChannel = (channelId) => {
     setOpenChannelId((prev) => (prev === channelId ? null : channelId));

@@ -1,22 +1,23 @@
 /**
  * Canales comerciales Belicona (/shop)
  *
- * Centraliza los canales de compra en línea (catálogo unificado Amazon + Mercado Libre
- * por presentación y sabor, más Walmart lata individual) y puntos de venta cercanos
- * (GoMart y Tienditas por WhatsApp).
+ * En COMPRA EN LÍNEA se presentan tres tarjetas independientes en orden:
+ * 1. Amazon (Packs de 6, 12 y 24 latas · Elige tu sabor)
+ * 2. Mercado Libre (Packs de 6, 12 y 24 latas · Elige tu sabor)
+ * 3. Walmart (Lata individual de 355 ml)
  */
 
 import {
   FLAVOR_IMAGES,
   UNIFIED_PACK_CATALOG,
-  getPublishedProductsByPack,
+  getPublishedProductsByPackAndMarketplace,
   getVerifiedOffers,
 } from "./shopCatalog";
 
 export {
   FLAVOR_IMAGES,
   UNIFIED_PACK_CATALOG,
-  getPublishedProductsByPack,
+  getPublishedProductsByPackAndMarketplace,
   getVerifiedOffers,
 };
 
@@ -27,19 +28,30 @@ export const SHOP_WHATSAPP =
     "Hola Belicona, quiero saber dónde encontrar el producto cerca de mí."
   );
 
-export const DEFAULT_OPEN_CHANNEL_ID = "packs-online";
-
 export const SHOP_CHANNELS = [
   {
-    id: "packs-online",
-    name: "Amazon · Mercado Libre",
-    description: "Packs de 6, 12 y 24 latas · Elige presentación y sabor",
+    id: "amazon",
+    name: "Amazon",
+    description: "Packs de 6, 12 y 24 latas · Elige tu sabor",
     type: "online",
     url: null,
     enabled: true,
     order: 1,
     logoSrc: null,
-    unifiedCatalog: UNIFIED_PACK_CATALOG,
+    marketplaceId: "amazon",
+    packCatalog: UNIFIED_PACK_CATALOG,
+  },
+  {
+    id: "mercado-libre",
+    name: "Mercado Libre",
+    description: "Packs de 6, 12 y 24 latas · Elige tu sabor",
+    type: "online",
+    url: null,
+    enabled: true,
+    order: 2,
+    logoSrc: null,
+    marketplaceId: "mercado-libre",
+    packCatalog: UNIFIED_PACK_CATALOG,
   },
   {
     id: "walmart",
@@ -48,7 +60,7 @@ export const SHOP_CHANNELS = [
     type: "online",
     url: null,
     enabled: true,
-    order: 2,
+    order: 3,
     logoSrc: null,
     options: [
       {
