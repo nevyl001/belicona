@@ -3,7 +3,7 @@ import { trackShopChannelClick } from "../data/shopChannels";
 
 const ExternalArrow = () => (
   <svg
-    className="shop-channel-arrow h-[15px] w-[15px] shrink-0 text-white/55"
+    className="shop-link-arrow h-[16px] w-[16px] shrink-0"
     viewBox="0 0 24 24"
     fill="none"
     aria-hidden="true"
@@ -18,19 +18,39 @@ const ExternalArrow = () => (
   </svg>
 );
 
+const ChatIcon = () => (
+  <svg
+    className="h-[18px] w-[18px]"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.2 3.6A.6.6 0 0 1 5.8 19v-3H6.5A2.5 2.5 0 0 1 4 13.5v-8Z"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const ShopChannelLink = ({ channel, style, featured = false }) => {
   const isLive = Boolean(channel.enabled && channel.url);
 
+  // Canal aún sin URL aprobada: conserva la anatomía visual premium sin navegar a rutas ficticias.
   if (!isLive) {
     return (
       <div
-        className="shop-channel shop-channel-quiet flex min-h-[62px] w-full items-center rounded-[13px] px-5 py-3.5"
+        className="shop-link shop-link--quiet shop-enter shop-enter-link"
         style={style}
+        tabIndex={0}
+        role="group"
         aria-label={channel.name}
       >
-        <span className="font-heading text-[15px] font-medium tracking-[0.02em] text-white/58 sm:text-[16px]">
-          {channel.name}
+        <span className="min-w-0 flex-1 text-left">
+          <span className="shop-link-name">{channel.name}</span>
         </span>
+        <ExternalArrow />
       </div>
     );
   }
@@ -38,27 +58,24 @@ const ShopChannelLink = ({ channel, style, featured = false }) => {
   return (
     <a
       href={channel.url}
-      className={[
-        "shop-channel group flex w-full items-center gap-3 rounded-[13px] px-5 py-3.5",
-        "min-h-[64px] transition-[border-color,background-color,transform,box-shadow] duration-[200ms] ease-out",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-red)]",
-        featured ? "shop-channel-featured" : "shop-channel-live",
-        "active:scale-[0.995]",
-      ].join(" ")}
+      className={`shop-link shop-enter shop-enter-link ${
+        featured ? "shop-link--featured" : "shop-link--live"
+      }`}
       style={style}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackShopChannelClick(channel)}
       aria-label={`Abrir ${channel.name}`}
     >
-      <span className="min-w-0 flex-1 text-left">
-        <span className="block font-heading text-[15px] font-semibold tracking-[0.02em] text-white sm:text-[16px]">
-          {channel.name}
+      {featured ? (
+        <span className="shop-link-icon" aria-hidden="true">
+          <ChatIcon />
         </span>
+      ) : null}
+      <span className="min-w-0 flex-1 text-left">
+        <span className="shop-link-name">{channel.name}</span>
         {channel.description ? (
-          <span className="mt-0.5 block text-[12px] leading-snug text-white/62 sm:text-[13px]">
-            {channel.description}
-          </span>
+          <span className="shop-link-desc">{channel.description}</span>
         ) : null}
       </span>
       <ExternalArrow />
