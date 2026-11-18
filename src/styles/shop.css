@@ -374,6 +374,131 @@
   border-color: rgba(224, 32, 32, 0.6);
 }
 
+/* ——— Panel desplegable de sabores (Mercado Libre) ——————————— */
+.shop-page .shop-link--trigger {
+  cursor: pointer;
+  font: inherit;
+}
+
+.shop-page .shop-link--expanded {
+  border-color: rgba(224, 32, 32, 0.55);
+  box-shadow: 0 12px 26px -14px rgba(0, 0, 0, 0.85);
+}
+.shop-page .shop-link--expanded::before {
+  opacity: 0.75;
+}
+.shop-page .shop-link--expanded .shop-link-arrow {
+  transform: rotate(90deg);
+  color: var(--shop-red);
+}
+
+.shop-page .shop-subpanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin-top: 0;
+  pointer-events: none;
+  transition:
+    grid-template-rows 0.34s var(--shop-ease),
+    opacity 0.25s ease,
+    margin-top 0.34s var(--shop-ease);
+}
+
+.shop-page .shop-subpanel[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 8px;
+  pointer-events: auto;
+}
+
+.shop-page .shop-subpanel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.shop-page .shop-subpanel-list {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(224, 32, 32, 0.24);
+  background: linear-gradient(180deg, #0d0d10 0%, #08080a 100%);
+  box-shadow:
+    0 18px 36px -16px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.shop-page .shop-suboption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12.5px 18px;
+  color: var(--shop-white);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.shop-page .shop-suboption + .shop-suboption {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.shop-page .shop-suboption-dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--shop-red);
+  box-shadow: 0 0 10px rgba(224, 32, 32, 0.65);
+  transition: transform 0.25s var(--shop-ease);
+}
+
+.shop-page .shop-suboption-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.shop-page .shop-suboption-name {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--shop-white);
+}
+
+.shop-page .shop-suboption-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.5px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(224, 32, 32, 0.42);
+  background: rgba(224, 32, 32, 0.14);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff7a70;
+}
+
+.shop-page .shop-suboption-meta {
+  display: block;
+  margin-top: 1.5px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.shop-page .shop-suboption:focus-visible {
+  outline: 2px solid var(--shop-white);
+  outline-offset: -2px;
+  background: rgba(224, 32, 32, 0.1);
+}
+
 /* ——— Footer legal ——————————————————————————————————————————— */
 .shop-page .shop-footer {
   margin-top: 36px;
@@ -642,6 +767,24 @@
     opacity: 1;
   }
   .shop-page .shop-link:hover .shop-link-arrow {
+    transform: translate(3px, -3px);
+    color: var(--shop-white);
+  }
+  .shop-page .shop-link--expanded:hover .shop-link-arrow {
+    transform: rotate(90deg);
+    color: var(--shop-red);
+  }
+  .shop-page .shop-suboption:hover {
+    background: linear-gradient(
+      90deg,
+      rgba(224, 32, 32, 0.12) 0%,
+      rgba(224, 32, 32, 0.02) 75%
+    );
+  }
+  .shop-page .shop-suboption:hover .shop-suboption-dot {
+    transform: scale(1.35);
+  }
+  .shop-page .shop-suboption:hover .shop-link-arrow {
     transform: translate(3px, -3px);
     color: var(--shop-white);
   }

@@ -45,11 +45,37 @@ export const SHOP_CHANNELS = [
     name: "Mercado Libre",
     type: "online",
     url: null,
-    enabled: false,
+    enabled: true,
     order: 2,
     description: "Compra en línea",
     logoSrc: null,
-    pendingNote: "Enlace oficial pendiente de configuración",
+    options: [
+      {
+        id: "maracuya",
+        name: "Maracuyá",
+        presentation: "Pack de 24 latas de 355 ml",
+        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-maracuya-lata-355-ml/p/MLM67922563",
+      },
+      {
+        id: "cantarito",
+        name: "Cantarito",
+        presentation: "Pack de 24 latas de 355 ml",
+        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-cantarito-lata-355-ml/p/MLM70372833",
+      },
+      {
+        id: "pepino-limon",
+        name: "Pepino-Limón",
+        presentation: "Pack de 24 latas de 355 ml",
+        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-pepino-limon-lata-355-ml/p/MLM70377970",
+      },
+      {
+        id: "pina-coco",
+        name: "Piña-Coco",
+        badge: "Edición Limitada",
+        presentation: "Six Pack de 355 ml",
+        url: "https://www.mercadolibre.com.mx/six-bebida-belicona-pina-coco-edicion-limitada-lata-355-ml/p/MLM75419662",
+      },
+    ],
   },
   {
     id: "amazon",
@@ -100,18 +126,31 @@ export function getShopChannelsByType(type) {
   ).sort((a, b) => a.order - b.order);
 }
 
-export function trackShopChannelClick(channel) {
+export function trackShopChannelClick(channel, option = null) {
   if (typeof window === "undefined") return;
   try {
+    const eventData = {
+      channel_id: channel.id,
+      channel_name: channel.name,
+      channel_type: channel.type,
+      ...(option
+        ? {
+            flavor_id: option.id,
+            flavor_name: option.name,
+            flavor_presentation: option.presentation,
+            destination_url: option.url,
+          }
+        : {}),
+    };
     if (typeof window.gtag === "function") {
-      window.gtag("event", "shop_channel_click", {
-        channel_id: channel.id,
-        channel_name: channel.name,
-        channel_type: channel.type,
-      });
+      window.gtag("event", "shop_channel_click", eventData);
     }
     window.dispatchEvent(
-      new CustomEvent("belicona_shop_channel_click", { detail: channel })
+      new CustomEvent("belicona_shop_channel_click", {
+        detail: option
+          ? { ...channel, selectedOption: option, ...eventData }
+          : channel,
+      })
     );
   } catch {
     /* analytics opcional */

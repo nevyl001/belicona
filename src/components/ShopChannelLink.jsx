@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { trackShopChannelClick } from "../data/shopChannels";
 
 const ExternalArrow = () => (
@@ -35,7 +35,78 @@ const ChatIcon = () => (
 );
 
 const ShopChannelLink = ({ channel, style, featured = false }) => {
+  const hasOptions = Boolean(
+    channel.enabled && Array.isArray(channel.options) && channel.options.length > 0
+  );
   const isLive = Boolean(channel.enabled && channel.url);
+  const [isOpen, setIsOpen] = useState(false);
+
+  if (hasOptions) {
+    const panelId = `shop-channel-panel-${channel.id}`;
+    return (
+      <div className="shop-channel-expandable">
+        <button
+          type="button"
+          className={`shop-link shop-link--live shop-link--trigger shop-enter shop-enter-link ${
+            isOpen ? "shop-link--expanded" : ""
+          }`}
+          style={style}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <span className="min-w-0 flex-1 text-left">
+            <span className="shop-link-name">{channel.name}</span>
+          </span>
+          <ExternalArrow />
+        </button>
+
+        <div
+          id={panelId}
+          className="shop-subpanel"
+          data-open={isOpen ? "true" : "false"}
+          aria-hidden={!isOpen}
+        >
+          <div className="shop-subpanel-inner">
+            <div
+              className="shop-subpanel-list"
+              role="group"
+              aria-label={`Sabores disponibles en ${channel.name}`}
+            >
+              {channel.options.map((option) => (
+                <a
+                  key={option.id}
+                  href={option.url}
+                  className="shop-suboption"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tabIndex={isOpen ? 0 : -1}
+                  onClick={() => trackShopChannelClick(channel, option)}
+                  aria-label={`${option.name} — ${option.presentation} en ${channel.name}`}
+                >
+                  <span className="shop-suboption-dot" aria-hidden="true" />
+                  <span className="min-w-0 flex-1 text-left">
+                    <span className="shop-suboption-header">
+                      <span className="shop-suboption-name">{option.name}</span>
+                      {option.badge ? (
+                        <span className="shop-suboption-badge">
+                          {option.badge}
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="shop-suboption-meta">
+                      {option.presentation}
+                    </span>
+                  </span>
+                  <ExternalArrow />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Canal aún sin URL aprobada: conserva la anatomía visual premium sin navegar a rutas ficticias.
   if (!isLive) {
