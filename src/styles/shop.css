@@ -374,7 +374,7 @@
   border-color: rgba(224, 32, 32, 0.6);
 }
 
-/* ——— Panel desplegable de sabores (Mercado Libre) ——————————— */
+/* ——— Panel desplegable de sabores (Marketplaces) ——————————— */
 .shop-page .shop-link--trigger {
   cursor: pointer;
   font: inherit;
@@ -396,17 +396,20 @@
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
+  transform: translateY(-4px);
   margin-top: 0;
   pointer-events: none;
   transition:
     grid-template-rows 0.34s var(--shop-ease),
     opacity 0.25s ease,
+    transform 0.3s var(--shop-ease),
     margin-top 0.34s var(--shop-ease);
 }
 
 .shop-page .shop-subpanel[data-open="true"] {
   grid-template-rows: 1fr;
   opacity: 1;
+  transform: translateY(0);
   margin-top: 8px;
   pointer-events: auto;
 }

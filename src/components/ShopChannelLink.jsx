@@ -34,12 +34,20 @@ const ChatIcon = () => (
   </svg>
 );
 
-const ShopChannelLink = ({ channel, style, featured = false }) => {
+const ShopChannelLink = ({
+  channel,
+  style,
+  featured = false,
+  isOpen,
+  onToggle,
+}) => {
   const hasOptions = Boolean(
     channel.enabled && Array.isArray(channel.options) && channel.options.length > 0
   );
   const isLive = Boolean(channel.enabled && channel.url);
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const expanded = typeof isOpen === "boolean" ? isOpen : internalOpen;
+  const handleToggle = onToggle || (() => setInternalOpen((prev) => !prev));
 
   if (hasOptions) {
     const panelId = `shop-channel-panel-${channel.id}`;
@@ -48,12 +56,12 @@ const ShopChannelLink = ({ channel, style, featured = false }) => {
         <button
           type="button"
           className={`shop-link shop-link--live shop-link--trigger shop-enter shop-enter-link ${
-            isOpen ? "shop-link--expanded" : ""
+            expanded ? "shop-link--expanded" : ""
           }`}
           style={style}
-          aria-expanded={isOpen}
+          aria-expanded={expanded}
           aria-controls={panelId}
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={handleToggle}
         >
           <span className="min-w-0 flex-1 text-left">
             <span className="shop-link-name">{channel.name}</span>
@@ -64,8 +72,8 @@ const ShopChannelLink = ({ channel, style, featured = false }) => {
         <div
           id={panelId}
           className="shop-subpanel"
-          data-open={isOpen ? "true" : "false"}
-          aria-hidden={!isOpen}
+          data-open={expanded ? "true" : "false"}
+          aria-hidden={!expanded}
         >
           <div className="shop-subpanel-inner">
             <div
@@ -80,9 +88,13 @@ const ShopChannelLink = ({ channel, style, featured = false }) => {
                   className="shop-suboption"
                   target="_blank"
                   rel="noopener noreferrer"
-                  tabIndex={isOpen ? 0 : -1}
+                  tabIndex={expanded ? 0 : -1}
                   onClick={() => trackShopChannelClick(channel, option)}
-                  aria-label={`${option.name} — ${option.presentation} en ${channel.name}`}
+                  aria-label={
+                    option.presentation
+                      ? `${option.name} — ${option.presentation} en ${channel.name}`
+                      : `${option.name} en ${channel.name}`
+                  }
                 >
                   <span className="shop-suboption-dot" aria-hidden="true" />
                   <span className="min-w-0 flex-1 text-left">
@@ -94,9 +106,11 @@ const ShopChannelLink = ({ channel, style, featured = false }) => {
                         </span>
                       ) : null}
                     </span>
-                    <span className="shop-suboption-meta">
-                      {option.presentation}
-                    </span>
+                    {option.presentation ? (
+                      <span className="shop-suboption-meta">
+                        {option.presentation}
+                      </span>
+                    ) : null}
                   </span>
                   <ExternalArrow />
                 </a>

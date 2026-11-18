@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ShopChannelLink from "../components/ShopChannelLink";
 import BeliconaParticleBackground from "../components/BeliconaParticleBackground";
@@ -40,6 +40,11 @@ function upsertLink(rel, href) {
 const Shop = () => {
   const online = getShopChannelsByType("online");
   const nearby = getShopChannelsByType("nearby");
+  const [openChannelId, setOpenChannelId] = useState(null);
+
+  const handleToggleChannel = (channelId) => {
+    setOpenChannelId((prev) => (prev === channelId ? null : channelId));
+  };
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -110,6 +115,8 @@ const Shop = () => {
                   <ShopChannelLink
                     key={channel.id}
                     channel={channel}
+                    isOpen={openChannelId === channel.id}
+                    onToggle={() => handleToggleChannel(channel.id)}
                     style={{ animationDelay: `${0.7 + index * 0.07}s` }}
                   />
                 ))}
@@ -129,6 +136,8 @@ const Shop = () => {
                   <ShopChannelLink
                     key={channel.id}
                     channel={channel}
+                    isOpen={openChannelId === channel.id}
+                    onToggle={() => handleToggleChannel(channel.id)}
                     featured={Boolean(
                       channel.enabled &&
                         channel.url &&

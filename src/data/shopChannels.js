@@ -2,7 +2,7 @@
  * Canales comerciales Belicona (/shop)
  *
  * Regla: solo URLs verificadas / aprobadas.
- * Si `url` es null, el canal se muestra como pendiente (no clicable).
+ * Si `url` es null y no tiene `options`, el canal se muestra como pendiente (no clicable).
  * Reservado `officialStore` para una futura tienda propia (enabled: false).
  */
 
@@ -16,6 +16,15 @@ export const SHOP_WHATSAPP =
 /** @typedef {'online' | 'nearby' | 'official'} ShopChannelType */
 
 /**
+ * @typedef {Object} ShopChannelOption
+ * @property {string} id
+ * @property {string} name
+ * @property {string} [presentation]
+ * @property {string} [badge]
+ * @property {string} url
+ */
+
+/**
  * @type {Array<{
  *   id: string
  *   name: string
@@ -26,6 +35,7 @@ export const SHOP_WHATSAPP =
  *   description?: string
  *   logoSrc?: string | null
  *   pendingNote?: string
+ *   options?: ShopChannelOption[]
  * }>}
  */
 export const SHOP_CHANNELS = [
@@ -34,11 +44,30 @@ export const SHOP_CHANNELS = [
     name: "Walmart",
     type: "online",
     url: null,
-    enabled: false,
+    enabled: true,
     order: 1,
     description: "Compra en línea",
     logoSrc: null,
-    pendingNote: "Enlace oficial pendiente de configuración",
+    options: [
+      {
+        id: "cantarito",
+        name: "Cantarito",
+        presentation: "355 ml",
+        url: "https://www.walmart.com.mx/ip/Bebida-Alcoholica-Preparada-Belicona-sabor-Cantarito-355-ml/00750303576750",
+      },
+      {
+        id: "pepino-limon",
+        name: "Pepino-Limón",
+        presentation: "355 ml",
+        url: "https://www.walmart.com.mx/ip/Bebida-Alcoholica-Preparada-Belicona-sabor-Pepino-Limon-355-ml/00750303576748",
+      },
+      {
+        id: "maracuya",
+        name: "Maracuyá",
+        presentation: "355 ml",
+        url: "https://www.walmart.com.mx/ip/Bebida-Alcoholica-Preparada-Belicona-sabor-Maracuya-355-ml/00750303576747",
+      },
+    ],
   },
   {
     id: "mercado-libre",
@@ -82,11 +111,27 @@ export const SHOP_CHANNELS = [
     name: "Amazon",
     type: "online",
     url: null,
-    enabled: false,
+    enabled: true,
     order: 3,
     description: "Compra en línea",
     logoSrc: null,
-    pendingNote: "Enlace oficial pendiente de configuración",
+    options: [
+      {
+        id: "maracuya",
+        name: "Maracuyá",
+        url: "https://www.amazon.com.mx/dp/B0GR17BSJF",
+      },
+      {
+        id: "pepino-limon",
+        name: "Pepino-Limón",
+        url: "https://www.amazon.com.mx/dp/B0GR1JX2NL",
+      },
+      {
+        id: "cantarito",
+        name: "Cantarito",
+        url: "https://www.amazon.com.mx/dp/B0GR1B8B4V",
+      },
+    ],
   },
   {
     id: "gomart",
@@ -133,14 +178,21 @@ export function trackShopChannelClick(channel, option = null) {
       channel_id: channel.id,
       channel_name: channel.name,
       channel_type: channel.type,
+      marketplace: channel.id,
       ...(option
         ? {
+            product: option.id,
             flavor_id: option.id,
             flavor_name: option.name,
-            flavor_presentation: option.presentation,
+            ...(option.presentation
+              ? { flavor_presentation: option.presentation }
+              : {}),
+            destination: option.url,
             destination_url: option.url,
           }
-        : {}),
+        : channel.url
+          ? { destination: channel.url, destination_url: channel.url }
+          : {}),
     };
     if (typeof window.gtag === "function") {
       window.gtag("event", "shop_channel_click", eventData);
@@ -149,7 +201,7 @@ export function trackShopChannelClick(channel, option = null) {
       new CustomEvent("belicona_shop_channel_click", {
         detail: option
           ? { ...channel, selectedOption: option, ...eventData }
-          : channel,
+          : { ...channel, ...eventData },
       })
     );
   } catch {
