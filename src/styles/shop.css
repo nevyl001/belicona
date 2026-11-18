@@ -462,7 +462,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .shop-page .shop-suboption-name {
@@ -500,6 +500,147 @@
   outline: 2px solid var(--shop-white);
   outline-offset: -2px;
   background: rgba(224, 32, 32, 0.1);
+}
+
+/* ——— Selector de presentaciones y tarjetas (Amazon) ————————— */
+.shop-page .shop-pack-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 5, 6, 0.65);
+}
+
+.shop-page .shop-pack-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 18, 22, 0.8);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.68);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.shop-page .shop-pack-tab--active {
+  border-color: rgba(224, 32, 32, 0.62);
+  background: linear-gradient(
+    180deg,
+    rgba(224, 32, 32, 0.24) 0%,
+    rgba(143, 16, 24, 0.18) 100%
+  );
+  color: var(--shop-white);
+  box-shadow:
+    0 4px 14px -4px rgba(224, 32, 32, 0.35),
+    inset 0 1px 0 rgba(255, 140, 130, 0.16);
+}
+
+.shop-page .shop-pack-tab:focus-visible {
+  outline: 2px solid var(--shop-white);
+  outline-offset: 2px;
+}
+
+.shop-page .shop-pack-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  color: var(--shop-white);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.22s ease,
+    color 0.22s ease;
+}
+
+.shop-page .shop-pack-card + .shop-pack-card {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.shop-page .shop-pack-thumb {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #050505;
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.85);
+}
+
+.shop-page .shop-pack-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  transition: transform 0.25s var(--shop-ease);
+}
+
+.shop-page .shop-pack-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 7px 11px;
+  border-radius: 9px;
+  border: 1px solid rgba(224, 32, 32, 0.44);
+  background: rgba(224, 32, 32, 0.13);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--shop-white);
+  white-space: nowrap;
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.shop-page .shop-pack-cta .shop-link-arrow {
+  width: 13px;
+  height: 13px;
+  color: #ff7a70;
+}
+
+.shop-page .shop-pack-card:focus-visible {
+  outline: 2px solid var(--shop-white);
+  outline-offset: -2px;
+  background: rgba(224, 32, 32, 0.1);
+}
+
+@media (max-width: 419px) {
+  .shop-page .shop-pack-card {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .shop-page .shop-pack-thumb {
+    width: 38px;
+    height: 38px;
+  }
+  .shop-page .shop-pack-cta {
+    padding: 6px 9px;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+  }
 }
 
 /* ——— Footer legal ——————————————————————————————————————————— */
@@ -789,6 +930,30 @@
   }
   .shop-page .shop-suboption:hover .shop-link-arrow {
     transform: translate(3px, -3px);
+    color: var(--shop-white);
+  }
+  .shop-page .shop-pack-tab:not(.shop-pack-tab--active):hover {
+    border-color: rgba(224, 32, 32, 0.35);
+    color: var(--shop-white);
+    background: rgba(26, 20, 22, 0.9);
+  }
+  .shop-page .shop-pack-card:hover {
+    background: linear-gradient(
+      90deg,
+      rgba(224, 32, 32, 0.12) 0%,
+      rgba(224, 32, 32, 0.02) 78%
+    );
+  }
+  .shop-page .shop-pack-card:hover .shop-pack-thumb img {
+    transform: scale(1.06);
+  }
+  .shop-page .shop-pack-card:hover .shop-pack-cta {
+    border-color: rgba(224, 32, 32, 0.78);
+    background: rgba(224, 32, 32, 0.25);
+    box-shadow: 0 6px 16px -6px rgba(224, 32, 32, 0.45);
+  }
+  .shop-page .shop-pack-card:hover .shop-pack-cta .shop-link-arrow {
+    transform: translate(2px, -2px);
     color: var(--shop-white);
   }
   .shop-page .shop-footer-nav a:hover {

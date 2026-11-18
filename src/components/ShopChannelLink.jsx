@@ -41,16 +41,29 @@ const ShopChannelLink = ({
   isOpen,
   onToggle,
 }) => {
+  const hasPresentations = Boolean(
+    channel.enabled &&
+      Array.isArray(channel.presentations) &&
+      channel.presentations.length > 0
+  );
   const hasOptions = Boolean(
     channel.enabled && Array.isArray(channel.options) && channel.options.length > 0
   );
   const isLive = Boolean(channel.enabled && channel.url);
   const [internalOpen, setInternalOpen] = useState(false);
+  const [selectedPackId, setSelectedPackId] = useState(
+    hasPresentations ? channel.presentations[0].id : null
+  );
   const expanded = typeof isOpen === "boolean" ? isOpen : internalOpen;
   const handleToggle = onToggle || (() => setInternalOpen((prev) => !prev));
 
-  if (hasOptions) {
+  if (hasPresentations || hasOptions) {
     const panelId = `shop-channel-panel-${channel.id}`;
+    const activePresentation = hasPresentations
+      ? channel.presentations.find((p) => p.id === selectedPackId) ||
+        channel.presentations[0]
+      : null;
+
     return (
       <div className="shop-channel-expandable">
         <button
@@ -76,46 +89,144 @@ const ShopChannelLink = ({
           aria-hidden={!expanded}
         >
           <div className="shop-subpanel-inner">
-            <div
-              className="shop-subpanel-list"
-              role="group"
-              aria-label={`Sabores disponibles en ${channel.name}`}
-            >
-              {channel.options.map((option) => (
-                <a
-                  key={option.id}
-                  href={option.url}
-                  className="shop-suboption"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  tabIndex={expanded ? 0 : -1}
-                  onClick={() => trackShopChannelClick(channel, option)}
-                  aria-label={
-                    option.presentation
-                      ? `${option.name} — ${option.presentation} en ${channel.name}`
-                      : `${option.name} en ${channel.name}`
-                  }
+            {hasPresentations && activePresentation ? (
+              <div className="shop-subpanel-list shop-pack-selector">
+                <div
+                  className="shop-pack-tabs"
+                  role="tablist"
+                  aria-label={`Presentaciones en ${channel.name}`}
                 >
-                  <span className="shop-suboption-dot" aria-hidden="true" />
-                  <span className="min-w-0 flex-1 text-left">
-                    <span className="shop-suboption-header">
-                      <span className="shop-suboption-name">{option.name}</span>
-                      {option.badge ? (
-                        <span className="shop-suboption-badge">
-                          {option.badge}
+                  {channel.presentations.map((pack) => {
+                    const isSelected = pack.id === activePresentation.id;
+                    return (
+                      <button
+                        key={pack.id}
+                        type="button"
+                        role="tab"
+                        id={`shop-pack-tab-${channel.id}-${pack.id}`}
+                        aria-selected={isSelected}
+                        aria-controls={`shop-pack-panel-${channel.id}-${pack.id}`}
+                        tabIndex={expanded ? 0 : -1}
+                        className={`shop-pack-tab ${
+                          isSelected ? "shop-pack-tab--active" : ""
+                        }`}
+                        onClick={() => setSelectedPackId(pack.id)}
+                      >
+                        {pack.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div
+                  id={`shop-pack-panel-${channel.id}-${activePresentation.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`shop-pack-tab-${channel.id}-${activePresentation.id}`}
+                  className="shop-pack-products"
+                >
+                  {activePresentation.options.map((option) => (
+                    <a
+                      key={`${activePresentation.id}-${option.id}`}
+                      href={option.url}
+                      className="shop-pack-card"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={expanded ? 0 : -1}
+                      onClick={() =>
+                        trackShopChannelClick(channel, {
+                          ...option,
+                          packId: activePresentation.id,
+                          packLabel: activePresentation.label,
+                        })
+                      }
+                      aria-label={`Comprar Belicona ${option.name} (${activePresentation.label}) en ${channel.name}`}
+                    >
+                      {option.image ? (
+                        <span className="shop-pack-thumb" aria-hidden="true">
+                          <img
+                            src={option.image}
+                            alt=""
+                            width={44}
+                            height={44}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </span>
+                      ) : (
+                        <span
+                          className="shop-suboption-dot"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span className="min-w-0 flex-1 text-left">
+                        <span className="shop-suboption-header">
+                          <span className="shop-suboption-name">
+                            {option.name}
+                          </span>
+                          {option.badge ? (
+                            <span className="shop-suboption-badge">
+                              {option.badge}
+                            </span>
+                          ) : null}
+                        </span>
+                        {option.presentation ? (
+                          <span className="shop-suboption-meta">
+                            {option.presentation}
+                          </span>
+                        ) : null}
+                      </span>
+                      <span className="shop-pack-cta">
+                        <span>COMPRAR EN AMAZON</span>
+                        <ExternalArrow />
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div
+                className="shop-subpanel-list"
+                role="group"
+                aria-label={`Sabores disponibles en ${channel.name}`}
+              >
+                {channel.options.map((option) => (
+                  <a
+                    key={option.id}
+                    href={option.url}
+                    className="shop-suboption"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={expanded ? 0 : -1}
+                    onClick={() => trackShopChannelClick(channel, option)}
+                    aria-label={
+                      option.presentation
+                        ? `${option.name} — ${option.presentation} en ${channel.name}`
+                        : `${option.name} en ${channel.name}`
+                    }
+                  >
+                    <span className="shop-suboption-dot" aria-hidden="true" />
+                    <span className="min-w-0 flex-1 text-left">
+                      <span className="shop-suboption-header">
+                        <span className="shop-suboption-name">
+                          {option.name}
+                        </span>
+                        {option.badge ? (
+                          <span className="shop-suboption-badge">
+                            {option.badge}
+                          </span>
+                        ) : null}
+                      </span>
+                      {option.presentation ? (
+                        <span className="shop-suboption-meta">
+                          {option.presentation}
                         </span>
                       ) : null}
                     </span>
-                    {option.presentation ? (
-                      <span className="shop-suboption-meta">
-                        {option.presentation}
-                      </span>
-                    ) : null}
-                  </span>
-                  <ExternalArrow />
-                </a>
-              ))}
-            </div>
+                    <ExternalArrow />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
