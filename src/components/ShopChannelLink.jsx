@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { trackShopChannelClick } from "../data/shopChannels";
+import {
+  getPublishedProductsByPack,
+  getVerifiedOffers,
+  trackShopChannelClick,
+} from "../data/shopChannels";
 
 const ExternalArrow = () => (
   <svg
@@ -41,10 +45,10 @@ const ShopChannelLink = ({
   isOpen,
   onToggle,
 }) => {
-  const hasPresentations = Boolean(
+  const hasUnifiedCatalog = Boolean(
     channel.enabled &&
-      Array.isArray(channel.presentations) &&
-      channel.presentations.length > 0
+      Array.isArray(channel.unifiedCatalog) &&
+      channel.unifiedCatalog.length > 0
   );
   const hasOptions = Boolean(
     channel.enabled && Array.isArray(channel.options) && channel.options.length > 0
@@ -52,17 +56,31 @@ const ShopChannelLink = ({
   const isLive = Boolean(channel.enabled && channel.url);
   const [internalOpen, setInternalOpen] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState(
-    hasPresentations ? channel.presentations[0].id : null
+    hasUnifiedCatalog ? "24-latas" : null
   );
+  const [selectedFlavorFilter, setSelectedFlavorFilter] = useState("all");
+
   const expanded = typeof isOpen === "boolean" ? isOpen : internalOpen;
   const handleToggle = onToggle || (() => setInternalOpen((prev) => !prev));
 
-  if (hasPresentations || hasOptions) {
+  const handleSelectPack = (packId) => {
+    setSelectedPackId(packId);
+    setSelectedFlavorFilter("all");
+  };
+
+  if (hasUnifiedCatalog || hasOptions) {
     const panelId = `shop-channel-panel-${channel.id}`;
-    const activePresentation = hasPresentations
-      ? channel.presentations.find((p) => p.id === selectedPackId) ||
-        channel.presentations[0]
+    const activePackGroup = hasUnifiedCatalog
+      ? channel.unifiedCatalog.find((p) => p.id === selectedPackId) ||
+        channel.unifiedCatalog[0]
       : null;
+    const publishedProducts = activePackGroup
+      ? getPublishedProductsByPack(activePackGroup)
+      : [];
+    const visibleProducts =
+      selectedFlavorFilter === "all"
+        ? publishedProducts
+        : publishedProducts.filter((p) => p.id === selectedFlavorFilter);
 
     return (
       <div className="shop-channel-expandable">
@@ -78,6 +96,9 @@ const ShopChannelLink = ({
         >
           <span className="min-w-0 flex-1 text-left">
             <span className="shop-link-name">{channel.name}</span>
+            {channel.description ? (
+              <span className="shop-link-desc">{channel.description}</span>
+            ) : null}
           </span>
           <ExternalArrow />
         </button>
@@ -89,15 +110,16 @@ const ShopChannelLink = ({
           aria-hidden={!expanded}
         >
           <div className="shop-subpanel-inner">
-            {hasPresentations && activePresentation ? (
+            {hasUnifiedCatalog && activePackGroup ? (
               <div className="shop-subpanel-list shop-pack-selector">
+                {/* Paso 1: Elegir presentación (6, 12 o 24 latas) */}
                 <div
                   className="shop-pack-tabs"
                   role="tablist"
-                  aria-label={`Presentaciones en ${channel.name}`}
+                  aria-label="Seleccionar presentación de latas"
                 >
-                  {channel.presentations.map((pack) => {
-                    const isSelected = pack.id === activePresentation.id;
+                  {channel.unifiedCatalog.map((pack) => {
+                    const isSelected = pack.id === activePackGroup.id;
                     return (
                       <button
                         key={pack.id}
@@ -110,7 +132,7 @@ const ShopChannelLink = ({
                         className={`shop-pack-tab ${
                           isSelected ? "shop-pack-tab--active" : ""
                         }`}
-                        onClick={() => setSelectedPackId(pack.id)}
+                        onClick={() => handleSelectPack(pack.id)}
                       >
                         {pack.label}
                       </button>
@@ -118,69 +140,143 @@ const ShopChannelLink = ({
                   })}
                 </div>
 
+                {/* Paso 2: Filtro rápido de sabor dentro de la presentación seleccionada */}
                 <div
-                  id={`shop-pack-panel-${channel.id}-${activePresentation.id}`}
+                  className="shop-flavor-pills"
+                  role="group"
+                  aria-label={`Filtrar por sabor en ${activePackGroup.label}`}
+                >
+                  <button
+                    type="button"
+                    tabIndex={expanded ? 0 : -1}
+                    aria-pressed={selectedFlavorFilter === "all"}
+                    className={`shop-flavor-pill ${
+                      selectedFlavorFilter === "all"
+                        ? "shop-flavor-pill--active"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedFlavorFilter("all")}
+                  >
+                    Todos ({publishedProducts.length})
+                  </button>
+                  {publishedProducts.map((product) => {
+                    const isActive = selectedFlavorFilter === product.id;
+                    const pillLabel = product.badge
+                      ? `${product.name} · ${product.badge}`
+                      : product.name;
+                    return (
+                      <button
+                        key={product.id}
+                        type="button"
+                        tabIndex={expanded ? 0 : -1}
+                        aria-pressed={isActive}
+                        className={`shop-flavor-pill ${
+                          isActive ? "shop-flavor-pill--active" : ""
+                        }`}
+                        onClick={() =>
+                          setSelectedFlavorFilter((prev) =>
+                            prev === product.id ? "all" : product.id
+                          )
+                        }
+                      >
+                        {pillLabel}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Paso 3 y 4: Una sola ficha visual por (presentación × sabor) con marketplaces disponibles */}
+                <div
+                  id={`shop-pack-panel-${channel.id}-${activePackGroup.id}`}
                   role="tabpanel"
-                  aria-labelledby={`shop-pack-tab-${channel.id}-${activePresentation.id}`}
+                  aria-labelledby={`shop-pack-tab-${channel.id}-${activePackGroup.id}`}
                   className="shop-pack-products"
                 >
-                  {activePresentation.options.map((option) => (
-                    <a
-                      key={`${activePresentation.id}-${option.id}`}
-                      href={option.url}
-                      className="shop-pack-card"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      tabIndex={expanded ? 0 : -1}
-                      onClick={() =>
-                        trackShopChannelClick(channel, {
-                          ...option,
-                          packId: activePresentation.id,
-                          packLabel: activePresentation.label,
-                        })
-                      }
-                      aria-label={`Comprar Belicona ${option.name} (${activePresentation.label}) en ${channel.name}`}
-                    >
-                      {option.image ? (
-                        <span className="shop-pack-thumb" aria-hidden="true">
-                          <img
-                            src={option.image}
-                            alt=""
-                            width={44}
-                            height={44}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </span>
-                      ) : (
-                        <span
-                          className="shop-suboption-dot"
-                          aria-hidden="true"
-                        />
-                      )}
-                      <span className="min-w-0 flex-1 text-left">
-                        <span className="shop-suboption-header">
-                          <span className="shop-suboption-name">
-                            {option.name}
+                  {visibleProducts.map((product) => {
+                    const offers = getVerifiedOffers(product);
+                    return (
+                      <article
+                        key={product.id}
+                        className="shop-unified-card"
+                        data-flavor-id={product.flavorId}
+                        data-pack-id={product.packId}
+                      >
+                        <div className="shop-unified-card-head">
+                          <span className="shop-pack-thumb" aria-hidden="true">
+                            <img
+                              src={product.image}
+                              alt=""
+                              width={46}
+                              height={46}
+                              loading="lazy"
+                              decoding="async"
+                            />
                           </span>
-                          {option.badge ? (
-                            <span className="shop-suboption-badge">
-                              {option.badge}
+                          <div className="min-w-0 flex-1 text-left">
+                            <div className="shop-suboption-header">
+                              <span className="shop-suboption-name">
+                                {product.name}
+                              </span>
+                              {product.badge ? (
+                                <span className="shop-suboption-badge">
+                                  {product.badge}
+                                </span>
+                              ) : null}
+                            </div>
+                            <span className="shop-suboption-meta">
+                              {product.presentation}
                             </span>
-                          ) : null}
-                        </span>
-                        {option.presentation ? (
-                          <span className="shop-suboption-meta">
-                            {option.presentation}
-                          </span>
-                        ) : null}
-                      </span>
-                      <span className="shop-pack-cta">
-                        <span>COMPRAR EN AMAZON</span>
-                        <ExternalArrow />
-                      </span>
-                    </a>
-                  ))}
+                          </div>
+                        </div>
+
+                        <div
+                          className={`shop-mp-actions ${
+                            offers.length === 1 ? "shop-mp-actions--single" : ""
+                          }`}
+                        >
+                          {offers.map((offer) => (
+                            <a
+                              key={`${product.id}-${offer.marketplace}`}
+                              href={offer.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              tabIndex={expanded ? 0 : -1}
+                              data-marketplace={offer.marketplace}
+                              data-external-id={offer.externalId}
+                              className={`shop-mp-btn shop-mp-btn--${offer.marketplace}`}
+                              onClick={() =>
+                                trackShopChannelClick(channel, {
+                                  id: product.flavorId,
+                                  name: product.name,
+                                  presentation: product.presentation,
+                                  packId: product.packId,
+                                  packLabel: product.packLabel,
+                                  marketplace: offer.marketplace,
+                                  marketplaceLabel: offer.label,
+                                  externalId: offer.externalId,
+                                  asin:
+                                    offer.marketplace === "amazon"
+                                      ? offer.externalId
+                                      : undefined,
+                                  url: offer.url,
+                                })
+                              }
+                              aria-label={`${offer.ctaLabel}: Belicona ${product.name} (${product.presentation})`}
+                            >
+                              <span
+                                className={`shop-mp-dot shop-mp-dot--${offer.marketplace}`}
+                                aria-hidden="true"
+                              />
+                              <span className="shop-mp-btn-label">
+                                {offer.ctaLabel}
+                              </span>
+                              <ExternalArrow />
+                            </a>
+                          ))}
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               </div>
             ) : (

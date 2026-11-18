@@ -1,10 +1,24 @@
 /**
  * Canales comerciales Belicona (/shop)
  *
- * Regla: solo URLs verificadas / aprobadas.
- * Si `url` es null y no tiene `options` ni `presentations`, el canal se muestra como pendiente (no clicable).
- * Reservado `officialStore` para una futura tienda propia (enabled: false).
+ * Centraliza los canales de compra en línea (catálogo unificado Amazon + Mercado Libre
+ * por presentación y sabor, más Walmart lata individual) y puntos de venta cercanos
+ * (GoMart y Tienditas por WhatsApp).
  */
+
+import {
+  FLAVOR_IMAGES,
+  UNIFIED_PACK_CATALOG,
+  getPublishedProductsByPack,
+  getVerifiedOffers,
+} from "./shopCatalog";
+
+export {
+  FLAVOR_IMAGES,
+  UNIFIED_PACK_CATALOG,
+  getPublishedProductsByPack,
+  getVerifiedOffers,
+};
 
 export const SHOP_INSTAGRAM = "https://www.instagram.com/beliconamx/";
 export const SHOP_WHATSAPP =
@@ -13,61 +27,28 @@ export const SHOP_WHATSAPP =
     "Hola Belicona, quiero saber dónde encontrar el producto cerca de mí."
   );
 
-export const FLAVOR_IMAGES = {
-  maracuya: "/optimized/m1-small.webp",
-  "pepino-limon": "/optimized/p2-small.webp",
-  cantarito: "/optimized/c1-small.webp",
-  pina: "/optimized/pina-coco-edicion-limitada.png",
-  "pina-coco": "/optimized/pina-coco-edicion-limitada.png",
-};
+export const DEFAULT_OPEN_CHANNEL_ID = "packs-online";
 
-/** @typedef {'online' | 'nearby' | 'official'} ShopChannelType */
-
-/**
- * @typedef {Object} ShopChannelOption
- * @property {string} id
- * @property {string} name
- * @property {string} [presentation]
- * @property {string} [badge]
- * @property {string} [image]
- * @property {string} [asin]
- * @property {string} [packId]
- * @property {string} [packLabel]
- * @property {string} url
- */
-
-/**
- * @typedef {Object} ShopChannelPresentation
- * @property {string} id
- * @property {string} label
- * @property {string} title
- * @property {ShopChannelOption[]} options
- */
-
-/**
- * @type {Array<{
- *   id: string
- *   name: string
- *   type: ShopChannelType
- *   url: string | null
- *   enabled: boolean
- *   order: number
- *   description?: string
- *   logoSrc?: string | null
- *   pendingNote?: string
- *   options?: ShopChannelOption[]
- *   presentations?: ShopChannelPresentation[]
- * }>}
- */
 export const SHOP_CHANNELS = [
   {
-    id: "walmart",
-    name: "Walmart",
+    id: "packs-online",
+    name: "Amazon · Mercado Libre",
+    description: "Packs de 6, 12 y 24 latas · Elige presentación y sabor",
     type: "online",
     url: null,
     enabled: true,
     order: 1,
-    description: "Compra en línea",
+    logoSrc: null,
+    unifiedCatalog: UNIFIED_PACK_CATALOG,
+  },
+  {
+    id: "walmart",
+    name: "Walmart",
+    description: "Lata individual de 355 ml",
+    type: "online",
+    url: null,
+    enabled: true,
+    order: 2,
     logoSrc: null,
     options: [
       {
@@ -87,157 +68,6 @@ export const SHOP_CHANNELS = [
         name: "Maracuyá",
         presentation: "355 ml",
         url: "https://www.walmart.com.mx/ip/Bebida-Alcoholica-Preparada-Belicona-sabor-Maracuya-355-ml/00750303576747",
-      },
-    ],
-  },
-  {
-    id: "mercado-libre",
-    name: "Mercado Libre",
-    type: "online",
-    url: null,
-    enabled: true,
-    order: 2,
-    description: "Compra en línea",
-    logoSrc: null,
-    options: [
-      {
-        id: "maracuya",
-        name: "Maracuyá",
-        presentation: "Pack de 24 latas de 355 ml",
-        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-maracuya-lata-355-ml/p/MLM67922563",
-      },
-      {
-        id: "cantarito",
-        name: "Cantarito",
-        presentation: "Pack de 24 latas de 355 ml",
-        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-cantarito-lata-355-ml/p/MLM70372833",
-      },
-      {
-        id: "pepino-limon",
-        name: "Pepino-Limón",
-        presentation: "Pack de 24 latas de 355 ml",
-        url: "https://www.mercadolibre.com.mx/24-pack-bebida-belicona-pepino-limon-lata-355-ml/p/MLM70377970",
-      },
-      {
-        id: "pina-coco",
-        name: "Piña-Coco",
-        badge: "Edición Limitada",
-        presentation: "Six Pack de 355 ml",
-        url: "https://www.mercadolibre.com.mx/six-bebida-belicona-pina-coco-edicion-limitada-lata-355-ml/p/MLM75419662",
-      },
-    ],
-  },
-  {
-    id: "amazon",
-    name: "Amazon",
-    type: "online",
-    url: null,
-    enabled: true,
-    order: 3,
-    description: "Compra en línea",
-    logoSrc: null,
-    presentations: [
-      {
-        id: "6-latas",
-        label: "6 LATAS",
-        title: "Six Pack · 6 latas de 355 ml",
-        options: [
-          {
-            id: "pepino-limon",
-            name: "Pepino Limón",
-            presentation: "Six Pack · 355 ml",
-            image: FLAVOR_IMAGES["pepino-limon"],
-            asin: "B0GR1QF9VR",
-            url: "https://www.amazon.com.mx/dp/B0GR1QF9VR",
-          },
-          {
-            id: "maracuya",
-            name: "Maracuyá",
-            presentation: "Six Pack · 355 ml",
-            image: FLAVOR_IMAGES.maracuya,
-            asin: "B0GR1VGB9T",
-            url: "https://www.amazon.com.mx/dp/B0GR1VGB9T",
-          },
-          {
-            id: "pina",
-            name: "Piña",
-            badge: "Edición Limitada",
-            presentation: "Six Pack · 355 ml",
-            image: FLAVOR_IMAGES.pina,
-            asin: "B0H8JZ5SCM",
-            url: "https://www.amazon.com.mx/dp/B0H8JZ5SCM",
-          },
-          {
-            id: "cantarito",
-            name: "Cantarito",
-            presentation: "Six Pack · 355 ml",
-            image: FLAVOR_IMAGES.cantarito,
-            asin: "B0GR17V4D4",
-            url: "https://www.amazon.com.mx/dp/B0GR17V4D4",
-          },
-        ],
-      },
-      {
-        id: "12-latas",
-        label: "12 LATAS",
-        title: "Pack de 12 latas · 355 ml",
-        options: [
-          {
-            id: "maracuya",
-            name: "Maracuyá",
-            presentation: "12 latas · 355 ml",
-            image: FLAVOR_IMAGES.maracuya,
-            asin: "B0GR1LTV31",
-            url: "https://www.amazon.com.mx/dp/B0GR1LTV31",
-          },
-          {
-            id: "pepino-limon",
-            name: "Pepino Limón",
-            presentation: "12 latas · 355 ml",
-            image: FLAVOR_IMAGES["pepino-limon"],
-            asin: "B0GR1PXYYD",
-            url: "https://www.amazon.com.mx/dp/B0GR1PXYYD",
-          },
-          {
-            id: "cantarito",
-            name: "Cantarito",
-            presentation: "12 latas · 355 ml",
-            image: FLAVOR_IMAGES.cantarito,
-            asin: "B0GR1W6WY8",
-            url: "https://www.amazon.com.mx/dp/B0GR1W6WY8",
-          },
-        ],
-      },
-      {
-        id: "24-latas",
-        label: "24 LATAS",
-        title: "Pack de 24 latas · 355 ml",
-        options: [
-          {
-            id: "maracuya",
-            name: "Maracuyá",
-            presentation: "24 latas · 355 ml",
-            image: FLAVOR_IMAGES.maracuya,
-            asin: "B0GR17BSJF",
-            url: "https://www.amazon.com.mx/dp/B0GR17BSJF",
-          },
-          {
-            id: "pepino-limon",
-            name: "Pepino Limón",
-            presentation: "24 latas · 355 ml",
-            image: FLAVOR_IMAGES["pepino-limon"],
-            asin: "B0GR1JX2NL",
-            url: "https://www.amazon.com.mx/dp/B0GR1JX2NL",
-          },
-          {
-            id: "cantarito",
-            name: "Cantarito",
-            presentation: "24 latas · 355 ml",
-            image: FLAVOR_IMAGES.cantarito,
-            asin: "B0GR1B8B4V",
-            url: "https://www.amazon.com.mx/dp/B0GR1B8B4V",
-          },
-        ],
       },
     ],
   },
@@ -282,11 +112,12 @@ export function getShopChannelsByType(type) {
 export function trackShopChannelClick(channel, option = null) {
   if (typeof window === "undefined") return;
   try {
+    const marketplaceId = option?.marketplace || channel.id;
     const eventData = {
-      channel_id: channel.id,
-      channel_name: channel.name,
+      channel_id: marketplaceId,
+      channel_name: option?.marketplaceLabel || channel.name,
       channel_type: channel.type,
-      marketplace: channel.id,
+      marketplace: marketplaceId,
       ...(option
         ? {
             product: option.id,
@@ -297,6 +128,7 @@ export function trackShopChannelClick(channel, option = null) {
               : {}),
             ...(option.packId ? { pack_id: option.packId } : {}),
             ...(option.packLabel ? { pack_label: option.packLabel } : {}),
+            ...(option.externalId ? { external_id: option.externalId } : {}),
             ...(option.asin ? { asin: option.asin } : {}),
             destination: option.url,
             destination_url: option.url,
